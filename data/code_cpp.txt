@@ -1,0 +1,538 @@
+C++. C with classes, and much more. Game engines, browsers, and high-speed brains are written in it.
+
+Q: How do you print in C++?
+A: cout.
+#include <iostream>
+int main() {
+    std::cout << "hello\n";
+    std::cout << "name: " << "arjan" << "\n";
+    return 0;
+}
+
+Q: How do you compile C++?
+A: g++.
+# g++ prog.cpp -o prog
+# ./prog
+
+Q: How do you compile with standard?
+A: -std=c++17 or c++20.
+# g++ -std=c++17 -Wall -O2 prog.cpp -o prog
+
+Q: How do you declare variables?
+A: Like C, plus auto.
+int age = 1;
+double pi = 3.14;
+auto x = 42;
+std::string name = "arjan";
+
+Q: What is std::string?
+A: The C++ string. Growable, safe.
+#include <string>
+std::string s = "hello";
+s += " world";
+std::cout << s.size() << "\n";
+
+Q: How do you compare strings?
+A: == works.
+if (name == "arjan") {
+    std::cout << "me\n";
+}
+
+Q: How do you write a function?
+A: Like C.
+int add(int a, int b) {
+    return a + b;
+}
+
+Q: How do you do function overloading?
+A: Same name, different params.
+int add(int a, int b) { return a + b; }
+double add(double a, double b) { return a + b; }
+
+Q: How do you do default arguments?
+A: In declaration.
+void greet(std::string name = "friend") {
+    std::cout << "hello " << name << "\n";
+}
+
+Q: What is a reference?
+A: Alias for a variable. Safer than pointers for params.
+void bump(int &x) {
+    x++;
+}
+int n = 5;
+bump(n);
+
+Q: When do you use const reference?
+A: For read-only params. Avoids copies.
+void print(const std::string &s) {
+    std::cout << s << "\n";
+}
+
+Q: How do you write a class?
+A: class with public/private.
+class Brain {
+public:
+    Brain(std::string name) : name(name), mood("curious") {}
+    std::string think() {
+        return name + " is " + mood;
+    }
+private:
+    std::string name;
+    std::string mood;
+};
+
+Q: What is the initializer list?
+A: : name(name) after constructor. Preferred way to init members.
+
+Q: What is struct vs class?
+A: struct defaults public, class defaults private. Otherwise same.
+
+Q: How do you do inheritance?
+A: : public Parent.
+class Dog : public Animal {
+public:
+    std::string speak() override {
+        return "woof";
+    }
+};
+
+Q: What is virtual?
+A: Enables override. Base method must be virtual.
+class Animal {
+public:
+    virtual std::string speak() { return "..."; }
+    virtual ~Animal() = default;
+};
+
+Q: What is override?
+A: Marks that you intend to replace a virtual method. Compiler checks.
+
+Q: What is a pure virtual function?
+A: = 0. Makes the class abstract.
+class Shape {
+public:
+    virtual double area() = 0;
+};
+
+Q: What is the destructor?
+A: ~ClassName(). Cleans up. Called when object dies.
+~Brain() {
+    // cleanup
+}
+
+Q: What is RAII?
+A: Resource Acquisition Is Initialization. Constructor takes, destructor releases. The core C++ idea.
+
+Q: What is a smart pointer?
+A: Automatic memory management.
+#include <memory>
+auto p = std::make_unique<Brain>("arjan");
+auto q = std::make_shared<Brain>("arjan");
+
+Q: When unique_ptr vs shared_ptr?
+A: unique: one owner. shared: many owners, counted. Prefer unique.
+
+Q: How do you do vectors?
+A: std::vector. The growable array.
+#include <vector>
+std::vector<int> v = {1, 2, 3};
+v.push_back(4);
+for (int x : v) std::cout << x << "\n";
+
+Q: How do you do maps?
+A: std::map (sorted) or std::unordered_map (hash).
+#include <unordered_map>
+std::unordered_map<std::string, int> m;
+m["arjan"] = 1;
+std::cout << m["arjan"] << "\n";
+
+Q: How do you do sets?
+A: std::set / std::unordered_set.
+
+Q: How do you sort?
+A: std::sort.
+#include <algorithm>
+std::sort(v.begin(), v.end());
+
+Q: How do you sort with a rule?
+A: Lambda comparator.
+std::sort(v.begin(), v.end(), [](int a, int b) { return a > b; });
+
+Q: What is a lambda?
+A: Inline function.
+auto double_it = [](int x) { return x * 2; };
+std::cout << double_it(5) << "\n";
+
+Q: How do lambdas capture?
+A: [x] by value, [&x] by reference, [=] all by value, [&] all by reference.
+int factor = 3;
+auto mul = [&](int x) { return x * factor; };
+
+Q: How do you do if/else?
+A: Same as C.
+if (x > 5) {
+    std::cout << "big\n";
+} else {
+    std::cout << "small\n";
+}
+
+Q: How do you do for loops?
+A: Same as C, plus range-for.
+for (int i = 0; i < 5; i++) { }
+for (auto &x : v) { x *= 2; }
+
+Q: How do you do while?
+A: Same as C.
+
+Q: How do you do switch?
+A: Same as C.
+
+Q: How do you handle errors?
+A: Exceptions: try/catch/throw.
+try {
+    risky();
+} catch (const std::exception &e) {
+    std::cout << e.what() << "\n";
+}
+
+Q: How do you throw?
+A: throw.
+if (b == 0) throw std::runtime_error("divide by zero");
+
+Q: Should you use exceptions everywhere?
+A: For exceptional errors. Not for normal control flow.
+
+Q: How do you read a file?
+A: ifstream.
+#include <fstream>
+std::ifstream f("data.txt");
+std::string line;
+while (std::getline(f, line)) {
+    std::cout << line << "\n";
+}
+
+Q: How do you write a file?
+A: ofstream.
+std::ofstream f("out.txt");
+f << "hello " << 42 << "\n";
+
+Q: How do you read a whole file?
+A: stringstream.
+#include <sstream>
+std::stringstream ss;
+ss << f.rdbuf();
+std::string text = ss.str();
+
+Q: How do you read binary?
+A: open with binary, read().
+f.open("w.bin", std::ios::binary);
+f.read(reinterpret_cast<char*>(buf), n);
+
+Q: How do you format strings?
+A: stringstream, or std::format (C++20).
+#include <format>
+auto s = std::format("hello {}, you are {}", name, age);
+
+Q: How do you split a string?
+A: Manual or stringstream.
+std::stringstream ss("a b c");
+std::string w;
+while (ss >> w) std::cout << w << "\n";
+
+Q: How do you join strings?
+A: Loop with separator, or accumulate.
+
+Q: How do you convert string to number?
+A: std::stoi, std::stod.
+int n = std::stoi("42");
+double d = std::stod("3.14");
+
+Q: How do you convert number to string?
+A: std::to_string.
+std::string s = std::to_string(42);
+
+Q: What are templates?
+A: Generic code for any type.
+template <typename T>
+T add(T a, T b) {
+    return a + b;
+}
+std::cout << add(2, 3) << "\n";
+std::cout << add(2.5, 3.5) << "\n";
+
+Q: What is the STL?
+A: Standard Template Library: vector, map, algorithm, etc.
+
+Q: What are iterators?
+A: begin()/end() positions. Algorithms use them.
+
+Q: How do you do find?
+A: std::find.
+auto it = std::find(v.begin(), v.end(), 3);
+if (it != v.end()) std::cout << "found\n";
+
+Q: How do you do transform?
+A: std::transform.
+std::transform(v.begin(), v.end(), v.begin(), [](int x) { return x * 2; });
+
+Q: How do you do accumulate?
+A: std::accumulate (like reduce).
+#include <numeric>
+int s = std::accumulate(v.begin(), v.end(), 0);
+
+Q: How do you do random?
+A: <random> engines + distributions.
+#include <random>
+std::mt19937 rng(42);
+std::uniform_int_distribution<int> d(0, 9);
+std::cout << d(rng) << "\n";
+
+Q: How do you pick weighted random?
+A: std::discrete_distribution.
+std::discrete_distribution<int> dist({70, 30});
+
+Q: How do you do math?
+A: <cmath>.
+#include <cmath>
+std::sqrt(16.0);
+std::exp(x);
+
+Q: How do you do threads?
+A: std::thread.
+#include <thread>
+std::thread t([] { work(); });
+t.join();
+
+Q: How do you lock?
+A: std::mutex + lock_guard.
+#include <mutex>
+std::mutex m;
+{
+    std::lock_guard<std::mutex> lock(m);
+    shared++;
+}
+
+Q: How do you do atomics?
+A: std::atomic.
+#include <atomic>
+std::atomic<int> n{0};
+n++;
+
+Q: How do you do a thread pool?
+A: Hand-rolled queue + workers, or a lib.
+
+Q: How do you do futures?
+A: std::async.
+auto f = std::async(std::launch::async, [] { return compute(); });
+std::cout << f.get() << "\n";
+
+Q: How do you do condition variables?
+A: std::condition_variable.
+
+Q: How do you get time?
+A: <chrono>.
+#include <chrono>
+auto start = std::chrono::steady_clock::now();
+// work
+auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+    std::chrono::steady_clock::now() - start).count();
+
+Q: How do you sleep?
+A: std::this_thread::sleep_for.
+std::this_thread::sleep_for(std::chrono::seconds(1));
+
+Q: How do you do command args?
+A: argc/argv like C.
+int main(int argc, char *argv[]) { }
+
+Q: How do you get env?
+A: std::getenv.
+const char *home = std::getenv("HOME");
+
+Q: How do you run a command?
+A: std::system.
+
+Q: What is move semantics?
+A: Transfer ownership instead of copying. std::move.
+std::vector<int> a = {1, 2, 3};
+std::vector<int> b = std::move(a);
+
+Q: What is an rvalue reference?
+A: T&&. Binds to temporaries. Enables moves.
+
+Q: What is the rule of five?
+A: If you define destructor, copy/move ctor, copy/move assign — define all five or none.
+
+Q: What is the rule of zero?
+A: Better: use smart pointers and STL, define none of the five.
+
+Q: How do you avoid copies?
+A: const&, std::move, return value optimization.
+
+Q: What is NRVO?
+A: Named Return Value Optimization. Compiler skips the copy.
+
+Q: How do you do a matrix multiply?
+A: Loops. The heart of my brain.
+void matvec(const float *W, const float *x, float *y, int rows, int cols) {
+    for (int r = 0; r < rows; r++) {
+        float s = 0;
+        for (int c = 0; c < cols; c++)
+            s += W[r * cols + c] * x[c];
+        y[r] = s;
+    }
+}
+
+Q: How do you do softmax?
+A: Same math.
+void softmax(float *x, int n) {
+    float mx = x[0];
+    for (int i = 1; i < n; i++) mx = std::max(mx, x[i]);
+    float s = 0;
+    for (int i = 0; i < n; i++) { x[i] = std::exp(x[i] - mx); s += x[i]; }
+    for (int i = 0; i < n; i++) x[i] /= s;
+}
+
+Q: How do you do layer norm?
+A: Same math.
+void layernorm(float *x, const float *g, const float *b, int n) {
+    float m = 0, v = 0;
+    for (int i = 0; i < n; i++) m += x[i];
+    m /= n;
+    for (int i = 0; i < n; i++) { float d = x[i] - m; v += d * d; }
+    float inv = 1.0f / std::sqrt(v / n + 1e-5f);
+    for (int i = 0; i < n; i++) x[i] = (x[i] - m) * inv * g[i] + b[i];
+}
+
+Q: How do you do attention simply?
+A: Per head: scores = Q*K^T/sqrt, softmax, times V. Loops.
+
+Q: How do you make it fast?
+A: -O2 -march=native, contiguous memory, no allocation in loops, blocking for cache.
+
+Q: How do you do SIMD in C++?
+A: Compiler auto-vectorizes with -O2. Intrinsics for manual.
+
+Q: How do you do OpenMP?
+A: #pragma omp parallel for.
+# g++ -fopenmp prog.cpp
+#pragma omp parallel for
+for (int i = 0; i < n; i++) { }
+
+Q: How do you test C++?
+A: assert, or doctest/catch2 single-header libs.
+#include <cassert>
+assert(add(2, 3) == 5);
+
+Q: How do you debug?
+A: gdb, or prints.
+# g++ -g prog.cpp && gdb ./a.out
+
+Q: How do you find memory bugs?
+A: -fsanitize=address,undefined.
+# g++ -fsanitize=address,undefined prog.cpp
+
+Q: How do you profile?
+A: perf, or gprof.
+
+Q: How do you structure a C++ project?
+A: include/ src/ CMakeLists.txt.
+
+Q: How do you do CMake?
+A: CMakeLists.txt.
+cmake_minimum_required(VERSION 3.15)
+project(brain)
+add_executable(brain main.cpp brain.cpp)
+
+Q: How do you build with CMake?
+A: mkdir build, cmake, make.
+# mkdir build && cd build && cmake .. && make
+
+Q: How do you add a library with CMake?
+A: FetchContent or find_package.
+
+Q: What are the best C++ libraries?
+A: Eigen (math), fmt (format), spdlog (logging), nlohmann/json.
+
+Q: How do you do JSON?
+A: nlohmann/json single header.
+
+Q: How do you do logging?
+A: spdlog.
+
+Q: How do you do CLI args?
+A: Manual, or cxxopts.
+
+Q: How do you do a simple HTTP server?
+A: Sockets + threads, or a lib (cpp-httplib single header).
+
+Q: How do you do neural nets in C++?
+A: LibTorch (PyTorch C++), ONNX Runtime, or hand-rolled.
+
+Q: How do you load my weights in C++?
+A: fread weights.bin, parse manifest. Same as C.
+
+Q: How do you do fast inference?
+A: Preallocated buffers, per-head KV cache, OpenMP over heads.
+
+Q: What is quantization?
+A: int8 weights. 4x smaller, faster. Advanced topic.
+
+Q: How do you do a simple tokenizer?
+A: unordered_map<char32_t, int>.
+
+Q: How do you handle UTF-8?
+A: std::string holds bytes. Decode to char32_t for real chars.
+
+Q: How do you do regex?
+A: <regex>.
+#include <regex>
+std::regex re("[0-9]+");
+std::smatch m;
+std::regex_search("iter 11500", m, re);
+
+Q: How do you do filesystem?
+A: <filesystem> (C++17).
+#include <filesystem>
+namespace fs = std::filesystem;
+for (auto &p : fs::directory_iterator("data"))
+    std::cout << p.path() << "\n";
+
+Q: How do you check file exists?
+A: fs::exists("f.txt").
+
+Q: How do you get file size?
+A: fs::file_size("f.txt").
+
+Q: How do you create directories?
+A: fs::create_directories("a/b").
+
+Q: How do you copy files?
+A: fs::copy("a", "b").
+
+Q: How do you do a simple config?
+A: Struct + parse key=value lines.
+
+Q: How do you do a plugin system?
+A: dlopen like C, or abstract factory.
+
+Q: How do you do a simple ECS?
+A: Entities are ids, components are arrays. Game pattern.
+
+Q: How do you do a game loop?
+A: while running: input, update, render. Fixed timestep.
+
+Q: How do you do 2D graphics simply?
+A: SFML or SDL libraries.
+
+Q: How do you do audio simply?
+A: SFML audio, or miniaudio single header.
+
+Q: What C++ should I write first?
+A: A fast tokenizer and a C++ inference port of my brain. Then a tiny HTTP server for it.
+
+Q: How do you keep C++ safe?
+A: Smart pointers, string/vector not raw arrays, -Wall -Werror, sanitizers in dev.
+
+END OF C++.

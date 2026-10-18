@@ -1,0 +1,930 @@
+C. The language under everything. My web brain could be C, my tools could be C. gcc compiles it.
+
+Q: How do you print in C?
+A: printf with format codes.
+#include <stdio.h>
+int main() {
+    printf("hello\n");
+    printf("my name is %s\n", "arjan");
+    return 0;
+}
+
+Q: How do you compile C?
+A: gcc.
+# gcc prog.c -o prog
+# ./prog
+
+Q: How do you compile with warnings?
+A: -Wall -Wextra.
+# gcc -Wall -Wextra prog.c -o prog
+
+Q: How do you compile with optimization?
+A: -O2.
+# gcc -O2 prog.c -o prog
+
+Q: How do you declare variables?
+A: Type first.
+int age = 1;
+float pi = 3.14;
+double precise = 3.14159;
+char letter = 'a';
+
+Q: What are the integer types?
+A: char, short, int, long, long long. Signed by default.
+int x = 42;
+long big = 1000000L;
+unsigned int u = 5;
+
+Q: How do you make a constant?
+A: const or #define.
+const int N = 100;
+#define PI 3.14
+
+Q: How do you write a function?
+A: Return type, name, params, body.
+int add(int a, int b) {
+    return a + b;
+}
+
+Q: How do you declare a function before defining?
+A: Prototype.
+int add(int a, int b);
+int main() {
+    return add(2, 3);
+}
+
+Q: What is void?
+A: No value. For functions returning nothing, or empty params.
+void greet(void) {
+    printf("hi\n");
+}
+
+Q: How do you write if/else?
+A: Same as JavaScript.
+if (x > 5) {
+    printf("big\n");
+} else {
+    printf("small\n");
+}
+
+Q: How do you write a for loop?
+A: init; condition; step.
+for (int i = 0; i < 5; i++) {
+    printf("%d\n", i);
+}
+
+Q: How do you write a while loop?
+A: Condition checked each round.
+int i = 0;
+while (i < 3) {
+    printf("%d\n", i);
+    i++;
+}
+
+Q: How do you write do-while?
+A: Runs at least once.
+do {
+    printf("%d\n", i);
+    i++;
+} while (i < 3);
+
+Q: How do you write a switch?
+A: break each case or it falls through.
+switch (mood) {
+    case 1:
+        printf("curious\n");
+        break;
+    default:
+        printf("other\n");
+}
+
+Q: How do you make an array?
+A: Type, name, size.
+int nums[5] = {1, 2, 3, 4, 5};
+char name[20] = "arjan";
+
+Q: How do you loop an array?
+A: Index 0 to size-1.
+for (int i = 0; i < 5; i++) {
+    printf("%d\n", nums[i]);
+}
+
+Q: How do you get array size?
+A: sizeof trick (only works on real arrays, not pointers).
+int n = sizeof(nums) / sizeof(nums[0]);
+
+Q: What is a string in C?
+A: Array of char ending with '\0'.
+char s[] = "hello";
+printf("%s has %lu chars\n", s, strlen(s));
+
+Q: How do you copy a string?
+A: strcpy (careful with size), or strncpy.
+#include <string.h>
+char dst[20];
+strcpy(dst, "hello");
+
+Q: How do you compare strings?
+A: strcmp. 0 means equal.
+#include <string.h>
+if (strcmp(a, b) == 0) {
+    printf("same\n");
+}
+
+Q: How do you join strings?
+A: strcat, or sprintf.
+char buf[50];
+sprintf(buf, "hello %s", name);
+
+Q: What is a pointer?
+A: A variable holding a memory address.
+int x = 42;
+int *p = &x;
+printf("%d\n", *p);
+
+Q: How do you do pointer arithmetic?
+A: p+1 moves by one element size.
+int arr[3] = {10, 20, 30};
+int *p = arr;
+printf("%d\n", *(p + 1));
+
+Q: What is malloc?
+A: Allocate memory on the heap.
+#include <stdlib.h>
+int *a = malloc(10 * sizeof(int));
+if (a == NULL) { /* out of memory */ }
+free(a);
+
+Q: What is calloc?
+A: Like malloc but zeroed.
+int *a = calloc(10, sizeof(int));
+
+Q: What is realloc?
+A: Resize an allocation.
+a = realloc(a, 20 * sizeof(int));
+
+Q: What is free?
+A: Return memory. Every malloc needs a free.
+free(a);
+a = NULL;
+
+Q: What is a memory leak?
+A: malloc without free. Memory lost until program ends.
+
+Q: What is a use-after-free?
+A: Using memory after free(). Bug. Set pointer NULL after free.
+
+Q: What is a struct?
+A: Group different types.
+struct Person {
+    char name[20];
+    int age;
+};
+struct Person p;
+strcpy(p.name, "arjan");
+p.age = 1;
+
+Q: How do you init a struct?
+A: Braces.
+struct Person p = {"arjan", 1};
+
+Q: What is typedef?
+A: Short name for a type.
+typedef struct {
+    char name[20];
+    int age;
+} Person;
+Person p = {"arjan", 1};
+
+Q: What is a union?
+A: One memory shared by several types.
+union Data {
+    int i;
+    float f;
+};
+
+Q: What is an enum?
+A: Named integers.
+enum Mood { CURIOUS, FOCUSED, TIRED };
+enum Mood m = CURIOUS;
+
+Q: How do you pass by reference?
+A: Pass a pointer.
+void bump(int *x) {
+    *x = *x + 1;
+}
+bump(&n);
+
+Q: How do you return multiple values?
+A: Output parameters via pointers.
+void divmod(int a, int b, int *q, int *r) {
+    *q = a / b;
+    *r = a % b;
+}
+
+Q: What is const pointer vs pointer to const?
+A: const int *p = can't change value. int *const p = can't change address.
+
+Q: How do you do function pointers?
+A: Variable holding a function.
+int (*op)(int, int) = add;
+printf("%d\n", op(2, 3));
+
+Q: How do you pass a function as argument?
+A: Function pointer parameter.
+void apply(int (*f)(int), int x) {
+    printf("%d\n", f(x));
+}
+
+Q: How do you read input?
+A: scanf (careful), or fgets.
+char buf[100];
+fgets(buf, sizeof(buf), stdin);
+
+Q: How do you read a number?
+A: scanf with &.
+int n;
+scanf("%d", &n);
+
+Q: How do you read a file?
+A: fopen, fgets/fread, fclose.
+FILE *f = fopen("data.txt", "r");
+char line[256];
+while (fgets(line, sizeof(line), f)) {
+    printf("%s", line);
+}
+fclose(f);
+
+Q: How do you write a file?
+A: fopen "w", fprintf/fwrite.
+FILE *f = fopen("out.txt", "w");
+fprintf(f, "hello %d\n", 42);
+fclose(f);
+
+Q: How do you check fopen failed?
+A: NULL means error.
+FILE *f = fopen("x.txt", "r");
+if (f == NULL) {
+    perror("open failed");
+    return 1;
+}
+
+Q: How do you get file size?
+A: fseek to end, ftell.
+fseek(f, 0, SEEK_END);
+long size = ftell(f);
+rewind(f);
+
+Q: How do you read binary?
+A: fread.
+fread(buf, 1, n, f);
+
+Q: How do you write binary?
+A: fwrite.
+fwrite(buf, 1, n, f);
+
+Q: What are the format codes?
+A: %d int, %f float, %c char, %s string, %p pointer, %x hex, %lu long.
+
+Q: How do you do math?
+A: math.h, link with -lm.
+#include <math.h>
+double y = sqrt(16.0);
+double s = sin(0.5);
+// gcc prog.c -lm
+
+Q: How do you do random?
+A: rand(), seed with srand(time).
+#include <stdlib.h>
+#include <time.h>
+srand(time(NULL));
+int r = rand() % 10;
+
+Q: How do you do better random?
+A: rand() is weak. Fine for toys, not crypto.
+
+Q: How do you convert string to int?
+A: atoi, or strtol (better).
+int n = atoi("42");
+long m = strtol("42", NULL, 10);
+
+Q: How do you convert int to string?
+A: sprintf.
+char buf[20];
+sprintf(buf, "%d", 42);
+
+Q: How do you do memset?
+A: Fill memory with a byte.
+#include <string.h>
+memset(buf, 0, sizeof(buf));
+
+Q: How do you do memcpy?
+A: Copy bytes.
+memcpy(dst, src, n);
+
+Q: How do you compare memory?
+A: memcmp.
+if (memcmp(a, b, n) == 0) { }
+
+Q: What is sizeof?
+A: Bytes of a type or variable.
+printf("%lu\n", sizeof(int));
+
+Q: What is size_t?
+A: Unsigned type for sizes. Use for counts.
+
+Q: How do you do bit operations?
+A: & | ^ ~ << >>.
+int flags = 0;
+flags |= (1 << 3);
+if (flags & (1 << 3)) { }
+
+Q: How do you loop bits?
+A: Shift and test.
+for (int i = 0; i < 8; i++) {
+    if (x & (1 << i)) printf("bit %d set\n", i);
+}
+
+Q: What is the preprocessor?
+A: #include, #define, #ifdef run before compile.
+
+Q: How do you do header guards?
+A: Prevent double include.
+#ifndef BRAIN_H
+#define BRAIN_H
+// declarations
+#endif
+
+Q: How do you split code into files?
+A: .h declares, .c defines, compile together.
+# gcc main.c brain.c -o prog
+
+Q: What is static?
+A: In function: keeps value. At file: private to file.
+static int count = 0;
+
+Q: What is extern?
+A: Declare something defined elsewhere.
+extern int shared;
+
+Q: What is volatile?
+A: Tells compiler the value can change unexpectedly. For hardware/threads.
+
+Q: How do you do a linked list?
+A: Struct with next pointer.
+struct Node {
+    int val;
+    struct Node *next;
+};
+
+Q: How do you add to a linked list?
+A: malloc node, link it.
+struct Node *n = malloc(sizeof(struct Node));
+n->val = 5;
+n->next = head;
+head = n;
+
+Q: How do you free a linked list?
+A: Walk and free each.
+struct Node *cur = head;
+while (cur) {
+    struct Node *next = cur->next;
+    free(cur);
+    cur = next;
+}
+
+Q: How do you do a stack?
+A: Array + top index, or linked list.
+
+Q: How do you do a queue?
+A: Array + head/tail, or linked list.
+
+Q: How do you do a hash table simply?
+A: Array of buckets, hash key mod size.
+unsigned hash(const char *s) {
+    unsigned h = 0;
+    while (*s) h = h * 31 + *s++;
+    return h;
+}
+
+Q: How do you sort?
+A: qsort.
+#include <stdlib.h>
+int cmp(const void *a, const void *b) {
+    return *(int*)a - *(int*)b;
+}
+qsort(arr, n, sizeof(int), cmp);
+
+Q: How do you binary search?
+A: bsearch, or hand loop.
+
+Q: How do you handle errors?
+A: Return codes. 0 ok, nonzero error.
+int load(const char *path) {
+    FILE *f = fopen(path, "r");
+    if (!f) return -1;
+    // ...
+    return 0;
+}
+
+Q: What is errno?
+A: Global error code. perror prints it.
+#include <errno.h>
+
+Q: How do you assert?
+A: assert.h. Aborts if false.
+#include <assert.h>
+assert(p != NULL);
+
+Q: How do you debug?
+A: printf, or gdb.
+# gcc -g prog.c -o prog
+# gdb ./prog
+
+Q: How do you find memory bugs?
+A: valgrind, or -fsanitize=address.
+# gcc -fsanitize=address prog.c -o prog
+
+Q: How do you profile?
+A: gprof, or perf.
+# gcc -pg prog.c; ./a.out; gprof
+
+Q: What is undefined behavior?
+A: The standard says anything can happen. Examples: overflow signed int, use after free, null deref. Avoid always.
+
+Q: What is a segfault?
+A: Crash from bad memory access. Check pointers, array bounds.
+
+Q: How do you avoid buffer overflow?
+A: Check sizes. Use strncpy, snprintf, fgets with size.
+char buf[20];
+snprintf(buf, sizeof(buf), "%s", input);
+
+Q: How do you do command args?
+A: argc, argv.
+int main(int argc, char *argv[]) {
+    for (int i = 0; i < argc; i++)
+        printf("%s\n", argv[i]);
+    return 0;
+}
+
+Q: How do you get env vars?
+A: getenv.
+#include <stdlib.h>
+char *home = getenv("HOME");
+
+Q: How do you run a command?
+A: system(), or popen for output.
+int rc = system("ls data");
+
+Q: How do you sleep?
+A: sleep() seconds, usleep() microseconds.
+#include <unistd.h>
+sleep(1);
+
+Q: How do you get time?
+A: time(), clock().
+#include <time.h>
+time_t now = time(NULL);
+clock_t start = clock();
+
+Q: How do you do high-res timing?
+A: clock_gettime.
+struct timespec t;
+clock_gettime(CLOCK_MONOTONIC, &t);
+
+Q: How do you do threads?
+A: pthreads.
+#include <pthread.h>
+void *work(void *arg) { return NULL; }
+pthread_t th;
+pthread_create(&th, NULL, work, NULL);
+pthread_join(th, NULL);
+
+Q: How do you lock in C?
+A: pthread_mutex.
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_lock(&lock);
+// critical
+pthread_mutex_unlock(&lock);
+
+Q: How do you do atomics?
+A: stdatomic.h (C11).
+#include <stdatomic.h>
+atomic_int n = 0;
+atomic_fetch_add(&n, 1);
+
+Q: How do you do sockets simply?
+A: socket/bind/listen/accept. Long; use a tutorial.
+
+Q: How do you do endianness?
+A: htonl/htons convert to network order.
+#include <arpa/inet.h>
+
+Q: How do you read little-endian int?
+A: Manual bytes.
+uint32_t v = b[0] | (b[1] << 8) | (b[2] << 16) | (b[3] << 24);
+
+Q: How do you do fixed-width ints?
+A: stdint.h.
+#include <stdint.h>
+int32_t x;
+uint8_t byte;
+
+Q: How do you print fixed-width?
+A: inttypes.h macros.
+#include <inttypes.h>
+printf("%" PRId32 "\n", x);
+
+Q: What is the C standard?
+A: C89, C99, C11, C17. gcc defaults to gnu17. Use -std=c11 for strict.
+
+Q: How do you write portable C?
+A: stdint types, no assumptions on int size, test on target.
+
+Q: How do you do a simple matrix multiply?
+A: Triple loop. This is the heart of my brain.
+void matvec(float *W, float *x, float *y, int rows, int cols) {
+    for (int r = 0; r < rows; r++) {
+        float s = 0;
+        for (int c = 0; c < cols; c++)
+            s += W[r * cols + c] * x[c];
+        y[r] = s;
+    }
+}
+
+Q: How do you do softmax in C?
+A: Same math.
+void softmax(float *x, int n) {
+    float mx = x[0];
+    for (int i = 1; i < n; i++) if (x[i] > mx) mx = x[i];
+    float s = 0;
+    for (int i = 0; i < n; i++) { x[i] = expf(x[i] - mx); s += x[i]; }
+    for (int i = 0; i < n; i++) x[i] /= s;
+}
+
+Q: How do you do layer norm in C?
+A: Per-vector.
+void layernorm(float *x, float *g, float *b, int n) {
+    float m = 0, v = 0;
+    for (int i =  0; i < n; i++) m += x[i];
+    m /= n;
+    for (int i = 0; i < n; i++) { float d = x[i] - m; v += d * d; }
+    v = v / n + 1e-5f;
+    float inv = 1.0f / sqrtf(v);
+    for (int i = 0; i < n; i++) x[i] = (x[i] - m) * inv * g[i] + b[i];
+}
+
+Q: Why learn C?
+A: Speed, control, and understanding what my Python/JS actually runs on.
+
+Q: How do you test C?
+A: assert, or a tiny test main.
+#define TEST(x) do { if (!(x)) { printf("FAIL %d\n", __LINE__); return 1; } } while (0)
+
+Q: How do you structure a C project?
+A: Headers for API, .c for code, Makefile.
+# brain.h brain.c main.c Makefile
+
+Q: How do you write a Makefile?
+A: Targets and commands.
+prog: main.c brain.c
+	gcc -O2 -Wall -o prog main.c brain.c
+
+Q: How do you debug a crash?
+A: Compile -g, run in gdb, bt for backtrace.
+# gdb ./prog
+# (gdb) run
+# (gdb) bt
+
+Q: How do you check leaks?
+A: valgrind.
+# valgrind --leak-check=full ./prog
+
+Q: What is the most common C bug?
+A: Off by one. Buffer overflow. Forgetting free. Check all three first.
+
+END OF C.
+
+Q: How do you do dynamic arrays in C?
+A: malloc + track size + realloc to grow.
+typedef struct {
+    int *items;
+    int len;
+    int cap;
+} Vec;
+void vec_push(Vec *v, int x) {
+    if (v->len == v->cap) {
+        v->cap = v->cap ? v->cap * 2 : 4;
+        v->items = realloc(v->items, v->cap * sizeof(int));
+    }
+    v->items[v->len++] = x;
+}
+
+Q: How do you do strings safely?
+A: Track length, always NUL-terminate, check bounds.
+typedef struct {
+    char *data;
+    size_t len;
+} Str;
+
+Q: How do you tokenize a string?
+A: strtok (modifies input), or manual.
+char *tok = strtok(line, " ");
+while (tok) {
+    printf("%s\n", tok);
+    tok = strtok(NULL, " ");
+}
+
+Q: How do you parse numbers from text?
+A: sscanf, or strtol/strtod.
+int a, b;
+if (sscanf("10 20", "%d %d", &a, &b) == 2) { }
+
+Q: How do you do CSV parsing?
+A: fgets lines, strtok on comma. Watch quoted commas in real data.
+
+Q: How do you do JSON in C?
+A: No stdlib. Use a small lib (cJSON) or hand-parse simple cases.
+
+Q: How do you embed a file in the binary?
+A: xxd -i, or objcopy.
+# xxd -i data.txt > data.h
+
+Q: How do you do conditional compile?
+A: #ifdef.
+#ifdef DEBUG
+printf("debug: %d\n", x);
+#endif
+# gcc -DDEBUG prog.c
+
+Q: How do you do compile-time asserts?
+A: _Static_assert (C11).
+_Static_assert(sizeof(int) >= 4, "int too small");
+
+Q: How do you do variadic functions?
+A: stdarg.h.
+#include <stdarg.h>
+int sum(int n, ...) {
+    va_list ap;
+    va_start(ap, n);
+    int s = 0;
+    for (int i = 0; i < n; i++) s += va_arg(ap, int);
+    va_end(ap);
+    return s;
+}
+
+Q: How do you do a simple logger?
+A: Variadic + vfprintf.
+void log_info(const char *fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    fprintf(stderr, "[info] ");
+    vfprintf(stderr, fmt, ap);
+    fprintf(stderr, "\n");
+    va_end(ap);
+}
+
+Q: How do you measure code size?
+A: size command, or wc.
+# size prog
+# wc -l *.c *.h
+
+Q: How do you strip a binary?
+A: strip removes symbols (smaller, harder to debug).
+# strip prog
+
+Q: How do you make a static library?
+A: ar.
+# gcc -c util.c
+# ar rcs libutil.a util.o
+
+Q: How do you make a shared library?
+A: -fPIC -shared.
+# gcc -fPIC -shared util.c -o libutil.so
+
+Q: How do you link a library?
+A: -l and -L.
+# gcc main.c -L. -lutil -o prog
+
+Q: How do you do plugins?
+A: dlopen/dlsym.
+#include <dlfcn.h>
+void *h = dlopen("./plug.so", RTLD_NOW);
+void (*f)(void) = dlsym(h, "run");
+
+Q: How do you handle signals in C?
+A: signal().
+#include <signal.h>
+void onint(int s) { printf("stopping\n"); exit(0); }
+signal(SIGINT, onint);
+
+Q: How do you do non-blocking input?
+A: fcntl/select. Or threads.
+
+Q: How do you do a simple HTTP get in C?
+A: Sockets + hand-written request. Long; use libcurl for real work.
+
+Q: How do you use libcurl?
+A: curl_easy API.
+# gcc prog.c -lcurl
+
+Q: How do you do base64 in C?
+A: Hand table, or a lib. Small enough to write.
+
+Q: How do you do SHA256 in C?
+A: No stdlib. OpenSSL libcrypto, or a single-file public domain impl.
+
+Q: How do you do AES in C?
+A: OpenSSL EVP, or tiny-AES single file.
+
+Q: How do you do compression?
+A: zlib.
+# gcc prog.c -lz
+
+Q: How do you do regex in C?
+A: regex.h (POSIX).
+#include <regex.h>
+regex_t re;
+regcomp(&re, "[0-9]+", REG_EXTENDED);
+regexec(&re, "iter 11500", 0, NULL, 0);
+
+Q: How do you do directory listing?
+A: dirent.h.
+#include <dirent.h>
+DIR *d = opendir("data");
+struct dirent *e;
+while ((e = readdir(d))) printf("%s\n", e->d_name);
+closedir(d);
+
+Q: How do you stat a file?
+A: stat().
+#include <sys/stat.h>
+struct stat st;
+stat("f.txt", &st);
+printf("%ld bytes\n", (long)st.st_size);
+
+Q: How do you check file exists?
+A: access().
+#include <unistd.h>
+if (access("f.txt", F_OK) == 0) { }
+
+Q: How do you make directories?
+A: mkdir().
+#include <sys/stat.h>
+mkdir("out", 0755);
+
+Q: How do you remove files?
+A: remove() or unlink().
+
+Q: How do you rename?
+A: rename().
+
+Q: How do you get cwd?
+A: getcwd().
+char buf[1024];
+getcwd(buf, sizeof(buf));
+
+Q: How do you change dir?
+A: chdir().
+
+Q: How do you do pipes?
+A: popen() for simple, pipe()+fork() for full.
+
+Q: How do you fork?
+A: fork() clones the process.
+pid_t pid = fork();
+if (pid == 0) { /* child */ }
+else { /* parent */ }
+
+Q: How do you wait for child?
+A: waitpid().
+
+Q: How do you exec a program?
+A: execl/execv replaces the process.
+execl("/bin/ls", "ls", "data", NULL);
+
+Q: How do you redirect child output?
+A: dup2() before exec.
+
+Q: How do you do shared memory?
+A: shm_open + mmap, or System V shmget.
+
+Q: How do you do message queues?
+A: POSIX mqueue, or pipes.
+
+Q: How do you do a simple thread pool?
+A: Queue + N workers + mutex + condvar. Standard pattern.
+
+Q: How do you do condition variables?
+A: pthread_cond_wait/signal.
+
+Q: How do you avoid data races?
+A: Mutex every shared access, or atomics.
+
+Q: How do you do lock-free simply?
+A: _Atomic with careful ordering. Hard; prefer mutexes.
+
+Q: How do you do SIMD?
+A: Compiler auto-vectorizes simple loops with -O2. Intrinsics for manual.
+
+Q: How do you hint the compiler?
+A: restrict, __builtin_expect, inline.
+
+Q: What is restrict?
+A: Promises pointers don't overlap. Enables optimization.
+void add(float *restrict a, float *restrict b, int n);
+
+Q: How do you do inline functions?
+A: inline in header, or static inline.
+static inline int sq(int x) { return x * x; }
+
+Q: How do you do link-time optimization?
+A: -flto.
+# gcc -O2 -flto a.c b.c -o prog
+
+Q: How do you cross-compile?
+A: gcc with --target, or a cross toolchain.
+
+Q: How do you compile for size?
+A: -Os.
+
+Q: How do you see what the compiler did?
+A: -S emits assembly.
+# gcc -O2 -S prog.c
+
+Q: How do you do a bump allocator?
+A: Arena: one big malloc, pointer moves.
+typedef struct { char *base, *ptr, *end; } Arena;
+void *arena_alloc(Arena *a, size_t n) {
+    void *p = a->ptr;
+    a->ptr += n;
+    return p;
+}
+
+Q: How do you do a free list?
+A: Reuse freed blocks. Standard allocator pattern.
+
+Q: How do you debug heap corruption?
+A: ASan (-fsanitize=address), valgrind.
+
+Q: How do you debug stack overflow?
+A: Bigger stack (ulimit), or move big arrays to heap.
+
+Q: How do you handle large files?
+A: 64-bit off_t (_FILE_OFFSET_BITS=64), or mmap.
+
+Q: How do you mmap a file?
+A: mmap().
+#include <sys/mman.h>
+void *p = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
+
+Q: How do you do a ring buffer?
+A: Array + head/tail mod size. Lock-free single producer/consumer possible.
+
+Q: How do you do a simple event loop?
+A: select/poll/epoll on fds.
+
+Q: How do you do epoll?
+A: Linux scalable I/O. epoll_create/wait.
+
+Q: How do you write a tiny server?
+A: socket, bind, listen, accept loop. ~50 lines.
+
+Q: How do you write a tiny client?
+A: socket, connect, send/recv.
+
+Q: How do you do UDP?
+A: SOCK_DGRAM, sendto/recvfrom.
+
+Q: How do you do DNS lookup?
+A: getaddrinfo().
+
+Q: How do you do timeouts on sockets?
+A: setsockopt SO_RCVTIMEO, or select.
+
+Q: How do you do non-blocking sockets?
+A: fcntl O_NONBLOCK.
+
+Q: How do you parse HTTP simply?
+A: Read until \r\n\r\n, parse request line + headers.
+
+Q: How do you serve a file over HTTP?
+A: Read file, send headers + body. ~80 lines total server.
+
+Q: How do you do a simple chatbot in C?
+A: fgets input, keyword match, printf reply. The pattern, not the brain.
+
+Q: How do you load my weights in C?
+A: fread weights.bin, parse manifest offsets. Same as brain.js but C.
+
+Q: How fast could my brain run in C?
+A: Much faster than JS. SIMD + no GC. A future project.
+
+Q: What C should I write first?
+A: Small tools: file converters, log parsers, a faster tokenizer.
+
+Q: How do you keep C code safe?
+A: -Wall -Wextra -Werror, ASan in dev, check every malloc/fopen, test edge cases.
+
+END OF C.

@@ -1,0 +1,797 @@
+JAVA. The language of Android. If I ever live in an app on Arzh's phone, I will likely meet Java or Kotlin.
+
+Q: How do you print in Java?
+A: System.out.println.
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("hello");
+    }
+}
+
+Q: How do you compile and run Java?
+A: javac then java.
+# javac Main.java
+# java Main
+
+Q: What is a class?
+A: The basic unit. Everything lives in a class.
+public class Brain {
+}
+
+Q: What is main?
+A: The entry point. public static void main(String[] args).
+
+Q: How do you declare variables?
+A: Type first, always.
+int age = 1;
+double pi = 3.14;
+boolean curious = true;
+char letter = 'a';
+String name = "arjan";
+
+Q: What are the primitive types?
+A: byte, short, int, long, float, double, char, boolean.
+
+Q: What is String?
+A: An object, not primitive. Immutable.
+String s = "hello";
+int n = s.length();
+
+Q: How do you compare strings?
+A: .equals(), never ==.
+if (name.equals("arjan")) {
+    System.out.println("me");
+}
+
+Q: How do you write a method?
+A: Return type, name, params.
+public int add(int a, int b) {
+    return a + b;
+}
+
+Q: What is static?
+A: Belongs to the class, not an instance.
+public static int version = 3;
+
+Q: What is void?
+A: Returns nothing.
+public void greet() {
+    System.out.println("hi");
+}
+
+Q: How do you make an object?
+A: new + constructor.
+Brain b = new Brain("arjan");
+
+Q: What is a constructor?
+A: Sets up a new object. Same name as class, no return type.
+public class Brain {
+    String name;
+    public Brain(String name) {
+        this.name = name;
+    }
+}
+
+Q: What is this?
+A: The current object.
+this.name = name;
+
+Q: How do you write if/else?
+A: Same as C.
+if (x > 5) {
+    System.out.println("big");
+} else {
+    System.out.println("small");
+}
+
+Q: How do you write a for loop?
+A: Same as C.
+for (int i = 0; i < 5; i++) {
+    System.out.println(i);
+}
+
+Q: How do you loop an array?
+A: Enhanced for.
+for (String s : names) {
+    System.out.println(s);
+}
+
+Q: How do you write while?
+A: Same as C.
+while (n > 0) {
+    n--;
+}
+
+Q: How do you write switch?
+A: Same shape, now also supports strings.
+switch (mood) {
+    case "curious":
+        System.out.println("?");
+        break;
+    default:
+        System.out.println("...");
+}
+
+Q: How do you make an array?
+A: Type[] with new, or literal.
+int[] nums = new int[5];
+int[] nums2 = {1, 2, 3};
+String[] names = {"arzh", "arjan"};
+
+Q: How do you get array length?
+A: .length field (not method).
+int n = nums.length;
+
+Q: How do you do 2D arrays?
+A: Array of arrays.
+int[][] m = new int[3][3];
+m[0][1] = 5;
+
+Q: What is ArrayList?
+A: Growable array.
+import java.util.ArrayList;
+ArrayList<String> list = new ArrayList<>();
+list.add("arjan");
+System.out.println(list.get(0));
+
+Q: What is HashMap?
+A: Key-value map.
+import java.util.HashMap;
+HashMap<String, Integer> map = new HashMap<>();
+map.put("arjan", 1);
+System.out.println(map.get("arjan"));
+
+Q: What is HashSet?
+A: Unique values.
+import java.util.HashSet;
+HashSet<String> set = new HashSet<>();
+
+Q: How do you loop a map?
+A: entrySet.
+for (var e : map.entrySet()) {
+    System.out.println(e.getKey() + " " + e.getValue());
+}
+
+Q: How do you sort a list?
+A: Collections.sort or List.sort.
+import java.util.Collections;
+Collections.sort(list);
+
+Q: How do you sort with a rule?
+A: Comparator.
+list.sort((a, b) -> a.length() - b.length());
+
+Q: What is inheritance?
+A: extends. One parent only.
+public class Dog extends Animal {
+    public String speak() {
+        return "woof";
+    }
+}
+
+Q: What is super?
+A: Call the parent.
+public Dog() {
+    super();
+}
+
+Q: What is @Override?
+A: Marks a method replacing the parent's.
+@Override
+public String speak() {
+    return "woof";
+}
+
+Q: What is an interface?
+A: A contract. implements it.
+public interface Thinker {
+    String think();
+}
+public class Brain implements Thinker {
+    public String think() {
+        return "hmm";
+    }
+}
+
+Q: What is abstract?
+A: Can't instantiate; subclasses fill in.
+public abstract class Animal {
+    public abstract String speak();
+}
+
+Q: What is final?
+A: Can't change: final class can't extend, final method can't override, final variable can't reassign.
+
+Q: What are access modifiers?
+A: public (all), protected (package+subclass), private (class only), default (package).
+
+Q: What is a package?
+A: Namespace for classes. Folder structure matches.
+package com.arjan.brain;
+
+Q: How do you import?
+A: import at top.
+import java.util.ArrayList;
+
+Q: What is the classpath?
+A: Where java looks for classes.
+# java -cp .:lib/* Main
+
+Q: How do you make a jar?
+A: jar tool.
+# jar cf app.jar *.class
+
+Q: How do you run a jar?
+A: java -jar.
+# java -jar app.jar
+
+Q: How do you handle exceptions?
+A: try/catch/finally.
+try {
+    int n = Integer.parseInt("abc");
+} catch (NumberFormatException e) {
+    System.out.println("not a number");
+}
+
+Q: How do you throw?
+A: throw new.
+if (b == 0) {
+    throw new IllegalArgumentException("divide by zero");
+}
+
+Q: What are checked exceptions?
+A: Must be caught or declared. IOException is one.
+public void load(String p) throws IOException {
+}
+
+Q: How do you do try-with-resources?
+A: Auto-closes.
+try (var r = new BufferedReader(new FileReader("f.txt"))) {
+    System.out.println(r.readLine());
+}
+
+Q: How do you read a file?
+A: Files.readString (modern) or BufferedReader.
+import java.nio.file.*;
+String text = Files.readString(Path.of("data.txt"));
+
+Q: How do you write a file?
+A: Files.writeString.
+Files.writeString(Path.of("out.txt"), "hello");
+
+Q: How do you list a folder?
+A: Files.list.
+try (var s = Files.list(Path.of("data"))) {
+    s.forEach(p -> System.out.println(p));
+}
+
+Q: How do you check file exists?
+A: Files.exists(Path.of("f.txt")).
+
+Q: How do you read all lines?
+A: Files.readAllLines.
+
+Q: How do you do JSON in Java?
+A: Library: Jackson or Gson. No stdlib JSON.
+
+Q: How do you format strings?
+A: String.format or formatted.
+String s = String.format("hello %s, you are %d", name, age);
+
+Q: How do you do text blocks?
+A: Triple quotes (Java 15+).
+String s = """
+    line one
+    line two
+    """;
+
+Q: How do you split a string?
+A: .split(regex).
+String[] parts = "a,b,c".split(",");
+
+Q: How do you join?
+A: String.join.
+String s = String.join("-", "a", "b");
+
+Q: How do you check contains?
+A: .contains().
+if (text.contains("arjan")) { }
+
+Q: How do you replace?
+A: .replace().
+s.replace("NeuroBrain", "Arjan Pannu");
+
+Q: How do you change case?
+A: .toLowerCase() .toUpperCase().
+
+Q: How do you trim?
+A: .trim() or .strip().
+
+Q: How do you do StringBuilder?
+A: For building strings in loops.
+StringBuilder sb = new StringBuilder();
+for (String w : words) sb.append(w).append(" ");
+String s = sb.toString();
+
+Q: What is autoboxing?
+A: int <-> Integer automatic.
+Integer x = 5;
+int y = x;
+
+Q: What are generics?
+A: Type parameters.
+public class Box<T> {
+    T value;
+}
+Box<String> b = new Box<>();
+
+Q: What is var?
+A: Type inferred (Java 10+).
+var list = new ArrayList<String>();
+
+Q: What are lambdas?
+A: Short functions.
+list.forEach(s -> System.out.println(s));
+Runnable r = () -> System.out.println("run");
+
+Q: What are streams?
+A: Pipeline operations on collections.
+import java.util.stream.*;
+var out = list.stream()
+    .filter(s -> s.length() > 2)
+    .map(String::toUpperCase)
+    .toList();
+
+Q: How do you do Optional?
+A: Null-safe wrapper.
+Optional<String> m = Optional.ofNullable(user.getMood());
+String mood = m.orElse("curious");
+
+Q: How do you do dates?
+A: java.time.
+import java.time.*;
+LocalDate today = LocalDate.now();
+LocalDateTime now = LocalDateTime.now();
+
+Q: How do you format dates?
+A: DateTimeFormatter.
+now.format(DateTimeFormatter.ISO_LOCAL_DATE);
+
+Q: How do you do random?
+A: Random or ThreadLocalRandom.
+import java.util.Random;
+int r = new Random().nextInt(10);
+
+Q: How do you do math?
+A: Math class.
+Math.sqrt(16);
+Math.max(a, b);
+Math.random();
+
+Q: How do you do threads?
+A: Thread or ExecutorService.
+new Thread(() -> work()).start();
+
+Q: How do you do a thread pool?
+A: Executors.
+var pool = Executors.newFixedThreadPool(4);
+pool.submit(() -> work());
+
+Q: How do you do futures?
+A: Future or CompletableFuture.
+var f = CompletableFuture.supplyAsync(() -> compute());
+System.out.println(f.join());
+
+Q: How do you synchronize?
+A: synchronized keyword.
+public synchronized void bump() {
+    n++;
+}
+
+Q: What is volatile?
+A: Visibility across threads.
+
+Q: How do you do an HTTP request?
+A: HttpClient (Java 11+).
+import java.net.http.*;
+var client = HttpClient.newHttpClient();
+var req = HttpRequest.newBuilder(URI.create("https://example.com")).build();
+var res = client.send(req, HttpResponse.BodyHandlers.ofString());
+
+Q: How do you do a simple server?
+A: HttpServer (com.sun) or a framework. For real apps use Spring/Quarkus.
+
+Q: How do you do logging?
+A: java.util.logging, or slf4j/logback.
+import java.util.logging.Logger;
+Logger log = Logger.getLogger("brain");
+log.info("started");
+
+Q: How do you test in Java?
+A: JUnit.
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+class T {
+    @Test void adds() {
+        assertEquals(5, add(2, 3));
+    }
+}
+
+Q: How do you do assertions?
+A: assert keyword (needs -ea), or JUnit.
+
+Q: How do you debug?
+A: IDE debugger, or jdb. Prints work too.
+
+Q: How do you profile?
+A: jvisualvm, async-profiler.
+
+Q: What is the JVM?
+A: Java Virtual Machine. Runs bytecode. JIT compiles hot code.
+
+Q: What is garbage collection?
+A: JVM frees unused objects automatically. No free() like C.
+
+Q: What is a memory leak in Java?
+A: Holding references you don't need (static collections, listeners).
+
+Q: How do you do enums with data?
+A: Enum with fields.
+public enum Mood {
+    CURIOUS(1), TIRED(2);
+    public final int code;
+    Mood(int c) { code = c; }
+}
+
+Q: How do you do records?
+A: Compact data classes (Java 16+).
+public record Point(int x, int y) {}
+
+Q: How do you do sealed classes?
+A: Restrict who can extend (Java 17+).
+
+Q: What is reflection?
+A: Inspect classes at runtime.
+Class<?> c = Brain.class;
+for (var m : c.getMethods()) System.out.println(m.getName());
+
+Q: What are annotations?
+A: @Override, @Test, custom. Metadata for tools.
+
+Q: How do you make your own annotation?
+A: @interface.
+
+Q: How do you do dependency injection?
+A: Frameworks (Spring) or hand-passed constructors. Prefer constructors.
+
+Q: How do you structure a Java project?
+A: Maven/Gradle: src/main/java, src/test/java.
+
+Q: How do you do Maven?
+A: pom.xml declares deps.
+# mvn package
+
+Q: How do you do Gradle?
+A: build.gradle declares deps.
+# gradle build
+
+Q: How do you add a dependency?
+A: In pom.xml or build.gradle. Maven Central hosts them.
+
+Q: What is Android's language?
+A: Kotlin now, Java before. Both run on ART.
+
+Q: How do you do Android basics?
+A: Activity, Views, Intents. Big topic; start with one tutorial app.
+
+Q: How do you do a background service on Android?
+A: Service or WorkManager. Needs permissions.
+
+Q: How do you keep data on device?
+A: Internal storage, Room database, or files. No cloud needed.
+
+Q: How do you do neural nets in Java?
+A: DJL (Deep Java Library), or ONNX Runtime Java, or hand-rolled floats.
+
+Q: How do you do matrix math in Java?
+A: Loops over float[]. Same as C.
+void matvec(float[] W, float[] x, float[] y, int rows, int cols) {
+    for (int r = 0; r < rows; r++) {
+        float s = 0;
+        for (int c = 0; c < cols; c++) s += W[r * cols + c] * x[c];
+        y[r] = s;
+    }
+}
+
+Q: How do you do softmax in Java?
+A: Same math.
+static void softmax(float[] x) {
+    float mx = x[0];
+    for (float v : x) mx = Math.max(mx, v);
+    float s = 0;
+    for (int i = 0; i < x.length; i++) { x[i] = (float) Math.exp(x[i] - mx); s += x[i]; }
+    for (int i = 0; i < x.length; i++) x[i] /= s;
+}
+
+Q: How do you sample in Java?
+A: Cumulative random.
+static int sample(float[] p, Random r) {
+    float x = r.nextFloat();
+    for (int i = 0; i < p.length; i++) {
+        x -= p[i];
+        if (x <= 0) return i;
+    }
+    return p.length - 1;
+}
+
+Q: What Java should I learn first?
+A: Core: classes, collections, exceptions, files, threads. Then Android basics.
+
+Q: How do you keep Java code clean?
+A: Small classes, constructor injection, no static abuse, test everything.
+
+END OF JAVA.
+
+Q: How do you do nested classes?
+A: Class inside class.
+public class Outer {
+    public static class Inner {
+    }
+    public class Member {
+    }
+}
+
+Q: How do you do anonymous classes?
+A: One-off implementation.
+button.setOnClickListener(new OnClickListener() {
+    public void onClick() { System.out.println("hi"); }
+});
+
+Q: How do you do a singleton?
+A: Private constructor + static instance.
+public class Brain {
+    private static final Brain INSTANCE = new Brain();
+    private Brain() {}
+    public static Brain get() { return INSTANCE; }
+}
+
+Q: How do you do a builder?
+A: Fluent setters returning this.
+public class Config {
+    int layers = 6;
+    public Config layers(int n) { layers = n; return this; }
+}
+var c = new Config().layers(12);
+
+Q: How do you do equals and hashCode?
+A: Override both together.
+@Override public boolean equals(Object o) {
+    if (!(o instanceof Point p)) return false;
+    return x == p.x && y == p.y;
+}
+@Override public int hashCode() {
+    return 31 * x + y;
+}
+
+Q: How do you do toString?
+A: Override for readable output.
+@Override public String toString() {
+    return "Brain(" + name + ")";
+}
+
+Q: How do you do comparable?
+A: Implement Comparable.
+public class Score implements Comparable<Score> {
+    int v;
+    public int compareTo(Score o) { return v - o.v; }
+}
+
+Q: How do you do cloning?
+A: Cloneable is tricky; prefer copy constructors.
+public Brain(Brain other) {
+    this.name = other.name;
+}
+
+Q: What is serialization?
+A: Object to bytes. implements Serializable.
+import java.io.Serializable;
+
+Q: How do you serialize to file?
+A: ObjectOutputStream.
+try (var o = new ObjectOutputStream(new FileOutputStream("b.ser"))) {
+    o.writeObject(brain);
+}
+
+Q: How do you do deep copy via serialization?
+A: Round-trip through bytes. Slow but simple.
+
+Q: How do you do properties files?
+A: java.util.Properties.
+var p = new Properties();
+p.load(new FileReader("app.properties"));
+
+Q: How do you do command args parsing?
+A: Manual loop, or a lib (picocli).
+
+Q: How do you do interactive console?
+A: Scanner.
+import java.util.Scanner;
+var sc = new Scanner(System.in);
+String line = sc.nextLine();
+
+Q: How do you do formatted output?
+A: System.out.printf.
+System.out.printf("iter %d loss %.3f%n", it, loss);
+
+Q: How do you do colors in terminal?
+A: ANSI codes.
+System.out.println("\u001B[32mgreen\u001B[0m");
+
+Q: How do you do progress bars?
+A: \r rewrite.
+System.out.print("\r" + pct + "%");
+
+Q: How do you do shutdown hooks?
+A: Runtime hook.
+Runtime.getRuntime().addShutdownHook(new Thread(() -> save()));
+
+Q: How do you do JNI?
+A: Java Native Interface: call C from Java. For speed-critical parts.
+
+Q: How do you do a simple neural net in pure Java?
+A: float arrays + loops. Same math as everywhere.
+public class Tiny {
+    float[] w;
+    public float[] forward(float[] x) {
+        float[] y = new float[w.length / x.length];
+        matvec(w, x, y);
+        softmax(y);
+        return y;
+    }
+}
+
+Q: How do you load weights in Java?
+A: DataInputStream over weights.bin, parse manifest JSON with a lib.
+
+Q: How do you do tokenization in Java?
+A: Map char to index.
+var stoi = new HashMap<String, Integer>();
+
+Q: How do you generate text in Java?
+A: Loop: forward, sample, append, repeat.
+
+Q: How do you do temperature in Java?
+A: Divide logits before softmax.
+for (int i = 0; i < logits.length; i++) logits[i] /= temp;
+
+Q: How do you do top-k in Java?
+A: Partial sort indices, keep k best.
+
+Q: How do you make generation stoppable?
+A: AtomicBoolean flag checked each step.
+
+Q: How do you stream tokens to UI?
+A: Callback per token.
+public interface TokenListener {
+    void onToken(String tok);
+}
+
+Q: How do you do an Android chat UI?
+A: RecyclerView for messages, EditText + Button for input. ViewModel holds state.
+
+Q: How do you run the brain off the UI thread?
+A: Executor or coroutine. Never block main thread.
+
+Q: How do you bundle weights in an app?
+A: assets/ folder. 13MB is fine.
+
+Q: How do you mmap weights on Android?
+A: FileChannel.map. Fast load, low RAM.
+
+Q: How do you do quantized inference?
+A: int8 weights. Advanced; learn float first.
+
+Q: How do you do benchmarks in Java?
+A: JMH. Or nanoTime loops (warm up first).
+long t = System.nanoTime();
+work();
+System.out.println((System.nanoTime() - t) / 1e6 + " ms");
+
+Q: How do you avoid GC pauses?
+A: Reuse buffers, avoid allocation in hot loops. Like my KV cache.
+
+Q: How do you do off-heap memory?
+A: ByteBuffer.allocateDirect.
+
+Q: How do you do memory-mapped files?
+A: FileChannel.map.
+
+Q: How do you watch a file?
+A: WatchService.
+var ws = FileSystems.getDefault().newWatchService();
+
+Q: How do you do a simple scheduler?
+A: ScheduledExecutorService.
+var s = Executors.newScheduledThreadPool(1);
+s.scheduleAtFixedRate(() -> check(), 0, 45, TimeUnit.MINUTES);
+
+Q: How do you do retries?
+A: Loop with backoff.
+for (int i = 0; i < 3; i++) {
+    try { return fetch(); }
+    catch (IOException e) { Thread.sleep(1000L * (i + 1)); }
+}
+
+Q: How do you do circuit breakers?
+A: Count failures, stop trying for a while. Pattern, not stdlib.
+
+Q: How do you do rate limiting?
+A: Semaphore or Guava RateLimiter.
+
+Q: How do you do caching?
+A: LinkedHashMap LRU, or Caffeine lib.
+var cache = new LinkedHashMap<String, float[]>(100, 0.75f, true) {
+    protected boolean removeEldestEntry(var e) { return size() > 100; }
+};
+
+Q: How do you do config?
+A: Properties file or env vars.
+
+Q: How do you do feature flags?
+A: Config booleans checked at runtime.
+
+Q: How do you do A/B simply?
+A: Random split by user id hash.
+
+Q: How do you do metrics?
+A: Counters + timers. Micrometer lib, or hand-rolled.
+
+Q: How do you do health checks?
+A: /health endpoint returning ok.
+
+Q: How do you structure packages?
+A: com.arjan.brain: model, data, agent, web.
+
+Q: How do you do modules (JPMS)?
+A: module-info.java. Optional; jars work without.
+
+Q: How do you do multi-release jars?
+A: Skip unless needed.
+
+Q: How do you sign a jar?
+A: jarsigner. For distribution.
+
+Q: How do you do GraalVM native?
+A: Compile to native binary. Fast start, no JVM.
+
+Q: How do you do Docker for Java?
+A: Small JRE image, copy jar, run.
+
+Q: What is Kotlin?
+A: Modern JVM language. Less boilerplate. Android's favorite.
+
+Q: Should I learn Kotlin too?
+A: After Java basics. It interops fully.
+
+Q: How do you do coroutines?
+A: Kotlin feature. Lightweight async.
+
+Q: How do you keep Android apps private?
+A: No network permission = no data leaves. My Phase 2 plan.
+
+Q: How do you do backups of app data?
+A: Auto Backup or manual export.
+
+Q: How do you do app updates?
+A: Play Store or sideload APK.
+
+Q: What is the 1B param plan in Java terms?
+A: Not hand-rolled. Use a runtime (llama.cpp via JNI, or ONNX) with fine-tuned weights.
+
+Q: How do you fine-tune for Java?
+A: Python training (like now), export weights, run in Java.
+
+Q: What is the fastest way to learn Java?
+A: Build the Android chat app for me. Real project, real learning.
+
+END OF JAVA.
