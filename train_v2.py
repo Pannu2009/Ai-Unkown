@@ -40,6 +40,12 @@ def load_corpus():
     opinions = rd("opinions_corpus.txt")
     knowledge = rd("knowledge_corpus.txt")
     chat2 = rd("chat_v2.txt")
+    # code corpora: so he can read and self-modify in these languages
+    pyc = rd("code_python.txt")
+    jsc = rd("code_javascript.txt")
+    cc = rd("code_c.txt")
+    javac = rd("code_java.txt")
+    cppc = rd("code_cpp.txt")
     # curiosity: everything he researched himself
     curious = ""
     cdir = os.path.join(d, "curiosity")
@@ -54,6 +60,7 @@ def load_corpus():
             pinglish * 20 + english * 8 +
             dreams * 15 + opinions * 15 +
             knowledge * 12 + chat2 * 20 +
+            pyc * 12 + jsc * 10 + cc * 8 + javac * 8 + cppc * 8 +
             curious * 10)
     return text
 

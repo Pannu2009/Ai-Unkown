@@ -1,0 +1,13 @@
+# NeuroBrain training summary
+
+## v2 — 2026-10-18 (FINAL, dead at iter 11500/12000)
+- Params: 2.76M (6 layers, 6 heads, 192 embd, block 128, batch 32, lr 3e-4)
+- Iters: 11500/12000 reached (~500 lost)
+- Last observed: iter 11500, train 0.075, val 4.165
+- Earlier: iter 10000 (0.077/4.204), iter 10500 (0.076/4.279), iter 11000 (0.074/4.459)
+- best.pt: saved at iter 7001 (best-val checkpoint; NOTE: resume bug may have overwritten true best — ckpt_1000.pt from val~2.857 era kept as fallback)
+- Diet: 354,656 chars, vocab 190 — lua x4, chat x25, sikh x12, engines x8, punjabi_gurmukhi x20, punjabi_shahmukhi x15, punjabi_history x10, pinglish x20, english x8
+- Overfitting observed: train ~0.075 flat while val climbed 4.2 -> 4.4
+- Death cause: corpus files (knowledge_corpus, chat_v2) added to data/ mid-run grew vocab 190 -> 195; --resume crashed on size mismatch. LESSON: never add corpus files mid-run; stage for next version.
+- Exported to web_v2/ (weights.bin 13.4MB, 131 tensors, vocab 190) and uploaded to Cloudflare KV; worker redeployed with cache-buster ?v=5
+- Live: https://neurobrain.ajay15deep.workers.dev
