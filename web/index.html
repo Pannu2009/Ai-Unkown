@@ -58,9 +58,11 @@
 
   async function init() {
     try {
-      status.textContent = "downloading weights (3.3MB)…";
+      const man0 = await (await fetch("/data/manifest.json?v=6")).json();
+      const pm = (man0.params / 1e6).toFixed(2) + "M";
+      status.textContent = "downloading weights (" + (man0.params * 4 / 1e6).toFixed(1) + "MB)…";
       await Brain.load("");
-      sub.textContent = "0.82M params · runs 100% in your browser · no servers";
+      sub.textContent = pm + " params · runs 100% in your browser · no servers";
       status.textContent = "";
       inp.disabled = send.disabled = false;
       addMsg("brain", "Sat sri akaal! I am NeuroBrain. Talk to me.", "NeuroBrain");

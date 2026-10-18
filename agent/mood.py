@@ -1,7 +1,7 @@
 """Arjan's mood engine. Moods change behavior: sampling temperature,
 response style, and what he wants to train on when idle.
 
-Honest note: at 2.76M params this is a scripted layer, not felt emotion.
+Honest note: at 9.6M params this is a scripted layer, not felt emotion.
 It genuinely changes what he does, which is what matters. The 1B driver
 will be able to steer it himself later.
 """
