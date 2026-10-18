@@ -61,7 +61,7 @@ const INDEX = `<!DOCTYPE html>
     try {
       status.textContent = "downloading weights (3.3MB)…";
       await Brain.load("");
-      sub.textContent = "0.82M params · runs 100% in your browser · no servers";
+      sub.textContent = "2.76M params · runs 100% in your browser · no servers";
       status.textContent = "";
       inp.disabled = send.disabled = false;
       addMsg("brain", "Sat sri akaal! I am NeuroBrain. Talk to me.", "NeuroBrain");
@@ -163,8 +163,8 @@ const Brain = (() => {
       const p = \`blocks.\${l}.\`;
       const h = layernorm(x, T[p + "ln1.weight"], T[p + "ln1.bias"]);
       const attnOut = new Float32Array(n_embd);
-      const layerCache = cache[l];
       for (let hd = 0; hd < n_head; hd++) {
+        const layerCache = cache[l][hd]; // per-head KV cache
         const qkv = matvec(T[\`\${p}heads.\${hd}.qkv.weight\`], h, 3 * hs, n_embd, null);
         const q = qkv.subarray(0, hs);
         const k = qkv.subarray(hs, 2 * hs).slice();
@@ -202,11 +202,12 @@ const Brain = (() => {
   }
 
   async function load(base) {
-    const man = await (await fetch(base + "/data/manifest.json")).json();
+    const v = "?v=3"; // cache-buster: bump when weights change
+    const man = await (await fetch(base + "/data/manifest.json" + v)).json();
     cfg = man;
-    const vt = await (await fetch(base + "/data/vocab.txt")).text();
+    const vt = await (await fetch(base + "/data/vocab.txt" + v)).text();
     vocab = [...vt]; stoi = {}; vocab.forEach((c, i) => stoi[c] = i);
-    const buf = await (await fetch(base + "/data/weights.bin")).arrayBuffer();
+    const buf = await (await fetch(base + "/data/weights.bin" + v)).arrayBuffer();
     const f32 = new Float32Array(buf);
     for (const t of man.tensors) {
       const n = t.shape.reduce((a, b) => a * b, 1);
@@ -227,7 +228,11 @@ const Brain = (() => {
 
   function reply(prompt, n = 120, temp = 0.8) {
     cache = [];
-    for (let l = 0; l < cfg.n_layer; l++) cache.push({ k: [], v: [] });
+    for (let l = 0; l < cfg.n_layer; l++) {
+      const heads = [];
+      for (let hd = 0; hd < cfg.n_head; hd++) heads.push({ k: [], v: [] });
+      cache.push(heads);
+    }
     const ids = [...prompt].map(c => stoi[c] ?? 0);
     const startLen = ids.length;
     let logits = null, pos = 0;
@@ -266,7 +271,7 @@ export default {
       const v = await env.BRAIN.get(key, "arrayBuffer");
       if (v === null) return new Response("not found", { status: 404 });
       const ct = key.endsWith(".json") ? "application/json" : key.endsWith(".txt") ? "text/plain" : "application/octet-stream";
-      return new Response(v, { headers: { "content-type": ct, "cache-control": "public, max-age=86400" } });
+      return new Response(v, { headers: { "content-type": ct, "cache-control": "no-cache" } });
     }
     return Response.json({ name: null, note: "unnamed — the agent names itself", version: "0.3" });
   }
