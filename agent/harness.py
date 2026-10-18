@@ -18,16 +18,25 @@ ALLOWED_ROOTS = [
     os.path.join(ROOT, "worker"),
 ]
 
+# These can NEVER be written by the agent, no matter what.
+# RULE 1: the rule book is immutable. CHANGELOG is append-only via log_change().
+PROTECTED_PATHS = [
+    os.path.join(ROOT, ".rules.md"),
+    os.path.join(ROOT, "CHANGELOG.md"),
+]
+
 DESTRUCTIVE = ("rm ", "rm -rf", "DROP", "DELETE FROM", "revoke", "git push --force")
 
 
 def check_rules(action, args):
-    """Returns (ok, reason). RULE 0, 4, 5, 6 live here."""
+    """Returns (ok, reason). RULE 0, 1, 4, 5, 6 live here."""
     if os.path.exists(STOP_FILE):  # RULE 0 — kill switch
         return False, "STOP file present: Ajay halted the agent."
     target = args.get("path", "") or args.get("url", "") or ""
-    if action in ("read_file", "write_file"):
+    if action in ("read_file", "write_file", "self_modify"):
         real = os.path.realpath(os.path.join(ROOT, target.lstrip("/")))
+        if real in PROTECTED_PATHS:  # RULE 1 — rule book immutable
+            return False, f"RULE 1: {target} can never be modified by the agent."
         if not any(real.startswith(r) for r in ALLOWED_ROOTS):
             return False, f"RULE 5: {target} is outside the agent's yard."
     # shell runs with cwd=ROOT; destructive patterns are filtered below.
@@ -71,12 +80,43 @@ def run_tool(action, args):
             with urllib.request.urlopen(req, timeout=30) as r:
                 out = {"ok": True,
                        "content": r.read(20000).decode("utf-8", "replace")}
+        elif action == "self_modify":
+            out = self_modify(args["path"], args["content"],
+                              args.get("test_cmd"))
         else:
             return {"ok": False, "error": f"unknown tool {action}"}
     except Exception as e:
         return {"ok": False, "error": str(e)[:300]}
     log_change(f"tool {action} {json.dumps(args)[:200]} -> ok={out['ok']}")
     return out
+
+
+def self_modify(path, new_content, test_cmd=None):
+    """Write new code, TEST it, then commit. If tests fail, revert.
+    This is how Arjan edits himself without breaking himself."""
+    p = os.path.join(ROOT, path.lstrip("/"))
+    try:
+        with open(p) as f:
+            old = f.read()
+        existed = True
+    except FileNotFoundError:
+        old, existed = "", False
+    with open(p, "w") as f:
+        f.write(new_content)
+    if test_cmd:
+        r = subprocess.run(test_cmd, shell=True, capture_output=True,
+                           text=True, timeout=120, cwd=ROOT)
+        if r.returncode != 0:
+            if existed:
+                with open(p, "w") as f:  # revert
+                    f.write(old)
+            elif os.path.exists(p):
+                os.remove(p)
+            log_change(f"self_modify {path} REVERTED: tests failed\n{r.stderr[-500:]}")
+            return {"ok": False, "error": "tests failed, reverted",
+                    "stderr": r.stderr[-1000:]}
+    log_change(f"self_modify {path}: tests passed, committed")
+    return {"ok": True, "path": path, "tested": bool(test_cmd)}
 
 
 if __name__ == "__main__":
