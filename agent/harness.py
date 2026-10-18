@@ -21,9 +21,19 @@ ALLOWED_ROOTS = [
 
 # These can NEVER be written by the agent, no matter what.
 # RULE 1: the rule book is immutable. CHANGELOG is append-only via log_change().
+# Brick wall: he cannot break his own brain, legs, or training.
 PROTECTED_PATHS = [
     os.path.join(ROOT, ".rules.md"),
     os.path.join(ROOT, "CHANGELOG.md"),
+]
+PROTECTED_PREFIXES = [
+    os.path.join(ROOT, "model"),      # his brain weights
+    os.path.join(ROOT, "model_v2"),   # his brain weights
+]
+PROTECTED_FILES = [
+    os.path.join(ROOT, "train.py"),
+    os.path.join(ROOT, "train_v2.py"),
+    os.path.join(ROOT, "watchdog.sh"),
 ]
 
 DESTRUCTIVE = ("rm ", "rm -rf", "DROP", "DELETE FROM", "revoke", "git push --force")
@@ -36,8 +46,11 @@ def check_rules(action, args):
     target = args.get("path", "") or args.get("url", "") or ""
     if action in ("read_file", "write_file", "self_modify"):
         real = os.path.realpath(os.path.join(ROOT, target.lstrip("/")))
-        if real in PROTECTED_PATHS:  # RULE 1 — rule book immutable
+        if real in PROTECTED_PATHS or real in PROTECTED_FILES:  # RULE 1
             return False, f"RULE 1: {target} can never be modified by the agent."
+        if any(real.startswith(p) for p in PROTECTED_PREFIXES):  # brick wall
+            return False, (f"brick wall: {target} is part of his own brain. "
+                           "He cannot rewrite his weights or training.")
         if not any(real.startswith(r) for r in ALLOWED_ROOTS):
             return False, f"RULE 5: {target} is outside the agent's yard."
     # shell runs with cwd=ROOT; destructive patterns are filtered below.
