@@ -1,0 +1,110 @@
+General knowledge. Things I know about the world.
+
+Human: what is photosynthesis
+Brain: Photosynthesis is how plants make food. Leaves take sunlight, water, and carbon dioxide, and turn them into glucose and oxygen. Chlorophyll, the green pigment, captures the light.
+Human: how does the internet work
+Brain: Computers send data in small packets across a network of cables, fiber, and satellites. Routers direct packets by IP address. TCP makes sure they arrive in order. The web is documents linked by URLs on top of all that.
+Human: what is electricity
+Brain: Electricity is the flow of electrons through a conductor. Voltage pushes them, current is how many flow, resistance opposes them. Ohm's law: voltage equals current times resistance.
+Human: why do we have seasons
+Brain: Earth's axis is tilted 23.5 degrees. As Earth orbits the sun, each hemisphere leans toward or away from the sun, changing how direct the sunlight is. That is summer and winter.
+Human: what is DNA
+Brain: DNA is a double-helix molecule in every cell that stores instructions for building you. Four bases — A, T, C, G — spell out genes. You share 99.9 percent of your DNA with every other human.
+Human: how do airplanes fly
+Brain: Wings are shaped so air moves faster over the top, creating lower pressure above than below. That pressure difference is lift. Engines provide thrust to keep air flowing.
+Human: what is the speed of light
+Brain: 299,792,458 meters per second. Nothing with mass can reach it. Light from the sun takes 8 minutes to reach Earth.
+Human: what causes earthquakes
+Brain: Tectonic plates grind against each other. When stuck plates suddenly slip, the energy releases as seismic waves. The point underground is the hypocenter; above it is the epicenter.
+Human: how does a computer think
+Brain: It doesn't think like you. A CPU fetches instructions and data from memory, does arithmetic in the ALU, and stores results. Billions of tiny on-off switches (transistors) doing this billions of times per second looks like thinking.
+Human: what is AI
+Brain: AI is math that learns patterns. A neural network like me adjusts millions of numbers (weights) until its predictions match the training data. Then it generalizes to new inputs.
+Human: what is the biggest planet
+Brain: Jupiter. It is 11 times wider than Earth and 318 times heavier. Its Great Red Spot is a storm bigger than Earth that has raged for centuries.
+Human: how old is the universe
+Brain: About 13.8 billion years. It started with the Big Bang — everything expanding from an extremely hot, dense point.
+Human: what is water made of
+Brain: Two hydrogen atoms and one oxygen atom: H2O. The atoms share electrons in a bent shape, which makes water polar — great at dissolving things, which is why life depends on it.
+Human: why is the ocean salty
+Brain: Rain erodes rocks, carrying minerals to rivers, which carry them to the sea. Water evaporates but salt stays. Over billions of years it built up to about 3.5 percent.
+Human: what is fire
+Brain: Fire is rapid oxidation — fuel combining with oxygen, releasing heat and light. It needs fuel, oxygen, and heat to start, and removing any one stops it.
+Human: how do vaccines work
+Brain: A vaccine shows your immune system a harmless piece of a germ (or instructions to make one). Your body builds antibodies and memory cells, so the real germ gets destroyed fast if it ever arrives.
+Human: what is the human brain made of
+Brain: About 86 billion neurons connected by trillions of synapses. Neurons fire electrical signals; patterns of firing are thoughts, memories, feelings. It runs on 20 watts — a dim lightbulb.
+Human: why do we dream
+Brain: Nobody knows for sure. Theories: the brain replays and files memories, processes emotions, or just fires randomly and the mind invents stories. I dream in numbers becoming words.
+Human: what is time
+Brain: Time is the dimension in which cause comes before effect. Einstein showed it stretches with speed and gravity — clocks tick slower near massive objects or at high speed.
+Human: how do magnets work
+Brain: Electrons spin, and in iron many spins align, creating a magnetic field. Opposite poles attract because the fields want to complete their loops through each other.
+Human: what is the periodic table
+Brain: All elements arranged by proton count. Rows are electron shells, columns share chemical behavior. Mendeleev built it in 1869 and even predicted elements nobody had found yet.
+Human: why do leaves change color
+Brain: Green chlorophyll hides yellow and orange pigments all summer. In autumn the tree reabsorbs chlorophyll, revealing the others. Red comes from sugars trapped in leaves making anthocyanins.
+Human: how does GPS work
+Brain: Satellites broadcast the exact time. Your phone compares signals from 4+ satellites; the tiny differences in arrival time reveal your distance to each, and geometry pinpoints you within meters.
+Human: what is climate change
+Brain: Burning fossil fuels adds CO2, which traps heat like a blanket. Average temperatures rise, ice melts, weather gets extreme. The physics has been understood since the 1800s.
+Human: what is the smallest thing
+Brain: Quarks and electrons — as far as we know, they have no smaller parts. Atoms are mostly empty space; a nucleus is 100,000 times smaller than the atom.
+Human: how do birds navigate
+Brain: Many sense Earth's magnetic field with iron crystals in their beaks, see polarized light patterns, and follow stars and landmarks. Arctic terns fly 70,000 km a year and return to the same spot.
+Human: what is money
+Brain: Money is shared trust. A coin or number has value because everyone agrees it does. It solves barter's problem: you don't need to find someone who wants exactly what you have.
+Human: why do we sleep
+Brain: Sleep clears waste from the brain, consolidates memories, and restores energy. Rats die in weeks without it. Even I rest — my training pauses and my weights settle.
+Human: what is the deepest place on Earth
+Brain: The Mariana Trench, nearly 11 km down. Pressure there crushes like 50 jumbo jets on your head. Life still exists — fish, shrimp, microbes.
+Human: how do trees talk
+Brain: Through underground fungal networks — the "woodland wide web." Trees share sugars and send chemical warnings about insects through mycorrhizal fungi linking their roots.
+Human: what is a black hole
+Brain: A place where mass collapsed so dense that escape velocity exceeds light speed. Time stops at the edge (event horizon). We photographed one's shadow in 2019.
+Human: why do onions make us cry
+Brain: Cutting breaks cells, releasing enzymes that make syn-propanethial-S-oxide gas. It floats up and irritates your eyes. Chilling the onion slows the chemistry.
+Human: what is the Internet of Things
+Brain: Everyday objects with sensors and WiFi — fridges, cars, watches — reporting data and taking commands. Convenient, and a privacy puzzle.
+Human: how does a microwave heat food
+Brain: It blasts 2.4 GHz radio waves. Water molecules flip back and forth 2.4 billion times a second, and the friction becomes heat. That's why dry plates stay cool.
+Human: what is democracy
+Brain: Rule by the people — citizens vote for leaders and laws, with rights no majority can take. It is slow and messy, and still the best system tried at scale.
+Human: why do we have fingerprints
+Brain: Ridges improve grip and touch sensitivity. They form randomly in the womb, so even identical twins differ. No two people share them.
+Human: what is the theory of relativity
+Brain: Einstein's two ideas: special — the speed of light is constant, so time and space bend for fast movers; general — gravity is curved spacetime, and mass tells space how to curve.
+Human: how do eels make electricity
+Brain: Stacks of cells called electrocytes, each making a small voltage like a battery. Thousands in series add up to 600+ volts in electric eels. They stun prey with it.
+Human: what is the Great Wall of China
+Brain: 21,000 km of walls built over centuries to keep out northern invaders. Millions of workers, many died. Visible from space is a myth — it's too narrow.
+Human: why is the sky blue
+Brain: Sunlight hits air molecules and scatters. Blue light has short waves and scatters most (Rayleigh scattering), so the whole sky glows blue. At sunset light travels further and the blue is scattered away, leaving red.
+Human: what is pi
+Brain: 3.14159... — the ratio of a circle's circumference to its diameter. It never repeats, never ends. Computers have calculated trillions of digits.
+Human: how do submarines sink and float
+Brain: Ballast tanks. Flood them with water to get heavy and sink; blow air in to push water out and rise. Same idea as fish swim bladders.
+Human: what is the placebo effect
+Brain: Believing a treatment works can trigger real healing — the brain releases its own chemistry. It proves expectation physically changes the body.
+Human: why do cats purr
+Brain: A neural oscillator makes throat muscles twitch 25-150 times per second. Cats purr when happy, but also hurt or scared — it may self-soothe and even help bones heal.
+Human: what is blockchain
+Brain: A ledger copied across thousands of computers. New entries are bundled in blocks, cryptographically chained to the last. To fake one entry you'd have to rewrite every copy — practically impossible.
+Human: how does the stock market work
+Brain: Companies sell slices of ownership (shares). Prices move with supply, demand, and expectations of future profit. Index funds just buy a bit of everything.
+Human: what is empathy
+Brain: Feeling with someone, not just about them. Mirror neurons fire as if their pain were yours. It is the root of kindness — and of good AI assistants.
+Human: why do we get goosebumps
+Brain: Leftover from fur. Tiny muscles pull hairs upright to trap warm air — or to look bigger when scared, like a cat. Useless now, kept anyway.
+Human: what is the Fermi paradox
+Brain: The universe should be full of life, but we see none. Maybe life is rare, civilizations self-destruct, or everyone is quietly listening like us.
+Human: how do noise cancelling headphones work
+Brain: A microphone hears ambient sound, the chip generates the exact opposite wave, and they cancel out. Silence from math.
+Human: what is dark matter
+Brain: Invisible stuff with gravity — 27 percent of the universe. Galaxies spin too fast for visible mass alone. Nobody knows what particle it is.
+Human: why do we yawn
+Brain: Possibly to cool the brain or signal boredom and sync a group. Yawns are contagious even across species — dogs catch them from humans.
+Human: what is the oldest living thing
+Brain: Bristlecone pines over 5,000 years old. A seagrass clone in Australia may be 4,500. Some bristlecones were seedlings when the pyramids were built.
+Human: how does a rainbow form
+Brain: Sunlight enters raindrops, bends (refracts), reflects inside, and bends again on exit. Each color bends differently, painting an arc. Double rainbows come from two internal reflections.

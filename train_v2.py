@@ -38,6 +38,8 @@ def load_corpus():
     english = rd("english_corpus.txt")
     dreams = rd("dreams_corpus.txt")
     opinions = rd("opinions_corpus.txt")
+    knowledge = rd("knowledge_corpus.txt")
+    chat2 = rd("chat_v2.txt")
     # curiosity: everything he researched himself
     curious = ""
     cdir = os.path.join(d, "curiosity")
@@ -51,6 +53,7 @@ def load_corpus():
             gurmukhi * 20 + shahmukhi * 15 + pjhist * 10 +
             pinglish * 20 + english * 8 +
             dreams * 15 + opinions * 15 +
+            knowledge * 12 + chat2 * 20 +
             curious * 10)
     return text
 

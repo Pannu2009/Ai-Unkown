@@ -101,7 +101,7 @@ const Brain = (() => {
   }
 
   async function load(base) {
-    const v = "?v=3"; // cache-buster: bump when weights change
+    const v = "?v=4"; // cache-buster: bump when weights change
     const man = await (await fetch(base + "/data/manifest.json" + v)).json();
     cfg = man;
     const vt = await (await fetch(base + "/data/vocab.txt" + v)).text();
@@ -125,8 +125,7 @@ const Brain = (() => {
     return p.length - 1;
   }
 
-  function reply(prompt, n = 120, temp = 0.8) {
-    cache = [];
+  function reply(prompt, n = 120, temp = 0.8) {    cache = [];
     for (let l = 0; l < cfg.n_layer; l++) {
       const heads = [];
       for (let hd = 0; hd < cfg.n_head; hd++) heads.push({ k: [], v: [] });
@@ -145,5 +144,24 @@ const Brain = (() => {
     return ids.slice(startLen).map(i => vocab[i]).join("");
   }
 
-  return { load, reply };
+  // think: run prefill, return top-5 next tokens with probabilities.
+  // This is literally what's on his mind.
+  function think(prompt) {
+    cache = [];
+    for (let l = 0; l < cfg.n_layer; l++) {
+      const heads = [];
+      for (let hd = 0; hd < cfg.n_head; hd++) heads.push({ k: [], v: [] });
+      cache.push(heads);
+    }
+    const ids = [...prompt].map(c => stoi[c] ?? 0);
+    let logits = null, pos = 0;
+    for (const id of ids) logits = step(id, pos++);
+    const mx = Math.max(...logits);
+    const exps = Array.from(logits, v => Math.exp(v - mx));
+    const s = exps.reduce((a, b) => a + b, 0);
+    return exps.map((p, i) => ({ tok: vocab[i], prob: p / s }))
+               .sort((a, b) => b.prob - a.prob).slice(0, 5);
+  }
+
+  return { load, reply, think };
 })();
