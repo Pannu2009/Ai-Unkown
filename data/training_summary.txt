@@ -11,3 +11,11 @@
 - Death cause: corpus files (knowledge_corpus, chat_v2) added to data/ mid-run grew vocab 190 -> 195; --resume crashed on size mismatch. LESSON: never add corpus files mid-run; stage for next version.
 - Exported to web_v2/ (weights.bin 13.4MB, 131 tensors, vocab 190) and uploaded to Cloudflare KV; worker redeployed with cache-buster ?v=5
 - Live: https://neurobrain.ajay15deep.workers.dev
+
+## v3 BIG — 2026-10-18 (IN PROGRESS, started ~10:55 PDT)
+- Params: 9.60M (12 layers, 8 heads, 256 embd, block 128, batch 32, lr 3e-4) — 3.5x v2
+- Iters: 12000 planned, ~0.3 it/s → ~12h (overnight run)
+- Diet: 1,921,834 chars, vocab 203 — v2 diet + dreams x15 + opinions x15 + knowledge x12 + chat_v2 x20 + code (python x12, js x10, c x8, java x8, cpp x8) + curiosity x10
+- Identity: Arjan Pannu (fixed), knowledge corpus, clean chat v2
+- Export plan: sharded weights (2x ~19MB), manifest ?v=7, KV upload, redeploy on DONE
+- v4 diet delta ready: engines_deep (32KB), sikh_history_deep (27KB), punjabi_literature (31KB)
