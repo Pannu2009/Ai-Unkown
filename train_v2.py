@@ -13,7 +13,7 @@ a = ap.parse_args()
 
 # ---------------- config ----------------
 BLOCK, BATCH = 128, 32
-N_LAYER, N_HEAD, N_EMBD = 6, 6, 192
+N_LAYER, N_HEAD, N_EMBD = 12, 8, 256
 LR, MAX_ITERS = 3e-4, 12000
 EVAL_EVERY, SAVE_EVERY = 500, 1000
 DEVICE, SEED = "cpu", 1337
