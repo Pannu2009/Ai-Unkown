@@ -99,16 +99,11 @@ const INDEX = `<!DOCTYPE html>
 </body>
 </html>
 `;
-const BRAINJS = `// brain.js - NeuroBrain inference in pure JavaScript. No dependencies.
+const BRAINJS = `// brain.js - NeuroBrain inference in pure JavaScript, KV-cached for speed.
 // Loads weights from the worker's KV, runs the transformer locally.
 const Brain = (() => {
   let T = {}, cfg = null, vocab = [], stoi = {};
-
-  const get = (name, shape) => {
-    const t = T[name];
-    if (!t) throw new Error("missing tensor " + name);
-    return t;
-  };
+  let cache = null; // per-layer {k: [], v: []}
 
   function matvec(W, x, rows, cols, bias) {
     const y = new Float32Array(rows);
@@ -128,8 +123,7 @@ const Brain = (() => {
     m /= n;
     let v = 0;
     for (let i = 0; i < n; i++) { const d = x[i] - m; v += d * d; }
-    v = v / n + 1e-5;
-    const inv = 1 / Math.sqrt(v);
+    const inv = 1 / Math.sqrt(v / n + 1e-5);
     const y = new Float32Array(n);
     for (let i = 0; i < n; i++) y[i] = (x[i] - m) * inv * w[i] + b[i];
     return y;
@@ -155,69 +149,56 @@ const Brain = (() => {
     return y;
   }
 
-  function forward(ids) {
-    const { n_layer, n_head, n_embd, block } = cfg;
+  // single-token forward with KV cache; pos = absolute position
+  function step(tokId, pos) {
+    const { n_layer, n_head, n_embd } = cfg;
     const hs = n_embd / n_head;
-    const t = ids.length;
-    // embed
-    let x = new Array(t);
-    const tokW = get("tok.weight"), posW = get("pos.weight");
-    for (let i = 0; i < t; i++) {
-      const row = new Float32Array(n_embd);
-      const to = tokW.subarray(ids[i] * n_embd, ids[i] * n_embd + n_embd);
-      const po = posW.subarray(i * n_embd, i * n_embd + n_embd);
-      for (let j = 0; j < n_embd; j++) row[j] = to[j] + po[j];
-      x[i] = row;
-    }
-    const applyLN = (rows, w, b) => rows.map(r => layernorm(r, w, b));
+    const tokW = T["tok.weight"], posW = T["pos.weight"];
+    let x = new Float32Array(n_embd);
+    const to = tokW.subarray(tokId * n_embd, tokId * n_embd + n_embd);
+    const po = posW.subarray(pos * n_embd, pos * n_embd + n_embd);
+    for (let j = 0; j < n_embd; j++) x[j] = to[j] + po[j];
+
     for (let l = 0; l < n_layer; l++) {
       const p = \`blocks.\${l}.\`;
-      let h = applyLN(x, get(p + "ln1.weight"), get(p + "ln1.bias"));
-      // attention per position
-      const out = new Array(t);
-      for (let i = 0; i < t; i++) {
-        const acc = new Float32Array(n_embd);
-        for (let hd = 0; hd < n_head; hd++) {
-          const qkvW = get(\`\${p}heads.\${hd}.qkv.weight\`);
-          // q,k,v for all positions up to i
-          const Q = [], K = [], V = [];
-          for (let j = 0; j <= i; j++) {
-            const qkv = matvec(qkvW, h[j], 3 * hs, n_embd, null);
-            Q.push(qkv.subarray(0, hs)); K.push(qkv.subarray(hs, 2 * hs)); V.push(qkv.subarray(2 * hs, 3 * hs));
-          }
-          const qi = Q[i];
-          const scores = new Float32Array(i + 1);
-          const sc = 1 / Math.sqrt(hs);
-          for (let j = 0; j <= i; j++) {
-            let s = 0;
-            for (let k = 0; k < hs; k++) s += qi[k] * K[j][k];
-            scores[j] = s * sc;
-          }
-          const probs = softmax(scores);
-          const o = new Float32Array(hs);
-          for (let j = 0; j <= i; j++)
-            for (let k = 0; k < hs; k++) o[k] += probs[j] * V[j][k];
-          acc.set(o, hd * hs);
+      const h = layernorm(x, T[p + "ln1.weight"], T[p + "ln1.bias"]);
+      const attnOut = new Float32Array(n_embd);
+      const layerCache = cache[l];
+      for (let hd = 0; hd < n_head; hd++) {
+        const qkv = matvec(T[\`\${p}heads.\${hd}.qkv.weight\`], h, 3 * hs, n_embd, null);
+        const q = qkv.subarray(0, hs);
+        const k = qkv.subarray(hs, 2 * hs).slice();
+        const v = qkv.subarray(2 * hs, 3 * hs).slice();
+        layerCache.k.push(k); layerCache.v.push(v);
+        const n = layerCache.k.length;
+        const scores = new Float32Array(n);
+        const sc = 1 / Math.sqrt(hs);
+        for (let j = 0; j < n; j++) {
+          let s = 0;
+          const kj = layerCache.k[j];
+          for (let d = 0; d < hs; d++) s += q[d] * kj[d];
+          scores[j] = s * sc;
         }
-        const proj = matvec(get(p + "proj.weight"), acc, n_embd, n_embd, null);
-        const row = new Float32Array(n_embd);
-        for (let j = 0; j < n_embd; j++) row[j] = x[i][j] + proj[j];
-        out[i] = row;
+        const probs = softmax(scores);
+        const o = new Float32Array(hs);
+        for (let j = 0; j < n; j++) {
+          const vj = layerCache.v[j], pj = probs[j];
+          for (let d = 0; d < hs; d++) o[d] += pj * vj[d];
+        }
+        attnOut.set(o, hd * hs);
       }
-      x = out;
-      // mlp
-      let h2 = applyLN(x, get(p + "ln2.weight"), get(p + "ln2.bias"));
-      x = x.map((row, i) => {
-        const m1 = matvec(get(p + "mlp.0.weight"), h2[i], 4 * n_embd, n_embd, get(p + "mlp.0.bias"));
-        const g = gelu(m1);
-        const m2 = matvec(get(p + "mlp.2.weight"), g, n_embd, 4 * n_embd, get(p + "mlp.2.bias"));
-        const r2 = new Float32Array(n_embd);
-        for (let j = 0; j < n_embd; j++) r2[j] = row[j] + m2[j];
-        return r2;
-      });
+      const proj = matvec(T[p + "proj.weight"], attnOut, n_embd, n_embd, null);
+      const x2 = new Float32Array(n_embd);
+      for (let j = 0; j < n_embd; j++) x2[j] = x[j] + proj[j];
+      const h2 = layernorm(x2, T[p + "ln2.weight"], T[p + "ln2.bias"]);
+      const m1 = matvec(T[p + "mlp.0.weight"], h2, 4 * n_embd, n_embd, T[p + "mlp.0.bias"]);
+      const m2 = matvec(T[p + "mlp.2.weight"], gelu(m1), n_embd, 4 * n_embd, T[p + "mlp.2.bias"]);
+      const x3 = new Float32Array(n_embd);
+      for (let j = 0; j < n_embd; j++) x3[j] = x2[j] + m2[j];
+      x = x3;
     }
-    const last = layernorm(x[t - 1], get("ln.weight"), get("ln.bias"));
-    return matvec(get("head.weight"), last, cfg.vocab, n_embd, null);
+    const last = layernorm(x, T["ln.weight"], T["ln.bias"]);
+    return matvec(T["head.weight"], last, cfg.vocab, n_embd, null);
   }
 
   async function load(base) {
@@ -234,19 +215,28 @@ const Brain = (() => {
   }
 
   function sample(logits, temp) {
-    const p = softmax(logits.map(v => v / temp));
-    let r = Math.random(), acc = 0;
-    for (let i = 0; i < p.length; i++) { acc += p[i]; if (r < acc) return i; }
+    let mx = -1e30;
+    for (let i = 0; i < logits.length; i++) if (logits[i] > mx) mx = logits[i];
+    const p = new Float32Array(logits.length);
+    let s = 0;
+    for (let i = 0; i < logits.length; i++) { p[i] = Math.exp((logits[i] - mx) / temp); s += p[i]; }
+    let r = Math.random() * s;
+    for (let i = 0; i < p.length; i++) { r -= p[i]; if (r <= 0) return i; }
     return p.length - 1;
   }
 
   function reply(prompt, n = 120, temp = 0.8) {
-    let ids = [...prompt].map(c => stoi[c] ?? 0);
+    cache = [];
+    for (let l = 0; l < cfg.n_layer; l++) cache.push({ k: [], v: [] });
+    const ids = [...prompt].map(c => stoi[c] ?? 0);
     const startLen = ids.length;
-    for (let s = 0; s < n; s++) {
-      const ctx = ids.slice(-cfg.block);
-      const logits = forward(ctx);
-      ids.push(sample(Array.from(logits), temp));
+    let logits = null, pos = 0;
+    for (const id of ids) { logits = step(id, pos++); }       // prefill
+    for (let s = 0; s < n; s++) {                             // generate
+      const nx = sample(logits, temp);
+      ids.push(nx);
+      logits = step(nx, pos++);
+      if (pos >= cfg.block) break;
     }
     return ids.slice(startLen).map(i => vocab[i]).join("");
   }
@@ -269,7 +259,7 @@ export default {
     const p = url.pathname;
     if (p === "/") return new Response(INDEX, { headers: { "content-type": "text/html" } });
     if (p === "/brain.js") return new Response(BRAINJS, { headers: { "content-type": "application/javascript" } });
-    if (p === "/health") return Response.json({ ok: true, version: "0.2" });
+    if (p === "/health") return Response.json({ ok: true, version: "0.3" });
     if (p === "/rules") return new Response(RULES, { headers: { "content-type": "text/plain" } });
     if (p.startsWith("/data/")) {
       const key = p.slice(6);
@@ -278,6 +268,6 @@ export default {
       const ct = key.endsWith(".json") ? "application/json" : key.endsWith(".txt") ? "text/plain" : "application/octet-stream";
       return new Response(v, { headers: { "content-type": ct, "cache-control": "public, max-age=86400" } });
     }
-    return Response.json({ name: null, note: "unnamed — the agent names itself", version: "0.2" });
+    return Response.json({ name: null, note: "unnamed — the agent names itself", version: "0.3" });
   }
 };
