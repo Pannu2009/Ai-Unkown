@@ -26,11 +26,20 @@ os.makedirs(OUT_DIR, exist_ok=True)
 
 def load_corpus():
     d = os.path.join(HERE, "data")
-    lua = open(os.path.join(d, "lua_corpus.txt"), encoding="utf-8").read()
-    chat = open(os.path.join(d, "chat_corpus.txt"), encoding="utf-8").read()
-    sikh = open(os.path.join(d, "sikh_corpus.txt"), encoding="utf-8").read()
+    def rd(f): return open(os.path.join(d, f), encoding="utf-8").read()
+    lua = rd("lua_corpus.txt")
+    chat = rd("chat_corpus.txt")
+    sikh = rd("sikh_corpus.txt")
+    engines = rd("engines_corpus.txt")
+    gurmukhi = rd("punjabi_gurmukhi.txt")
+    shahmukhi = rd("punjabi_shahmukhi.txt")
+    pjhist = rd("punjabi_history.txt")
+    pinglish = rd("pinglish.txt")
+    english = rd("english_corpus.txt")
     # repetition weights: facts get memorized, code patterns get variety
-    text = lua * 4 + chat * 25 + sikh * 12
+    text = (lua * 4 + chat * 25 + sikh * 12 + engines * 8 +
+            gurmukhi * 20 + shahmukhi * 15 + pjhist * 10 +
+            pinglish * 20 + english * 8)
     return text
 
 text = load_corpus()

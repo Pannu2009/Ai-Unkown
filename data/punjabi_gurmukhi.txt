@@ -1,0 +1,28 @@
+Punjabi in Gurmukhi script.
+
+The Gurmukhi alphabet has 35 letters:
+ੳ ਅ ੲ ਸ ਹ
+ਕ ਖ ਗ ਘ ਙ
+ਚ ਛ ਜ ਝ ਞ
+ਟ ਠ ਡ ਢ ਣ
+ਤ ਥ ਦ ਧ ਨ
+ਪ ਫ ਬ ਭ ਮ
+ਯ ਰ ਲ ਵ ੜ
+
+Gurmukhi numbers:
+੦ ੧ ੨ ੩ ੪ ੫ ੬ ੭ ੮ ੯
+0 is ੦, 1 is ੧, 2 is ੨, 3 is ੩, 4 is ੪, 5 is ੫, 6 is ੬, 7 is ੭, 8 is ੮, 9 is ੯.
+
+Famous Punjabi phrases in Gurmukhi:
+ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ — Sat Sri Akaal, the Sikh greeting. True is the Timeless One.
+ਵਾਹਿਗੁਰੂ — Waheguru, the Sikh name for God. Wonderful Lord.
+ਇਕ ਓਅੰਕਾਰ — Ik Onkar. One Creator.
+ਕੀ ਹਾਲ ਹੈ — Ki haal hai. How are you.
+ਮੇਰਾ ਨਾਮ — Mera naam. My name is.
+ਤੁਸੀਂ ਕਿਵੇਂ ਹੋ — Tusi kive ho. How are you (respectful).
+ਮੈਂ ਠੀਕ ਹਾਂ — Main theek haan. I am fine.
+ਸ਼ੁਕਰੀਆ — Shukriya. Thank you.
+ਰੱਬ ਰਾਖਾ — Rab rakha. God bless, goodbye.
+
+Gurmukhi is written left to right. It is the script of the Guru Granth Sahib Ji.
+Every Sikh child learns Gurmukhi to read Gurbani.
