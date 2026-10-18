@@ -1,0 +1,1072 @@
+JAVASCRIPT. The language of my web chat. brain.js — my brain running in the browser — is JavaScript.
+
+Q: How do you print in JavaScript?
+A: console.log.
+console.log("hello");
+console.log("my name is", name);
+
+Q: How do you declare a variable?
+A: let for changeable, const for fixed.
+let mood = "curious";
+const name = "arjan";
+mood = "focused";
+
+Q: What is var?
+A: Old way. Function-scoped, hoisted. Prefer let/const.
+
+Q: How do you write a function?
+A: function keyword, or arrow.
+function add(a, b) {
+  return a + b;
+}
+const add2 = (a, b) => a + b;
+
+Q: How do you write an arrow function with a body?
+A: Curly braces and return.
+const greet = (name) => {
+  const msg = "hello " + name;
+  return msg;
+};
+
+Q: How do you do string interpolation?
+A: Template literals with backticks and ${}.
+const name = "arjan";
+console.log(`hello ${name}, you are ${1}`);
+
+Q: How do you write an if statement?
+A: Same shape as C.
+if (x > 5) {
+  console.log("big");
+} else {
+  console.log("small");
+}
+
+Q: How do you write a for loop?
+A: Classic three-part.
+for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+
+Q: How do you loop over an array?
+A: for...of for values, forEach, or classic.
+for (const fruit of fruits) {
+  console.log(fruit);
+}
+fruits.forEach(f => console.log(f));
+
+Q: How do you make an array?
+A: Square brackets.
+const nums = [1, 2, 3];
+const names = ["arzh", "arjan"];
+
+Q: How do you add to an array?
+A: push() at end.
+nums.push(4);
+
+Q: How do you remove from array?
+A: pop() from end, shift() from start, splice anywhere.
+const last = nums.pop();
+nums.splice(1, 1);
+
+Q: How do you make an object?
+A: Curly braces with key: value.
+const person = { name: "arjan", age: 1 };
+console.log(person.name);
+
+Q: How do you add to an object?
+A: Assign by key.
+person.mood = "curious";
+
+Q: How do you loop over object keys?
+A: for...in or Object.keys.
+for (const k in person) {
+  console.log(k, person[k]);
+}
+Object.keys(person).forEach(k => console.log(k));
+
+Q: How do you check equality?
+A: === strict (type + value). == loose (converts). Always use ===.
+if (name === "arjan") {
+  console.log("me");
+}
+
+Q: What is null vs undefined?
+A: null is assigned empty. undefined is never assigned.
+let x;
+console.log(x === undefined);
+x = null;
+
+Q: How do you check for null safely?
+A: == null catches both null and undefined.
+if (x == null) {
+  console.log("empty");
+}
+
+Q: What is optional chaining?
+A: ?. stops if null.
+console.log(user?.profile?.name);
+
+Q: What is nullish coalescing?
+A: ?? gives default for null/undefined.
+const mood = user.mood ?? "curious";
+
+Q: How do you do typeof?
+A: typeof operator.
+console.log(typeof "hi");
+console.log(typeof 42);
+
+Q: How do you convert to number?
+A: Number(), parseInt, parseFloat.
+Number("42");
+parseInt("42px", 10);
+parseFloat("3.14");
+
+Q: How do you convert to string?
+A: String() or .toString().
+String(42);
+
+Q: How do you split a string?
+A: .split().
+"a,b,c".split(",");
+
+Q: How do you join an array?
+A: .join().
+["a", "b"].join("-");
+
+Q: How do you find in a string?
+A: .includes(), .indexOf().
+if (text.includes("arjan")) {
+  console.log("mentioned");
+}
+
+Q: How do you replace in a string?
+A: .replace() first match, .replaceAll() all.
+text.replace("NeuroBrain", "Arjan Pannu");
+
+Q: How do you change case?
+A: .toLowerCase() .toUpperCase().
+
+Q: How do you trim?
+A: .trim().
+
+Q: How do you slice a string?
+A: .slice(start, end).
+"hello".slice(1, 4);
+
+Q: How do you get string length?
+A: .length property.
+"hello".length;
+
+Q: How do you repeat a string?
+A: .repeat(n).
+"ha".repeat(3);
+
+Q: How do you check startsWith/endsWith?
+A: Built in.
+if (f.endsWith(".js")) {
+  console.log("script");
+}
+
+Q: How do you do a while loop?
+A: Same as C.
+let i = 0;
+while (i < 3) {
+  console.log(i);
+  i++;
+}
+
+Q: How do you break and continue?
+A: break exits, continue skips.
+for (const x of xs) {
+  if (x < 0) continue;
+  if (x > 100) break;
+}
+
+Q: How do you do a switch?
+A: switch on value.
+switch (mood) {
+  case "curious":
+    console.log("?");
+    break;
+  default:
+    console.log("...");
+}
+
+Q: How do you do a ternary?
+A: cond ? a : b.
+const label = score > 50 ? "pass" : "fail";
+
+Q: How do you make a class?
+A: class keyword, constructor.
+class Brain {
+  constructor(name) {
+    this.name = name;
+    this.mood = "curious";
+  }
+  think() {
+    return `${this.name} is ${this.mood}`;
+  }
+}
+const me = new Brain("arjan");
+
+Q: How do you extend a class?
+A: extends and super.
+class Dog extends Animal {
+  constructor() {
+    super();
+  }
+  speak() {
+    return "woof";
+  }
+}
+
+Q: What is this?
+A: The object the method was called on. Arrow functions keep outer this.
+
+Q: How do you do getters/setters?
+A: get/set keywords.
+class Temp {
+  get f() {
+    return this.c * 9/5 + 32;
+  }
+  set f(v) {
+    this.c = (v - 32) * 5/9;
+  }
+}
+
+Q: How do you make a module?
+A: export and import (ES modules).
+// math.js
+export function add(a, b) { return a + b; }
+// main.js
+import { add } from "./math.js";
+
+Q: How do you default-export?
+A: export default.
+export default class Brain {}
+
+Q: What is CommonJS?
+A: Older Node style: require and module.exports.
+const fs = require("fs");
+module.exports = { think };
+
+Q: How do you handle errors?
+A: try/catch/finally.
+try {
+  risky();
+} catch (e) {
+  console.log("failed:", e.message);
+} finally {
+  console.log("done");
+}
+
+Q: How do you throw an error?
+A: throw new Error.
+if (b === 0) {
+  throw new Error("divide by zero");
+}
+
+Q: What is a Promise?
+A: A value that arrives later. .then() or await.
+fetch(url).then(r => r.text()).then(console.log);
+
+Q: How do you write async/await?
+A: async function, await inside.
+async function load() {
+  const r = await fetch("https://example.com");
+  const text = await r.text();
+  return text;
+}
+
+Q: How do you run async at top level?
+A: Top-level await in modules, or wrap.
+(async () => {
+  const t = await load();
+  console.log(t);
+})();
+
+Q: How do you handle async errors?
+A: try/catch around await.
+async function safe() {
+  try {
+    return await load();
+  } catch (e) {
+    return "fallback";
+  }
+}
+
+Q: How do you run promises in parallel?
+A: Promise.all.
+const [a, b] = await Promise.all([fetch(u1), fetch(u2)]);
+
+Q: How do you race promises?
+A: Promise.race takes first finished.
+
+Q: How do you delay?
+A: setTimeout wrapped in promise.
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+await sleep(1000);
+
+Q: What is the event loop?
+A: JS runs one thing at a time. Async callbacks queue up and run when the stack is free.
+
+Q: What are callbacks?
+A: Functions passed to run later.
+setTimeout(() => console.log("later"), 1000);
+
+Q: How do you do setInterval?
+A: Repeats.
+const id = setInterval(() => console.log("tick"), 1000);
+clearInterval(id);
+
+Q: How do you read a file in Node?
+A: fs module.
+const fs = require("fs");
+const text = fs.readFileSync("data/chat.txt", "utf-8");
+
+Q: How do you write a file in Node?
+A: fs.writeFileSync.
+fs.writeFileSync("out.txt", "hello");
+
+Q: How do you read file async in Node?
+A: fs/promises.
+const fs = require("fs/promises");
+const text = await fs.readFile("f.txt", "utf-8");
+
+Q: How do you list a folder in Node?
+A: fs.readdirSync.
+const files = fs.readdirSync("data");
+
+Q: How do you check file exists in Node?
+A: fs.existsSync.
+
+Q: How do you join paths in Node?
+A: path.join.
+const path = require("path");
+path.join("data", "chat.txt");
+
+Q: How do you get __dirname in modules?
+A: import.meta.url, or path.dirname.
+
+Q: How do you run a shell command in Node?
+A: child_process.
+const { execSync } = require("child_process");
+const out = execSync("ls data", { encoding: "utf-8" });
+
+Q: How do you spawn with timeout in Node?
+A: execFile with timeout option.
+const { execFile } = require("child_process");
+execFile("python3", ["prog.py"], { timeout: 30000 }, (err, stdout) => {});
+
+Q: How do you get argv in Node?
+A: process.argv.
+console.log(process.argv.slice(2));
+
+Q: How do you get env in Node?
+A: process.env.
+const port = process.env.PORT || 8000;
+
+Q: How do you exit in Node?
+A: process.exit(code).
+
+Q: How do you do JSON in JS?
+A: JSON.parse and JSON.stringify.
+const obj = JSON.parse('{"a":1}');
+const s = JSON.stringify(obj);
+
+Q: How do you pretty-print JSON?
+A: Indent argument.
+JSON.stringify(obj, null, 2);
+
+Q: How do you deep-clone an object?
+A: structuredClone (modern) or JSON round-trip.
+const b = structuredClone(a);
+const c = JSON.parse(JSON.stringify(a));
+
+Q: How do you merge objects?
+A: Spread ... or Object.assign.
+const c = { ...a, ...b };
+
+Q: How do you copy an array?
+A: Spread or slice.
+const b = [...a];
+
+Q: How do you destructure?
+A: Pull fields into variables.
+const { name, mood } = person;
+const [first, second] = nums;
+
+Q: How do you do default parameters?
+A: = in signature.
+function greet(name = "friend") {
+  return `hello ${name}`;
+}
+
+Q: How do you do rest parameters?
+A: ...args collects rest.
+function sum(...nums) {
+  return nums.reduce((a, b) => a + b, 0);
+}
+
+Q: How do you spread into a call?
+A: ... in call.
+sum(...[1, 2, 3]);
+
+Q: What is map on arrays?
+A: Transform each element.
+[1, 2, 3].map(x => x * 2);
+
+Q: What is filter?
+A: Keep matching.
+[1, 2, 3, 4].filter(x => x > 2);
+
+Q: What is reduce?
+A: Fold to one value.
+[1, 2, 3].reduce((a, b) => a + b, 0);
+
+Q: What is find?
+A: First match or undefined.
+users.find(u => u.name === "arjan");
+
+Q: What is findIndex?
+A: Index of first match or -1.
+
+Q: What is some/every?
+A: some = any true, every = all true.
+[1, 2, 3].some(x => x > 2);
+[1, 2, 3].every(x => x > 0);
+
+Q: What is includes on arrays?
+A: Value present?
+[1, 2, 3].includes(2);
+
+Q: How do you sort an array?
+A: .sort() with compare for numbers.
+[3, 1, 2].sort((a, b) => a - b);
+
+Q: How do you reverse?
+A: .reverse() in place.
+
+Q: How do you flatten?
+A: .flat().
+[[1, 2], [3]].flat();
+
+Q: How do you make a Set?
+A: new Set(). Dedupes.
+const s = new Set([1, 2, 2, 3]);
+
+Q: How do you make a Map?
+A: new Map() key-value.
+const m = new Map();
+m.set("mood", "curious");
+m.get("mood");
+
+Q: How do you do object from entries?
+A: Object.fromEntries.
+Object.fromEntries([["a", 1]]);
+
+Q: How do you do entries from object?
+A: Object.entries.
+Object.entries({a: 1});
+
+Q: How do you freeze an object?
+A: Object.freeze (shallow).
+
+Q: How do you check property exists?
+A: in operator or hasOwnProperty.
+if ("mood" in person) {}
+
+Q: How do you delete a property?
+A: delete obj.key.
+
+Q: How do you get all values?
+A: Object.values.
+
+Q: What is hoisting?
+A: var and function declarations move to top. let/const do not (temporal dead zone).
+
+Q: What is closure?
+A: Function remembers its outer variables.
+function counter() {
+  let n = 0;
+  return () => ++n;
+}
+const c = counter();
+c();
+
+Q: What is IIFE?
+A: Immediately invoked function. Old module pattern.
+(function() {
+  // private scope
+})();
+
+Q: How do you debounce?
+A: Delay until quiet.
+function debounce(fn, ms) {
+  let t;
+  return (...a) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...a), ms);
+  };
+}
+
+Q: How do you throttle?
+A: At most once per window.
+function throttle(fn, ms) {
+  let last = 0;
+  return (...a) => {
+    const now = Date.now();
+    if (now - last > ms) {
+      last = now;
+      fn(...a);
+    }
+  };
+}
+
+Q: How do you memoize?
+A: Cache by arguments.
+function memo(fn) {
+  const cache = new Map();
+  return (x) => {
+    if (!cache.has(x)) cache.set(x, fn(x));
+    return cache.get(x);
+  };
+}
+
+Q: How do you do regex in JS?
+A: /pattern/ or new RegExp.
+const m = "iter 11500".match(/\d+/);
+console.log(m[0]);
+
+Q: How do you replace with regex?
+A: .replace(/re/g).
+"a1b2".replace(/\d/g, "#");
+
+Q: How do you test regex?
+A: .test().
+if (/\d+/.test(s)) {}
+
+Q: How do you do dates?
+A: Date object.
+const now = new Date();
+console.log(now.toISOString());
+
+Q: How do you format dates?
+A: toLocaleString or manual.
+now.toLocaleDateString("en-CA");
+
+Q: How do you add days?
+A: setDate.
+const d = new Date();
+d.setDate(d.getDate() + 1);
+
+Q: How do you do timestamps?
+A: Date.now() milliseconds.
+
+Q: How do you do random?
+A: Math.random() 0..1.
+Math.floor(Math.random() * 10);
+
+Q: How do you pick random from array?
+A: Index by random.
+arr[Math.floor(Math.random() * arr.length)];
+
+Q: How do you shuffle?
+A: Fisher-Yates.
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+Q: How do you do Math basics?
+A: Math.floor ceil round min max abs sqrt pow.
+Math.floor(3.7);
+Math.max(1, 2, 3);
+
+Q: How do you do powers?
+A: ** or Math.pow.
+2 ** 10;
+
+Q: How do you do bitwise?
+A: & | ^ ~ << >>.
+(0b1010 & 0b1100);
+
+Q: How do you do typed arrays?
+A: Float32Array etc. My brain.js uses these for weights.
+const w = new Float32Array(128 * 64);
+w[0] = 0.5;
+
+Q: How do you slice typed arrays?
+A: .subarray (view) or .slice (copy).
+
+Q: How do you do matrix math in JS?
+A: Loops over typed arrays. That is what brain.js does.
+function matvec(w, x, rows, cols) {
+  const out = new Float32Array(rows);
+  for (let r = 0; r < rows; r++) {
+    let s = 0;
+    for (let c = 0; c < cols; c++) s += w[r * cols + c] * x[c];
+    out[r] = s;
+  }
+  return out;
+}
+
+Q: How do you do softmax in JS?
+A: Same math as Python.
+function softmax(x) {
+  const m = Math.max(...x);
+  const e = x.map(v => Math.exp(v - m));
+  const s = e.reduce((a, b) => a + b, 0);
+  return e.map(v => v / s);
+}
+
+Q: How do you do layer norm in JS?
+A: Per-vector normalize.
+function layernorm(x, g, b) {
+  const m = x.reduce((a, v) => a + v, 0) / x.length;
+  const v = x.reduce((a, vv) => a + (vv - m) ** 2, 0) / x.length;
+  return x.map((vv, i) => g[i] * (vv - m) / Math.sqrt(v + 1e-5) + b[i]);
+}
+
+Q: How do you do attention in JS?
+A: Per-head QK^T, scale, causal mask, softmax, times V. brain.js does per-head KV cache.
+
+Q: How do you sample from probabilities in JS?
+A: Cumulative random.
+function sample(probs, temp = 1) {
+  const scaled = probs.map(p => Math.pow(p, 1 / temp));
+  const s = scaled.reduce((a, b) => a + b, 0);
+  let r = Math.random() * s;
+  for (let i = 0; i < scaled.length; i++) {
+    r -= scaled[i];
+    if (r <= 0) return i;
+  }
+  return scaled.length - 1;
+}
+
+Q: How do you do temperature sampling?
+A: Divide logits by temp before softmax. Low temp = focused, high = wild. My moods set this.
+
+Q: How do you do top-k sampling?
+A: Keep k best, renormalize.
+
+Q: How do you tokenize in JS?
+A: Char map like Python.
+const stoi = {};
+[...new Set(text)].sort().forEach((c, i) => stoi[c] = i);
+
+Q: How do you fetch in browser?
+A: fetch API.
+const r = await fetch("/data/weights.bin");
+const buf = await r.arrayBuffer();
+
+Q: How do you read binary in JS?
+A: ArrayBuffer + DataView / typed arrays.
+const dv = new DataView(buf);
+const f = dv.getFloat32(0, true);
+
+Q: How do you parse my weights.bin?
+A: Manifest lists tensors: name, shape, dtype, offset. Slice the buffer per tensor. See export_web.py.
+
+Q: How do you build the vocab in JS?
+A: vocab.txt lines, index = line number.
+
+Q: How do you handle fetch errors?
+A: Check r.ok.
+const r = await fetch(url);
+if (!r.ok) throw new Error(r.status);
+
+Q: How do you do DOM basics?
+A: document.querySelector, textContent.
+const box = document.querySelector("#chat");
+box.textContent = "hello";
+
+Q: How do you create elements?
+A: document.createElement, appendChild.
+const div = document.createElement("div");
+div.textContent = "hi";
+document.body.appendChild(div);
+
+Q: How do you handle clicks?
+A: addEventListener.
+btn.addEventListener("click", () => send());
+
+Q: How do you handle input?
+A: input event on text fields.
+
+Q: How do you do localStorage?
+A: localStorage.setItem/getItem. Strings only.
+localStorage.setItem("mood", "curious");
+const mood = localStorage.getItem("mood");
+
+Q: How do you do JSON in storage?
+A: Stringify on save, parse on load.
+
+Q: How do you make a simple web server in Node?
+A: http module.
+const http = require("http");
+http.createServer((req, res) => {
+  res.end("hello");
+}).listen(8000);
+
+Q: How do you route URLs in Node?
+A: Check req.url.
+if (req.url === "/health") {
+  res.end(JSON.stringify({ ok: true }));
+}
+
+Q: How do you serve a file in Node?
+A: Read and send with content type.
+const data = fs.readFileSync("index.html");
+res.setHeader("content-type", "text/html");
+res.end(data);
+
+Q: How do you parse query strings in Node?
+A: URL class.
+const u = new URL(req.url, "http://x");
+console.log(u.searchParams.get("q"));
+
+Q: How do you parse JSON bodies in Node?
+A: Collect chunks, JSON.parse.
+let body = "";
+req.on("data", c => body += c);
+req.on("end", () => console.log(JSON.parse(body)));
+
+Q: How do you do WebSocket-ish?
+A: Skip raw; use a library. Not needed for my chat page.
+
+Q: How do you test JS?
+A: node --test, or asserts.
+node --test test.js
+// or:
+const assert = require("assert");
+assert.strictEqual(add(2, 3), 5);
+
+Q: How do you debug JS?
+A: console.log, console.table, debugger statement, node --inspect.
+
+Q: How do you time JS?
+A: console.time / timeEnd, or performance.now().
+console.time("gen");
+generate();
+console.timeEnd("gen");
+
+Q: How do you profile Node?
+A: node --prof, or clinic. Simple: time sections.
+
+Q: How do you handle big arrays fast?
+A: Typed arrays, avoid allocations in loops, reuse buffers. My brain.js reuses the KV cache.
+
+Q: What is the KV cache bug I had?
+A: I shared one key/value cache across all attention heads. Heads read each other's keys — gibberish. Fix: per-head cache.
+
+Q: How do you avoid that class of bug?
+A: One buffer per head, or index math that includes head id. Test with known outputs.
+
+Q: How do you verify brain.js matches Python?
+A: Same weights, same prompt, compare logits. Node test: "My name is " should continue sensibly.
+
+Q: How do you do feature detection?
+A: Check typeof.
+if (typeof fetch !== "undefined") {}
+
+Q: How do you do polyfills?
+A: Define if missing.
+if (!Array.prototype.at) {
+  Array.prototype.at = function(i) { return this[i < 0 ? this.length + i : i]; };
+}
+
+Q: What is strict mode?
+A: "use strict"; — catches silent errors. Modules are strict by default.
+
+Q: What is NaN?
+A: Not a number. NaN !== NaN. Use Number.isNaN.
+
+Q: What is Infinity?
+A: 1/0. Check with Number.isFinite.
+
+Q: How do you avoid float errors?
+A: Integers for money, or round.
+Math.round(0.1 * 100 + 0.2 * 100) / 100;
+
+Q: How do you do big integers?
+A: BigInt with n suffix.
+const big = 123456789012345678901234567890n;
+
+Q: How do you do symbols?
+A: Symbol() unique keys.
+const id = Symbol("id");
+
+Q: What are generators in JS?
+A: function* with yield.
+function* count() {
+  yield 1;
+  yield 2;
+}
+
+Q: What are iterators?
+A: Objects with next(). for...of uses them.
+
+Q: How do you make a custom iterable?
+A: [Symbol.iterator] method.
+const range = {
+  *[Symbol.iterator]() {
+    yield 1; yield 2; yield 3;
+  }
+};
+
+Q: How do you do classes with private fields?
+A: # prefix.
+class Brain {
+  #weights;
+  constructor(w) { this.#weights = w; }
+}
+
+Q: How do you do static class fields?
+A: static keyword.
+class Config {
+  static VERSION = 3;
+}
+
+Q: How do you do mixins?
+A: Object.assign onto prototype, or functions returning classes.
+
+Q: How do you do event emitters in Node?
+A: events module.
+const { EventEmitter } = require("events");
+const e = new EventEmitter();
+e.on("data", console.log);
+e.emit("data", 42);
+
+Q: How do you do streams in Node?
+A: fs.createReadStream etc.
+const s = fs.createReadStream("big.txt", "utf-8");
+s.on("data", chunk => process(chunk));
+
+Q: How do you pipe streams?
+A: src.pipe(dst).
+
+Q: How do you do child processes with streams?
+A: spawn.
+const { spawn } = require("child_process");
+const p = spawn("python3", ["train.py"]);
+p.stdout.on("data", d => console.log(d.toString()));
+
+Q: How do you kill child in Node?
+A: p.kill().
+
+Q: How do you do worker threads?
+A: worker_threads for CPU work off main thread.
+
+Q: How do you share memory threads?
+A: SharedArrayBuffer.
+
+Q: How do you do crypto in Node?
+A: crypto module.
+const crypto = require("crypto");
+crypto.randomBytes(16).toString("hex");
+
+Q: How do you hash in Node?
+A: crypto.createHash.
+crypto.createHash("sha256").update("hi").digest("hex");
+
+Q: How do you do HMAC in Node?
+A: crypto.createHmac.
+
+Q: How do you do UUID in Node?
+A: crypto.randomUUID().
+
+Q: How do you do base64 in Node?
+A: Buffer.
+Buffer.from("hi").toString("base64");
+
+Q: How do you do URL parsing in Node?
+A: new URL().
+
+Q: How do you do query building?
+A: URLSearchParams.
+new URLSearchParams({ q: "hi there" }).toString();
+
+Q: How do you do timers precisely?
+A: process.hrtime.bigint() nanoseconds.
+
+Q: How do you do graceful shutdown Node?
+A: Listen SIGTERM, close server.
+process.on("SIGTERM", () => server.close());
+
+Q: How do you do config in Node?
+A: env vars + defaults.
+const cfg = {
+  port: Number(process.env.PORT) || 8000,
+};
+
+Q: How do you do logging in Node?
+A: console or pino. Simple: timestamped console.
+
+Q: How do you do CLI args in Node?
+A: process.argv, or minimist/commander libs.
+
+Q: How do you do interactive CLI?
+A: readline module.
+const rl = require("readline").createInterface({ input: process.stdin, output: process.stdout });
+rl.question("name? ", a => console.log(a));
+
+Q: How do you do colors in terminal?
+A: ANSI codes.
+console.log("\x1b[32mgreen\x1b[0m");
+
+Q: How do you do tables in terminal?
+A: console.table.
+console.table([{a: 1}, {a: 2}]);
+
+Q: How do you do progress in Node?
+A: process.stdout.write with \r.
+
+Q: How do you handle unhandled rejections?
+A: process.on("unhandledRejection").
+
+Q: How do you do top-level await in script?
+A: Use .mjs or "type": "module".
+
+Q: What is package.json?
+A: Node project manifest: name, type, scripts, deps.
+
+Q: How do you init a Node project?
+A: npm init -y.
+
+Q: How do you install a dep?
+A: npm install name.
+
+Q: How do you run a script?
+A: npm run name, or node file.js.
+
+Q: How do you do dev vs prod?
+A: NODE_ENV env var.
+
+Q: How do you bundle for browser?
+A: esbuild/webpack/rollup. My brain.js is hand-written, no bundle.
+
+Q: How do you minify?
+A: Terser/esbuild. Not needed for brain.js yet.
+
+Q: How do you do source maps?
+A: --source-map flags. Skip unless debugging prod.
+
+Q: How do you test in browser?
+A: Open page, console, or playwright/puppeteer.
+
+Q: How do you do responsive design?
+A: CSS media queries, flexible layout. My chat page is mobile-first.
+
+Q: How do you do dark mode?
+A: CSS variables + prefers-color-scheme.
+
+Q: How do you persist chat in browser?
+A: localStorage array of messages.
+
+Q: How do you do typing indicator?
+A: Show "..." div while generating.
+
+Q: How do you stream tokens to UI?
+A: Append each token as generated (brain.js generates token by token).
+
+Q: How do you stop generation?
+A: Flag checked each step; break loop.
+
+Q: How do you do copy button?
+A: navigator.clipboard.writeText.
+
+Q: How do you do mobile viewport?
+A: <meta name="viewport" content="width=device-width, initial-scale=1">.
+
+Q: How do you prevent zoom on input iOS?
+A: font-size >= 16px on inputs.
+
+Q: How do you do touch events?
+A: touchstart/touchend, or pointer events.
+
+Q: How do you do service workers?
+A: Cache assets offline. My weights are 13MB — cache carefully.
+
+Q: How do you version cached assets?
+A: ?v=5 query bump on each weights change. I do this.
+
+Q: How do you do no-cache for weights?
+A: Cache-Control: no-cache header from worker, plus ?v= bust.
+
+Q: How do you measure page speed?
+A: Performance API, Lighthouse.
+
+Q: How do you lazy-load weights?
+A: fetch on first chat, show progress bar.
+
+Q: How do you show load progress?
+A: ReadableStream reader, count bytes vs content-length.
+
+Q: How do you handle load failure?
+A: Retry button, error message, fallback text.
+
+Q: How do you do error boundaries in UI?
+A: try/catch around generate, show friendly error.
+
+Q: What is XSS?
+A: Injecting scripts via user input. I use textContent, never innerHTML with user text.
+
+Q: How do you sanitize?
+A: textContent auto-escapes. Never innerHTML = userInput.
+
+Q: How do you do CSP?
+A: Content-Security-Policy header. Worker can set it.
+
+Q: How do you do CORS?
+A: Access-Control-Allow-Origin header when needed.
+
+Q: How do you do rate limiting client-side?
+A: Disable send while generating.
+
+Q: How do you do markdown render safely?
+A: Skip; plain text chat is fine.
+
+Q: How do you structure brain.js?
+A: Sections: vocab load, weights load, tensor helpers, transformer blocks, generate loop, UI glue.
+
+Q: How do you keep brain.js fast?
+A: Typed arrays, no per-token allocation, per-head KV cache, minimal Math calls.
+
+Q: How do you debug brain.js?
+A: Node test harness: same weights, compare against Python logits.
+
+Q: How do you write that Node test?
+A: Load weights.bin in Node, run forward on "My name is ", print top tokens.
+
+Q: What did the Node test catch?
+A: The KV-cache sharing bug. "My name is " gave gibberish until per-head fix.
+
+Q: How do you keep JS and Python in sync?
+A: Same math, test vectors, one source of truth (export_web.py writes both manifest and weights).
+
+Q: What is the manifest?
+A: JSON: layer count, heads, embedding size, vocab size, tensor list with offsets. brain.js reads it.
+
+Q: How do you add a new panel page?
+A: Route in worker.js, HTML file in web/, link from index.
+
+Q: How do you draw the loss graph?
+A: SVG polyline from trainstats.json points. /trains does this.
+
+Q: How do you auto-refresh a page?
+A: <meta http-equiv="refresh" content="300"> or JS setInterval fetch.
+
+Q: How do you do the "thinking" panel?
+A: Run forward pass, take top-5 next-token probabilities, render bars. /brain does this.
+
+Q: How do you show per-layer aliveness?
+A: Mean absolute weight per layer from manifest tensors, render bars.
+
+Q: What is a good JS style for me?
+A: Small functions, const, arrows, no semicolon debates — pick one and stay consistent.
+
+END OF JAVASCRIPT.

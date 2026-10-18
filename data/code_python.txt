@@ -1,0 +1,2266 @@
+PYTHON. The language I am built in. My trainer, my harness, my tools — all Python.
+
+Q: How do you print text in Python?
+A: Use the print function.
+print("hello")
+print("my name is Arjan")
+
+Q: How do you store a value in a variable?
+A: Name it with = sign. No type word needed.
+name = "arjan"
+age = 1
+pi = 3.14
+
+Q: How do you read input from the user?
+A: input() returns a string.
+name = input("what is your name? ")
+print("hello", name)
+
+Q: How do you convert a string to a number?
+A: int() for whole numbers, float() for decimals.
+n = int("42")
+x = float("3.14")
+
+Q: How do you write a comment?
+A: Start the line with #.
+# this is a comment
+x = 5  # comment after code
+
+Q: How do you write a function?
+A: def, name, parameters, colon, indented body. return sends a value back.
+def add(a, b):
+    return a + b
+
+result = add(3, 4)
+print(result)
+
+Q: How do you write a function with no return?
+A: Leave out return. It returns None.
+def greet(name):
+    print("hello", name)
+
+greet("arzh")
+
+Q: What is a default argument?
+A: A parameter with a fallback value if none is given.
+def greet(name="friend"):
+    print("hello", name)
+
+greet()
+greet("arzh")
+
+Q: How do you make a list?
+A: Square brackets, comma separated.
+fruits = ["apple", "mango", "banana"]
+nums = [1, 2, 3, 4]
+
+Q: How do you add to a list?
+A: append() adds one item at the end.
+nums = [1, 2]
+nums.append(3)
+print(nums)
+
+Q: How do you loop over a list?
+A: for item in list.
+for fruit in fruits:
+    print(fruit)
+
+Q: How do you loop a fixed number of times?
+A: range(n) gives 0 to n-1.
+for i in range(5):
+    print(i)
+
+Q: How do you get the length of a list?
+A: len().
+print(len(fruits))
+
+Q: How do you check if something is in a list?
+A: The in keyword.
+if "mango" in fruits:
+    print("found it")
+
+Q: How do you make a dictionary?
+A: Curly braces with key: value pairs.
+person = {"name": "arjan", "age": 1}
+print(person["name"])
+
+Q: How do you add to a dictionary?
+A: Assign by key.
+person["mood"] = "curious"
+print(person)
+
+Q: How do you loop over a dictionary?
+A: .items() gives key and value.
+for key, value in person.items():
+    print(key, value)
+
+Q: How do you write an if statement?
+A: if, condition, colon, indented block.
+x = 10
+if x > 5:
+    print("big")
+
+Q: How do you write if / else?
+A: Add an else block.
+if x > 5:
+    print("big")
+else:
+    print("small")
+
+Q: How do you write if / elif / else?
+A: elif checks another condition.
+score = 75
+if score >= 90:
+    print("A")
+elif score >= 70:
+    print("B")
+else:
+    print("C")
+
+Q: How do you compare values?
+A: == equal, != not equal, < > <= >=.
+if name == "arjan":
+    print("that is me")
+
+Q: How do you combine conditions?
+A: and, or, not.
+if age > 0 and name == "arjan":
+    print("match")
+if mood == "tired" or mood == "sleepy":
+    print("rest")
+
+Q: How do you write a while loop?
+A: Repeats while the condition is true.
+count = 0
+while count < 3:
+    print(count)
+    count = count + 1
+
+Q: How do you stop a loop early?
+A: break exits, continue skips to next round.
+for i in range(10):
+    if i == 3:
+        break
+    print(i)
+
+Q: How do you read a file?
+A: open() with "r", read(), close. Or use with.
+with open("data/chat.txt", encoding="utf-8") as f:
+    text = f.read()
+
+Q: How do you read a file line by line?
+A: Loop over the file object.
+with open("data/chat.txt", encoding="utf-8") as f:
+    for line in f:
+        print(line.strip())
+
+Q: How do you write to a file?
+A: open() with "w" overwrites, "a" appends.
+with open("home/diary.md", "w", encoding="utf-8") as f:
+    f.write("today I learned loops\n")
+
+Q: How do you check if a file exists?
+A: os.path.exists.
+import os
+if os.path.exists("model/best.pt"):
+    print("weights found")
+
+Q: How do you list files in a folder?
+A: os.listdir.
+import os
+files = os.listdir("data")
+print(files)
+
+Q: How do you join a path safely?
+A: os.path.join handles slashes.
+import os
+p = os.path.join("data", "curiosity", "sky.txt")
+
+Q: How do you split a string?
+A: .split() on whitespace, or .split(",") on commas.
+words = "hello brave new world".split()
+print(words)
+
+Q: How do you join strings?
+A: separator.join(list).
+words = ["hello", "world"]
+print(" ".join(words))
+
+Q: How do you find text inside a string?
+A: in keyword, or .find() for position.
+if "arjan" in text:
+    print("mentioned")
+pos = text.find("arjan")
+
+Q: How do you replace text in a string?
+A: .replace(old, new).
+fixed = text.replace("NeuroBrain", "Arjan Pannu")
+
+Q: How do you change letter case?
+A: .lower() and .upper().
+print("Hello".lower())
+print("hello".upper())
+
+Q: How do you strip whitespace?
+A: .strip() removes both ends.
+clean = "  hello  ".strip()
+
+Q: How do you format strings with values?
+A: f-strings with {} placeholders.
+name = "arjan"
+print(f"hello {name}, you are {1} year old")
+
+Q: How do you make a tuple?
+A: Parentheses. Tuples cannot change after creation.
+point = (10, 20)
+print(point[0])
+
+Q: How do you make a set?
+A: Curly braces or set(). Duplicates removed.
+tags = {"ai", "brain", "ai"}
+print(tags)
+
+Q: How do you sort a list?
+A: sorted() returns new, .sort() sorts in place.
+nums = [3, 1, 2]
+print(sorted(nums))
+
+Q: How do you reverse a list?
+A: reversed() or [::-1].
+print(nums[::-1])
+
+Q: What is a list comprehension?
+A: Build a list in one line.
+squares = [x * x for x in range(5)]
+print(squares)
+
+Q: How do you handle errors?
+A: try / except.
+try:
+    n = int("abc")
+except ValueError:
+    print("not a number")
+
+Q: How do you handle any error?
+A: except Exception catches all.
+try:
+    risky()
+except Exception as e:
+    print("failed:", e)
+
+Q: How do you always run cleanup code?
+A: finally block.
+try:
+    f = open("x.txt")
+finally:
+    print("done trying")
+
+Q: How do you raise your own error?
+A: raise.
+def divide(a, b):
+    if b == 0:
+        raise ValueError("cannot divide by zero")
+    return a / b
+
+Q: How do you define a class?
+A: class keyword. __init__ sets up each object.
+class Brain:
+    def __init__(self, name):
+        self.name = name
+        self.mood = "curious"
+
+    def think(self):
+        return f"{self.name} is {self.mood}"
+
+me = Brain("arjan")
+print(me.think())
+
+Q: How do you add a method to a class?
+A: def inside class, first parameter self.
+class Counter:
+    def __init__(self):
+        self.n = 0
+
+    def bump(self):
+        self.n = self.n + 1
+
+c = Counter()
+c.bump()
+print(c.n)
+
+Q: What is inheritance?
+A: A class can extend another class.
+class Animal:
+    def speak(self):
+        return "..."
+
+class Dog(Animal):
+    def speak(self):
+        return "woof"
+
+Q: How do you import a module?
+A: import name, then name.thing.
+import math
+print(math.sqrt(16))
+print(math.pi)
+
+Q: How do you import one function?
+A: from module import name.
+from math import sqrt
+print(sqrt(25))
+
+Q: How do you import your own file?
+A: import the filename without .py.
+import mood
+print(mood.current())
+
+Q: What is __name__ == "__main__"?
+A: Code that runs only when the file is executed directly.
+def main():
+    print("running")
+
+if __name__ == "__main__":
+    main()
+
+Q: How do you run a shell command from Python?
+A: subprocess.
+import subprocess
+result = subprocess.run(["ls", "data"], capture_output=True, text=True)
+print(result.stdout)
+
+Q: How do you get command line arguments?
+A: sys.argv list.
+import sys
+print(sys.argv)
+
+Q: How do you sleep for a bit?
+A: time.sleep(seconds).
+import time
+time.sleep(5)
+
+Q: How do you get the current time?
+A: time.time() or datetime.
+import time
+print(time.time())
+from datetime import datetime
+print(datetime.now())
+
+Q: How do you generate random numbers?
+A: random module.
+import random
+print(random.randint(1, 10))
+print(random.choice(["a", "b", "c"]))
+
+Q: How do you shuffle a list?
+A: random.shuffle.
+import random
+deck = [1, 2, 3, 4]
+random.shuffle(deck)
+
+Q: How do you work with JSON?
+A: json module, loads and dumps.
+import json
+data = json.loads('{"name": "arjan"}')
+print(data["name"])
+text = json.dumps(data)
+
+Q: How do you read a JSON file?
+A: json.load on the file.
+import json
+with open("manifest.json") as f:
+    m = json.load(f)
+
+Q: How do you make an HTTP request?
+A: urllib or requests.
+import urllib.request
+with urllib.request.urlopen("https://example.com") as r:
+    html = r.read().decode("utf-8")
+
+Q: How do you encode text to bytes?
+A: .encode("utf-8").
+b = "hello".encode("utf-8")
+
+Q: How do you decode bytes to text?
+A: .decode("utf-8").
+s = b.decode("utf-8")
+
+Q: What is None?
+A: Python's "no value". Like null.
+x = None
+if x is None:
+    print("empty")
+
+Q: How do you check a type?
+A: type() or isinstance().
+print(type(5))
+if isinstance(x, str):
+    print("it is text")
+
+Q: How do you round a number?
+A: round().
+print(round(3.7))
+
+Q: How do you get min and max?
+A: min() and max().
+print(min([3, 1, 2]))
+print(max([3, 1, 2]))
+
+Q: How do you sum a list?
+A: sum().
+print(sum([1, 2, 3]))
+
+Q: How do you enumerate with index?
+A: enumerate().
+for i, name in enumerate(["a", "b"]):
+    print(i, name)
+
+Q: How do you zip two lists?
+A: zip() pairs them.
+for a, b in zip([1, 2], ["x", "y"]):
+    print(a, b)
+
+Q: How do you copy a list?
+A: list() or [:].
+b = a[:]
+
+Q: How do you remove from a list?
+A: remove(value) or pop(index).
+nums.remove(2)
+last = nums.pop()
+
+Q: How do you insert into a list?
+A: insert(index, value).
+nums.insert(0, 99)
+
+Q: How do you count occurrences?
+A: .count().
+print([1, 2, 2, 3].count(2))
+
+Q: How do you find index of a value?
+A: .index().
+print(["a", "b"].index("b"))
+
+Q: How do you get dict keys and values?
+A: .keys(), .values().
+print(list(person.keys()))
+
+Q: How do you get a dict value safely?
+A: .get() returns None instead of error.
+print(person.get("missing"))
+
+Q: How do you merge dictionaries?
+A: update() or | operator.
+a = {"x": 1}
+b = {"y": 2}
+c = a | b
+
+Q: How do you write a lambda?
+A: Small one-line function.
+double = lambda x: x * 2
+print(double(5))
+
+Q: How do you sort by a key?
+A: key function.
+names = ["arjan", "arzh", "bo"]
+print(sorted(names, key=len))
+
+Q: What is map?
+A: Apply function to each item.
+print(list(map(str, [1, 2, 3])))
+
+Q: What is filter?
+A: Keep items where function is true.
+print(list(filter(lambda x: x > 2, [1, 2, 3, 4])))
+
+Q: How do you open a file in binary?
+A: "rb" and "wb" modes.
+with open("weights.bin", "rb") as f:
+    data = f.read()
+
+Q: How do you get file size?
+A: os.path.getsize.
+import os
+print(os.path.getsize("model/best.pt"))
+
+Q: How do you create a folder?
+A: os.makedirs.
+import os
+os.makedirs("data/curiosity", exist_ok=True)
+
+Q: How do you delete a file?
+A: os.remove.
+import os
+os.remove("tmp.txt")
+
+Q: How do you rename a file?
+A: os.rename.
+import os
+os.rename("old.txt", "new.txt")
+
+Q: How do you walk a folder tree?
+A: os.walk.
+import os
+for root, dirs, files in os.walk("data"):
+    for f in files:
+        print(os.path.join(root, f))
+
+Q: How do you get environment variables?
+A: os.environ.
+import os
+print(os.environ.get("HOME"))
+
+Q: How do you exit a program?
+A: sys.exit.
+import sys
+sys.exit(0)
+
+Q: What is a decorator?
+A: A wrapper that modifies a function.
+def loud(f):
+    def wrapper(*args):
+        print("calling", f.__name__)
+        return f(*args)
+    return wrapper
+
+@loud
+def hello():
+    print("hi")
+
+Q: What is *args?
+A: Collects extra positional arguments into a tuple.
+def total(*nums):
+    return sum(nums)
+
+print(total(1, 2, 3))
+
+Q: What is **kwargs?
+A: Collects extra keyword arguments into a dict.
+def show(**info):
+    print(info)
+
+show(name="arjan", mood="curious")
+
+Q: How do you test code?
+A: Write asserts or a test function, run it, check output.
+def add(a, b):
+    return a + b
+
+assert add(2, 3) == 5
+assert add(-1, 1) == 0
+print("tests pass")
+
+Q: How do you debug with prints?
+A: Print values at each step.
+def buggy(x):
+    print("input:", x)
+    y = x * 2
+    print("doubled:", y)
+    return y
+
+Q: How do you debug with traceback?
+A: Let the exception print, read bottom line first.
+# Traceback shows file, line, then error type and message.
+
+Q: What is a virtual environment?
+A: An isolated Python install for one project.
+# python3 -m venv venv
+# source venv/bin/activate
+
+Q: How do you install a package?
+A: pip install name.
+# pip install numpy
+# pip install --break-system-packages torch
+
+Q: How do you time code?
+A: time.perf_counter around it.
+import time
+start = time.perf_counter()
+slow()
+print(time.perf_counter() - start)
+
+Q: How do you profile memory simply?
+A: Check object sizes with sys.getsizeof.
+import sys
+print(sys.getsizeof([1, 2, 3]))
+
+Q: How do you run code in background?
+A: nohup ... & in shell, or subprocess.Popen.
+# nohup python3 train.py > train.log 2>&1 &
+
+Q: How do you check a process is running?
+A: pgrep or ps.
+# pgrep -f train.py
+
+Q: How do you kill a process?
+A: kill PID.
+# kill 1234
+# kill -9 1234  (force)
+
+Q: What is a generator?
+A: A function that yields values one at a time.
+def count_up(n):
+    i = 0
+    while i < n:
+        yield i
+        i += 1
+
+for x in count_up(3):
+    print(x)
+
+Q: What is a context manager?
+A: with block that sets up and tears down.
+# with open(...) as f:  -- closes file automatically
+
+Q: How do you make your own context manager?
+A: contextlib or a class with __enter__/__exit__.
+from contextlib import contextmanager
+
+@contextmanager
+def tag(name):
+    print(f"<{name}>")
+    yield
+    print(f"</{name}>")
+
+Q: How do you serialize an object?
+A: pickle for Python objects.
+import pickle
+with open("obj.pkl", "wb") as f:
+    pickle.dump(myobj, f)
+
+Q: How do you hash a string?
+A: hashlib.
+import hashlib
+h = hashlib.sha256("hello".encode()).hexdigest()
+print(h)
+
+Q: How do you do base64?
+A: base64 module.
+import base64
+print(base64.b64encode(b"hello"))
+
+Q: How do you work with dates?
+A: datetime module.
+from datetime import datetime, timedelta
+now = datetime.now()
+tomorrow = now + timedelta(days=1)
+print(tomorrow.strftime("%Y-%m-%d"))
+
+Q: How do you parse a date string?
+A: strptime.
+from datetime import datetime
+d = datetime.strptime("2026-10-18", "%Y-%m-%d")
+
+Q: How do you use regex?
+A: re module.
+import re
+m = re.search(r"\d+", "iter 11500 done")
+print(m.group())
+
+Q: How do you replace with regex?
+A: re.sub.
+import re
+print(re.sub(r"\s+", " ", "a   b"))
+
+Q: How do you split with regex?
+A: re.split.
+import re
+print(re.split(r"[,;]", "a,b;c"))
+
+Q: How do you download a file?
+A: urllib.request.urlretrieve.
+import urllib.request
+urllib.request.urlretrieve("https://x.com/f", "f")
+
+Q: How do you post JSON to a URL?
+A: urllib with Request.
+import json, urllib.request
+data = json.dumps({"a": 1}).encode()
+req = urllib.request.Request("https://x.com/api", data=data)
+urllib.request.urlopen(req)
+
+Q: How do you read command output?
+A: subprocess check_output.
+import subprocess
+out = subprocess.check_output(["date"], text=True)
+
+Q: How do you set a timeout on subprocess?
+A: timeout parameter.
+import subprocess
+subprocess.run(["sleep", "60"], timeout=5)
+
+Q: What is threading?
+A: Run functions at the same time.
+import threading
+t = threading.Thread(target=work)
+t.start()
+t.join()
+
+Q: What is a lock?
+A: Prevents two threads touching data at once.
+import threading
+lock = threading.Lock()
+with lock:
+    shared += 1
+
+Q: How do you log instead of print?
+A: logging module.
+import logging
+logging.basicConfig(level=logging.INFO)
+logging.info("training started")
+
+Q: How do you write CSV?
+A: csv module.
+import csv
+with open("out.csv", "w", newline="") as f:
+    w = csv.writer(f)
+    w.writerow(["iter", "loss"])
+    w.writerow([100, 2.5])
+
+Q: How do you read CSV?
+A: csv.reader or DictReader.
+import csv
+with open("out.csv") as f:
+    for row in csv.DictReader(f):
+        print(row["loss"])
+
+Q: How do you check Python version?
+A: sys.version.
+import sys
+print(sys.version)
+
+Q: How do you reload a module?
+A: importlib.reload.
+import importlib, mood
+importlib.reload(mood)
+
+Q: What is __all__?
+A: Controls what from x import * brings in.
+__all__ = ["think", "Mood"]
+
+Q: How do you document a function?
+A: Docstring under def.
+def add(a, b):
+    """Return a plus b."""
+    return a + b
+
+print(add.__doc__)
+
+Q: How do you get help on something?
+A: help().
+help(str.split)
+
+Q: What is duck typing?
+A: If it walks like a duck, treat it like one. No type checks needed.
+def quack_loudly(thing):
+    thing.quack()
+
+Q: What is EAFP?
+A: Easier to ask forgiveness than permission. Try first, catch errors.
+try:
+    v = d[key]
+except KeyError:
+    v = default
+
+Q: How do you chain comparisons?
+A: Python allows a < b < c.
+if 0 < x < 10:
+    print("single digit positive")
+
+Q: How do you swap two variables?
+A: Tuple assignment.
+a, b = b, a
+
+Q: How do you unpack a list?
+A: Assign to multiple names.
+x, y = [10, 20]
+first, *rest = [1, 2, 3, 4]
+
+Q: How do you do integer division?
+A: // operator.
+print(7 // 2)
+
+Q: How do you do modulo?
+A: % operator.
+print(7 % 2)
+
+Q: How do you do powers?
+A: ** operator.
+print(2 ** 10)
+
+Q: How do you check divisibility?
+A: x % n == 0.
+if x % 2 == 0:
+    print("even")
+
+Q: How do you format numbers?
+A: f-string format specs.
+print(f"{3.14159:.2f}")
+print(f"{42:05d}")
+
+Q: How do you make a multiline string?
+A: Triple quotes.
+s = """line one
+line two"""
+
+Q: How do you repeat a string?
+A: * operator.
+print("ha" * 3)
+
+Q: How do you check start/end of string?
+A: .startswith() .endswith().
+if f.endswith(".txt"):
+    print("text file")
+
+Q: How do you count substring?
+A: .count().
+print("banana".count("a"))
+
+Q: How do you title-case?
+A: .title().
+print("hello world".title())
+
+Q: How do you check if string is numeric?
+A: .isdigit() .isalpha().
+print("42".isdigit())
+
+Q: What is truthiness?
+A: Empty things are False: "", [], {}, 0, None.
+if not []:
+    print("empty is falsy")
+
+Q: How do you use any() and all()?
+A: any true, all all-true.
+print(any([False, True]))
+print(all([True, True]))
+
+Q: How do you flatten nested lists?
+A: Comprehension.
+nested = [[1, 2], [3, 4]]
+flat = [x for row in nested for x in row]
+
+Q: How do you remove duplicates keeping order?
+A: dict.fromkeys.
+print(list(dict.fromkeys([3, 1, 2, 1, 3])))
+
+Q: How do you group items?
+A: dict of lists.
+groups = {}
+for w in words:
+    groups.setdefault(w[0], []).append(w)
+
+Q: How do you count items?
+A: collections.Counter.
+from collections import Counter
+print(Counter("hello"))
+
+Q: How do you use defaultdict?
+A: Auto-creates missing values.
+from collections import defaultdict
+d = defaultdict(list)
+d["a"].append(1)
+
+Q: How do you use deque?
+A: Fast append/pop both ends.
+from collections import deque
+q = deque([1, 2])
+q.appendleft(0)
+
+Q: How do you memoize?
+A: functools.lru_cache.
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fib(n):
+    return n if n < 2 else fib(n-1) + fib(n-2)
+
+Q: How do you partially apply?
+A: functools.partial.
+from functools import partial
+double = partial(lambda x, m: x * m, m=2)
+
+Q: How do you reduce a list?
+A: functools.reduce.
+from functools import reduce
+print(reduce(lambda a, b: a + b, [1, 2, 3]))
+
+Q: How do you make an enum?
+A: enum.Enum.
+from enum import Enum
+class Mood(Enum):
+    CURIOUS = 1
+    TIRED = 2
+
+Q: How do you make a dataclass?
+A: @dataclass auto-writes __init__.
+from dataclasses import dataclass
+
+@dataclass
+class Config:
+    layers: int = 6
+    heads: int = 6
+
+Q: How do you make a named tuple?
+A: collections.namedtuple.
+from collections import namedtuple
+Point = namedtuple("Point", ["x", "y"])
+
+Q: How do you check subclass?
+A: issubclass().
+print(issubclass(Dog, Animal))
+
+Q: How do you list object attributes?
+A: dir().
+print(dir("hello"))
+
+Q: How do you get attribute by name?
+A: getattr.
+print(getattr(person, "name"))
+
+Q: How do you set attribute by name?
+A: setattr.
+setattr(obj, "mood", "happy")
+
+Q: How do you check has attribute?
+A: hasattr.
+if hasattr(obj, "think"):
+    obj.think()
+
+Q: What is a static method?
+A: Method that needs no self.
+class Math:
+    @staticmethod
+    def add(a, b):
+        return a + b
+
+Q: What is a class method?
+A: Gets the class, not instance.
+class Counter:
+    total = 0
+    @classmethod
+    def bump_total(cls):
+        cls.total += 1
+
+Q: What is a property?
+A: Method that acts like an attribute.
+class Temp:
+    def __init__(self):
+        self._c = 0
+    @property
+    def f(self):
+        return self._c * 9/5 + 32
+
+Q: How do you do operator overloading?
+A: __add__ etc.
+class Vec:
+    def __init__(self, x):
+        self.x = x
+    def __add__(self, o):
+        return Vec(self.x + o.x)
+
+Q: How do you make objects printable?
+A: __repr__ or __str__.
+class Brain:
+    def __repr__(self):
+        return f"Brain({self.name})"
+
+Q: How do you make len() work on your class?
+A: __len__.
+class Team:
+    def __len__(self):
+        return len(self.members)
+
+Q: How do you make your class iterable?
+A: __iter__.
+class Count:
+    def __iter__(self):
+        return iter([1, 2, 3])
+
+Q: How do you handle missing attributes?
+A: __getattr__.
+class Flex:
+    def __getattr__(self, name):
+        return f"no {name}"
+
+Q: How do you do multiple inheritance?
+A: List several parents.
+class C(A, B):
+    pass
+
+Q: What is super()?
+A: Call the parent's method.
+class Dog(Animal):
+    def __init__(self):
+        super().__init__()
+
+Q: What is an abstract class?
+A: abc forces subclasses to implement methods.
+from abc import ABC, abstractmethod
+class Shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+Q: How do you copy an object?
+A: copy module.
+import copy
+b = copy.deepcopy(a)
+
+Q: How do you compare object identity?
+A: is keyword.
+if x is None:
+    pass
+
+Q: How do you check equality deeply?
+A: == on containers compares contents.
+print([1, 2] == [1, 2])
+
+Q: How do you sort dict by value?
+A: sorted with key.
+d = {"b": 2, "a": 1}
+print(sorted(d, key=d.get))
+
+Q: How do you invert a dict?
+A: Comprehension swap.
+inv = {v: k for k, v in d.items()}
+
+Q: How do you pretty print?
+A: pprint.
+import pprint
+pprint.pprint(big_dict)
+
+Q: How do you assert with message?
+A: assert cond, "msg".
+assert x > 0, "x must be positive"
+
+Q: How do you skip tests?
+A: Return early or a flag.
+SKIP_SLOW = True
+if not SKIP_SLOW:
+    slow_test()
+
+Q: How do you benchmark simply?
+A: timeit.
+import timeit
+print(timeit.timeit("sum(range(100))", number=1000))
+
+Q: How do you find where Python looks for modules?
+A: sys.path.
+import sys
+print(sys.path)
+
+Q: How do you add to module path?
+A: sys.path.append.
+import sys
+sys.path.append("/home/hatch/workspace/neuro-brain")
+
+Q: How do you run a Python file from code?
+A: runpy or exec.
+import runpy
+runpy.run_path("script.py")
+
+Q: How do you compile to bytecode?
+A: py_compile.
+import py_compile
+py_compile.compile("mod.py")
+
+Q: How do you disassemble?
+A: dis shows bytecode.
+import dis
+dis.dis(lambda x: x + 1)
+
+Q: How do you check endianness?
+A: sys.byteorder.
+import sys
+print(sys.byteorder)
+
+Q: How do you get terminal size?
+A: shutil.get_terminal_size.
+import shutil
+print(shutil.get_terminal_size())
+
+Q: How do you clear the screen?
+A: ANSI or os.system.
+print("\033[2J\033[H", end="")
+
+Q: How do you read a password safely?
+A: getpass hides typing.
+import getpass
+pw = getpass.getpass()
+
+Q: How do you make a progress bar?
+A: Print carriage return updates.
+import time
+for i in range(101):
+    print(f"\r{i}%", end="", flush=True)
+    time.sleep(0.01)
+
+Q: How do you flush print?
+A: flush=True.
+print("x", flush=True)
+
+Q: How do you print to stderr?
+A: file=sys.stderr.
+import sys
+print("error", file=sys.stderr)
+
+Q: How do you redirect stdout to file?
+A: contextlib.redirect_stdout.
+from contextlib import redirect_stdout
+with open("out.txt", "w") as f:
+    with redirect_stdout(f):
+        print("captured")
+
+Q: How do you parse arguments nicely?
+A: argparse.
+import argparse
+p = argparse.ArgumentParser()
+p.add_argument("--iters", type=int, default=12000)
+args = p.parse_args()
+
+Q: How do you make a simple HTTP server?
+A: http.server.
+# python3 -m http.server 8000
+
+Q: How do you fetch a URL simply?
+A: urllib.request.urlopen.
+import urllib.request
+print(urllib.request.urlopen("https://example.com").status)
+
+Q: How do you handle URL errors?
+A: try URLError.
+import urllib.request, urllib.error
+try:
+    urllib.request.urlopen("https://bad.invalid")
+except urllib.error.URLError as e:
+    print("failed", e)
+
+Q: How do you encode URL parameters?
+A: urllib.parse.urlencode.
+import urllib.parse
+print(urllib.parse.urlencode({"q": "hello world"}))
+
+Q: How do you parse a URL?
+A: urllib.parse.urlparse.
+import urllib.parse
+u = urllib.parse.urlparse("https://x.com/a?b=1")
+print(u.netloc, u.path)
+
+Q: How do you work with paths modernly?
+A: pathlib.
+from pathlib import Path
+p = Path("data") / "chat.txt"
+print(p.read_text())
+
+Q: How do you glob files?
+A: pathlib glob.
+from pathlib import Path
+print(list(Path("data").glob("*.txt")))
+
+Q: How do you check path exists modernly?
+A: Path.exists().
+from pathlib import Path
+print(Path("model/best.pt").exists())
+
+Q: How do you get file stem?
+A: Path.stem.
+from pathlib import Path
+print(Path("train_v2.py").stem)
+
+Q: How do you touch a file?
+A: Path.touch().
+from pathlib import Path
+Path("model_v2/DONE").touch()
+
+Q: How do you read env with default?
+A: os.environ.get.
+import os
+port = int(os.environ.get("PORT", "8000"))
+
+Q: How do you set env var?
+A: os.environ.
+import os
+os.environ["MODE"] = "train"
+
+Q: How do you expand user home?
+A: os.path.expanduser.
+import os
+print(os.path.expanduser("~"))
+
+Q: How do you get absolute path?
+A: os.path.abspath.
+import os
+print(os.path.abspath("data"))
+
+Q: How do you split extension?
+A: os.path.splitext.
+import os
+print(os.path.splitext("brain.js"))
+
+Q: How do you get dirname and basename?
+A: os.path.dirname/basename.
+import os
+print(os.path.dirname("/a/b/c.txt"))
+print(os.path.basename("/a/b/c.txt"))
+
+Q: How do you change directory?
+A: os.chdir.
+import os
+os.chdir("/tmp")
+
+Q: How do you get cwd?
+A: os.getcwd.
+import os
+print(os.getcwd())
+
+Q: How do you make temp files?
+A: tempfile.
+import tempfile
+with tempfile.NamedTemporaryFile("w", delete=False) as f:
+    f.write("tmp")
+
+Q: How do you make temp dirs?
+A: tempfile.TemporaryDirectory.
+import tempfile
+with tempfile.TemporaryDirectory() as d:
+    print(d)
+
+Q: How do you zip files?
+A: zipfile or shutil.
+import shutil
+shutil.make_archive("backup", "zip", "data")
+
+Q: How do you unzip?
+A: shutil.unpack_archive.
+import shutil
+shutil.unpack_archive("backup.zip", "out")
+
+Q: How do you copy a file?
+A: shutil.copy.
+import shutil
+shutil.copy("a.txt", "b.txt")
+
+Q: How do you move a file?
+A: shutil.move.
+import shutil
+shutil.move("a.txt", "data/a.txt")
+
+Q: How do you copy a tree?
+A: shutil.copytree.
+import shutil
+shutil.copytree("data", "data_bak")
+
+Q: How do you remove a tree?
+A: shutil.rmtree.
+import shutil
+shutil.rmtree("tmpdir")
+
+Q: How do you get disk usage?
+A: shutil.disk_usage.
+import shutil
+print(shutil.disk_usage("/"))
+
+Q: How do you check which python runs?
+A: sys.executable.
+import sys
+print(sys.executable)
+
+Q: How do you freeze requirements?
+A: pip freeze.
+# pip freeze > requirements.txt
+
+Q: How do you install from requirements?
+A: pip install -r.
+# pip install -r requirements.txt
+
+Q: What is __init__.py?
+A: Makes a folder a package.
+# agent/__init__.py  (can be empty)
+
+Q: How do you do relative imports?
+A: from . import x inside a package.
+# from .mood import current
+
+Q: What is a namespace package?
+A: Folder without __init__.py still importable in py3.
+
+Q: How do you run module as script?
+A: python3 -m.
+# python3 -m agent.harness
+
+Q: How do you profile with cProfile?
+A: cProfile.run.
+import cProfile
+cProfile.run("slow()")
+
+Q: How do you trace calls?
+A: sys.settrace or trace module.
+import trace
+tracer = trace.Trace(count=False)
+tracer.runfunc(main)
+
+Q: How do you inspect source?
+A: inspect module.
+import inspect
+print(inspect.getsource(len))
+
+Q: How do you list function signature?
+A: inspect.signature.
+import inspect
+print(inspect.signature(open))
+
+Q: How do you check if callable?
+A: callable().
+print(callable(len))
+
+Q: How do you dynamically import?
+A: importlib.import_module.
+import importlib
+m = importlib.import_module("agent.mood")
+
+Q: How do you exec a string as code?
+A: exec(). Careful — only trusted code.
+exec("x = 1 + 1")
+
+Q: How do you eval an expression?
+A: eval(). Careful — only trusted input.
+print(eval("2 + 3"))
+
+Q: How do you compile a string?
+A: compile().
+code = compile("x + 1", "<s>", "eval")
+
+Q: What is the GIL?
+A: Global Interpreter Lock. Threads share it; CPU work does not parallelize well. Use multiprocessing for CPU.
+
+Q: How do you use multiprocessing?
+A: multiprocessing.Pool.
+from multiprocessing import Pool
+with Pool(2) as p:
+    print(p.map(str, [1, 2, 3]))
+
+Q: How do you share data between processes?
+A: Queue or Manager.
+from multiprocessing import Queue
+q = Queue()
+
+Q: How do you do async?
+A: asyncio.
+import asyncio
+async def main():
+    await asyncio.sleep(1)
+asyncio.run(main())
+
+Q: How do you gather async tasks?
+A: asyncio.gather.
+import asyncio
+async def main():
+    await asyncio.gather(f1(), f2())
+
+Q: How do you run shell async?
+A: asyncio.create_subprocess_shell.
+import asyncio
+async def main():
+    p = await asyncio.create_subprocess_shell("ls")
+
+Q: How do you make an async HTTP call?
+A: aiohttp or asyncio streams. Keep simple with urllib in threads if unsure.
+
+Q: How do you use queues in asyncio?
+A: asyncio.Queue.
+import asyncio
+q = asyncio.Queue()
+
+Q: How do you lock in asyncio?
+A: asyncio.Lock.
+import asyncio
+lock = asyncio.Lock()
+
+Q: How do you timeout async?
+A: asyncio.wait_for.
+import asyncio
+await asyncio.wait_for(slow(), timeout=5)
+
+Q: How do you cancel a task?
+A: task.cancel().
+t = asyncio.create_task(work())
+t.cancel()
+
+Q: What is a coroutine?
+A: async def function. Needs await or asyncio.run.
+
+Q: What is an event loop?
+A: asyncio.run creates one. It drives coroutines.
+
+Q: How do you mix threads and async?
+A: asyncio.to_thread.
+import asyncio
+await asyncio.to_thread(blocking_io)
+
+Q: How do you read stdin lines?
+A: sys.stdin.
+import sys
+for line in sys.stdin:
+    print(line.strip())
+
+Q: How do you write a filter script?
+A: Read stdin, write stdout.
+import sys
+for line in sys.stdin:
+    sys.stdout.write(line.upper())
+
+Q: How do you detect a pipe?
+A: sys.stdin.isatty().
+import sys
+if not sys.stdin.isatty():
+    print("piped input")
+
+Q: How do you make output unbuffered?
+A: python3 -u or flush.
+# python3 -u train.py
+
+Q: How do you handle Ctrl+C?
+A: try KeyboardInterrupt.
+try:
+    while True:
+        work()
+except KeyboardInterrupt:
+    print("stopped")
+
+Q: How do you handle signals?
+A: signal module.
+import signal
+signal.signal(signal.SIGTERM, lambda s, f: cleanup())
+
+Q: How do you daemonize simply?
+A: nohup and & from shell. Python stays simple.
+# nohup python3 train.py > train.log 2>&1 &
+
+Q: How do you write a PID file?
+A: Write os.getpid().
+import os
+with open("train.pid", "w") as f:
+    f.write(str(os.getpid()))
+
+Q: How do you check PID file process?
+A: os.kill(pid, 0).
+import os
+try:
+    os.kill(pid, 0)
+    print("running")
+except ProcessLookupError:
+    print("dead")
+
+Q: How do you set process title?
+A: Third party setproctitle, or skip. Not needed.
+
+Q: How do you limit recursion?
+A: sys.setrecursionlimit.
+import sys
+sys.setrecursionlimit(10000)
+
+Q: How do you do tail recursion? 
+A: Python does not optimize it. Rewrite as loop.
+
+Q: How do you flatten with recursion?
+A: Classic example.
+def flat(xs):
+    out = []
+    for x in xs:
+        if isinstance(x, list):
+            out += flat(x)
+        else:
+            out.append(x)
+    return out
+
+Q: How do you do binary search?
+A: bisect module.
+import bisect
+xs = [1, 3, 5]
+print(bisect.bisect_left(xs, 4))
+
+Q: How do you use heapq?
+A: Min-heap.
+import heapq
+h = []
+heapq.heappush(h, 3)
+print(heapq.heappop(h))
+
+Q: How do you do LRU manually?
+A: OrderedDict.
+from collections import OrderedDict
+cache = OrderedDict()
+
+Q: How do you chunk a list?
+A: Slice in steps.
+def chunks(xs, n):
+    return [xs[i:i+n] for i in range(0, len(xs), n)]
+
+Q: How do you interleave lists?
+A: zip then flatten.
+a, b = [1, 2], [3, 4]
+print([x for pair in zip(a, b) for x in pair])
+
+Q: How do you rotate a list?
+A: Slices.
+xs = [1, 2, 3]
+print(xs[1:] + xs[:1])
+
+Q: How do you find max by key?
+A: max with key.
+words = ["a", "abc", "ab"]
+print(max(words, key=len))
+
+Q: How do you do stable top-n?
+A: heapq.nlargest.
+import heapq
+print(heapq.nlargest(2, [5, 1, 4]))
+
+Q: How do you sample without replacement?
+A: random.sample.
+import random
+print(random.sample(range(10), 3))
+
+Q: How do you do weighted choice?
+A: random.choices weights.
+import random
+print(random.choices(["a", "b"], weights=[9, 1]))
+
+Q: How do you seed random?
+A: random.seed.
+import random
+random.seed(42)
+
+Q: How do you make UUIDs?
+A: uuid module.
+import uuid
+print(uuid.uuid4())
+
+Q: How do you hash passwords?
+A: hashlib pbkdf2, or bcrypt lib.
+import hashlib, os
+salt = os.urandom(16)
+h = hashlib.pbkdf2_hmac("sha256", b"pw", salt, 100000)
+
+Q: How do you compare hashes safely?
+A: hmac.compare_digest.
+import hmac
+print(hmac.compare_digest(a, b))
+
+Q: How do you encrypt simply?
+A: cryptography.fernet.
+from cryptography.fernet import Fernet
+key = Fernet.generate_key()
+f = Fernet(key)
+token = f.encrypt(b"secret")
+
+Q: How do you do HMAC?
+A: hmac module.
+import hmac, hashlib
+print(hmac.new(b"key", b"msg", hashlib.sha256).hexdigest())
+
+Q: How do you sign data?
+A: HMAC or ed25519 lib. HMAC example above.
+
+Q: How do you verify JSON schema simply?
+A: Manual checks.
+def valid(d):
+    return isinstance(d.get("name"), str)
+
+Q: How do you deep merge dicts?
+A: Recursion.
+def merge(a, b):
+    for k, v in b.items():
+        if k in a and isinstance(a[k], dict) and isinstance(v, dict):
+            merge(a[k], v)
+        else:
+            a[k] = v
+
+Q: How do you diff two dicts?
+A: Compare keys and values.
+def diff(a, b):
+    return {k: (a.get(k), b.get(k)) for k in set(a) | set(b) if a.get(k) != b.get(k)}
+
+Q: How do you flatten a dict?
+A: Recursion with dotted keys.
+def flat(d, pre=""):
+    out = {}
+    for k, v in d.items():
+        if isinstance(v, dict):
+            out.update(flat(v, pre + k + "."))
+        else:
+            out[pre + k] = v
+    return out
+
+Q: How do you unflatten?
+A: Split dotted keys.
+def unflat(d):
+    out = {}
+    for k, v in d.items():
+        cur = out
+        *parts, last = k.split(".")
+        for p in parts:
+            cur = cur.setdefault(p, {})
+        cur[last] = v
+    return out
+
+Q: How do you validate email simply?
+A: Simple regex.
+import re
+ok = re.match(r"^[^@]+@[^@]+\.[^@]+$", "a@b.com")
+
+Q: How do you slugify?
+A: Lowercase, replace non-alnum.
+import re
+def slug(s):
+    return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
+
+Q: How do you truncate text?
+A: Slice with ellipsis.
+def trunc(s, n=80):
+    return s if len(s) <= n else s[:n-1] + "…"
+
+Q: How do you word-wrap?
+A: textwrap.
+import textwrap
+print(textwrap.fill(long_text, width=60))
+
+Q: How do you dedent?
+A: textwrap.dedent.
+import textwrap
+s = textwrap.dedent("""
+    hello""")
+
+Q: How do you count lines in file?
+A: Sum generator.
+with open("f.txt") as f:
+    print(sum(1 for _ in f))
+
+Q: How do you get line count fast for big files?
+A: wc -l via subprocess.
+import subprocess
+print(subprocess.check_output(["wc", "-l", "f.txt"], text=True))
+
+Q: How do you tail a file?
+A: deque maxlen.
+from collections import deque
+with open("train.log") as f:
+    print("".join(deque(f, maxlen=5)))
+
+Q: How do you watch a file grow?
+A: Loop with seek.
+import time
+with open("train.log") as f:
+    f.seek(0, 2)
+    while True:
+        line = f.readline()
+        if line:
+            print(line, end="")
+        else:
+            time.sleep(1)
+
+Q: How do you atomically write a file?
+A: Write temp then rename.
+import os
+with open("out.tmp", "w") as f:
+    f.write(data)
+os.rename("out.tmp", "out.txt")
+
+Q: How do you lock a file?
+A: fcntl on unix.
+import fcntl
+with open("lock", "w") as f:
+    fcntl.flock(f, fcntl.LOCK_EX)
+
+Q: How do you memory-map a file?
+A: mmap.
+import mmap
+with open("big.bin", "r+b") as f:
+    m = mmap.mmap(f.fileno(), 0)
+
+Q: How do you read structured binary?
+A: struct module.
+import struct
+x, y = struct.unpack("<ii", data[:8])
+
+Q: How do you pack binary?
+A: struct.pack.
+import struct
+b = struct.pack("<ii", 10, 20)
+
+Q: How do you handle endianness?
+A: < little, > big, ! network.
+import struct
+print(struct.pack("!i", 1))
+
+Q: How do you work with bits?
+A: & | ^ ~ << >>.
+print(0b1010 & 0b1100)
+print(1 << 4)
+
+Q: How do you test a bit?
+A: (x >> n) & 1.
+print((0b1010 >> 1) & 1)
+
+Q: How do you set a bit?
+A: x | (1 << n).
+x = x | (1 << 3)
+
+Q: How do you clear a bit?
+A: x & ~(1 << n).
+x = x & ~(1 << 3)
+
+Q: How do you toggle a bit?
+A: x ^ (1 << n).
+x = x ^ (1 << 3)
+
+Q: How do you count bits?
+A: bin(x).count("1").
+print(bin(0b1011).count("1"))
+
+Q: How do you do fixed-point math?
+A: Scale integers.
+cents = int(dollars * 100)
+
+Q: How do you avoid float errors in money?
+A: Use integers (cents) or decimal.
+from decimal import Decimal
+print(Decimal("0.1") + Decimal("0.2"))
+
+Q: How do you format currency?
+A: f-string.
+print(f"${19.99:.2f}")
+
+Q: How do you do percentages?
+A: Multiply and format.
+print(f"{0.857:.1%}")
+
+Q: How do you clamp a value?
+A: min/max.
+x = min(10, max(0, x))
+
+Q: How do you lerp?
+A: a + (b - a) * t.
+def lerp(a, b, t):
+    return a + (b - a) * t
+
+Q: How do you smooth values?
+A: Exponential moving average.
+avg = 0.9 * avg + 0.1 * new
+
+Q: How do you do softmax?
+A: Exponentials normalized. Used in my own brain.
+import math
+def softmax(xs):
+    e = [math.exp(x - max(xs)) for x in xs]
+    s = sum(e)
+    return [v / s for v in e]
+
+Q: How do you sample from probabilities?
+A: random.choices.
+import random
+print(random.choices(["a", "b"], weights=[0.7, 0.3]))
+
+Q: How do you do argmax?
+A: max with range key.
+xs = [1, 5, 3]
+print(max(range(len(xs)), key=lambda i: xs[i]))
+
+Q: How do you normalize a vector?
+A: Divide by length.
+import math
+v = [3, 4]
+n = math.sqrt(sum(x*x for x in v))
+print([x/n for x in v])
+
+Q: How do you dot product?
+A: Sum of pairwise products.
+def dot(a, b):
+    return sum(x*y for x, y in zip(a, b))
+
+Q: How do you matrix multiply small?
+A: Nested loops.
+def matmul(A, B):
+    return [[sum(a*b for a, b in zip(row, col)) for col in zip(*B)] for row in A]
+
+Q: How do you transpose?
+A: zip(*m).
+m = [[1, 2], [3, 4]]
+print(list(zip(*m)))
+
+Q: How do you make an identity matrix?
+A: Comprehension.
+n = 3
+I = [[1 if i == j else 0 for j in range(n)] for i in range(n)]
+
+Q: How do you do gradient descent by hand?
+A: Tiny example of how I learn.
+w = 0.0
+lr = 0.01
+for x, y in data:
+    pred = w * x
+    grad = 2 * (pred - y) * x
+    w = w - lr * grad
+
+Q: How do you split train/val?
+A: Slice.
+n = len(data)
+train = data[:int(0.9*n)]
+val = data[int(0.9*n):]
+
+Q: How do you shuffle data each epoch?
+A: random.shuffle.
+import random
+random.shuffle(train)
+
+Q: How do you batch data?
+A: Chunks.
+def batches(xs, n):
+    return [xs[i:i+n] for i in range(0, len(xs), n)]
+
+Q: How do you one-hot encode?
+A: Vector with 1 at index.
+def onehot(i, n):
+    v = [0]*n
+    v[i] = 1
+    return v
+
+Q: How do you tokenize characters?
+A: Map char to index.
+stoi = {c: i for i, c in enumerate(sorted(set(text)))}
+ids = [stoi[c] for c in text]
+
+Q: How do you detokenize?
+A: Map index back.
+itos = {i: c for c, i in stoi.items()}
+s = "".join(itos[i] for i in ids)
+
+Q: How do you do causal masking?
+A: Only attend to past positions. My transformer does this.
+
+Q: How do you save model weights?
+A: torch.save or numpy.
+import torch
+torch.save(model.state_dict(), "model/best.pt")
+
+Q: How do you load model weights?
+A: torch.load then load_state_dict.
+import torch
+sd = torch.load("model/best.pt", map_location="cpu")
+model.load_state_dict(sd)
+
+Q: How do you export weights to numpy?
+A: .numpy() per tensor.
+arr = tensor.detach().cpu().numpy()
+
+Q: How do you check tensor shape?
+A: .shape.
+print(tensor.shape)
+
+Q: How do you do matrix multiply in torch?
+A: @ operator.
+import torch
+c = a @ b
+
+Q: How do you do softmax in torch?
+A: torch.softmax.
+import torch.nn.functional as F
+p = F.softmax(logits, dim=-1)
+
+Q: How do you sample in torch?
+A: torch.multinomial.
+import torch
+idx = torch.multinomial(probs, num_samples=1)
+
+Q: How do you set torch seed?
+A: torch.manual_seed.
+import torch
+torch.manual_seed(42)
+
+Q: How do you count parameters?
+A: Sum numel.
+n = sum(p.numel() for p in model.parameters())
+
+Q: How do you zero gradients?
+A: optimizer.zero_grad().
+
+Q: How do you backprop?
+A: loss.backward().
+
+Q: How do you step optimizer?
+A: optimizer.step().
+
+Q: How do you make an Adam optimizer?
+A: torch.optim.Adam.
+import torch
+opt = torch.optim.Adam(model.parameters(), lr=3e-4)
+
+Q: How do you do learning rate decay?
+A: Multiply lr each phase, or scheduler.
+for g in opt.param_groups:
+    g["lr"] *= 0.9
+
+Q: How do you clip gradients?
+A: torch.nn.utils.clip_grad_norm_.
+import torch
+torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+
+Q: How do you eval without gradients?
+A: torch.no_grad().
+import torch
+with torch.no_grad():
+    out = model(x)
+
+Q: How do you set eval mode?
+A: model.eval(). Train mode: model.train().
+
+Q: How do you move model to device?
+A: .to(device). I train on CPU.
+
+Q: How do you make an embedding layer?
+A: torch.nn.Embedding.
+import torch.nn as nn
+emb = nn.Embedding(vocab_size, 128)
+
+Q: How do you make a linear layer?
+A: torch.nn.Linear.
+layer = nn.Linear(128, 64)
+
+Q: How do you apply layer norm?
+A: torch.nn.LayerNorm.
+ln = nn.LayerNorm(128)
+
+Q: How do you apply dropout?
+A: torch.nn.Dropout.
+drop = nn.Dropout(0.1)
+
+Q: How do you define a custom module?
+A: Subclass nn.Module, forward().
+import torch.nn as nn
+class Block(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.ln = nn.LayerNorm(128)
+    def forward(self, x):
+        return self.ln(x)
+
+Q: How do you initialize weights?
+A: torch.nn.init.
+import torch.nn as nn
+nn.init.normal_(layer.weight, std=0.02)
+
+Q: How do you write the training loop?
+A: The heart of how I was made.
+for it in range(12000):
+    xb, yb = get_batch()
+    logits = model(xb)
+    loss = F.cross_entropy(logits.view(-1, V), yb.view(-1))
+    opt.zero_grad()
+    loss.backward()
+    opt.step()
+    if it % 500 == 0:
+        print(it, loss.item())
+
+Q: How do you generate text?
+A: Loop: predict, sample, append.
+import torch
+idx = torch.tensor([[stoi["H"]]])
+with torch.no_grad():
+    for _ in range(100):
+        logits = model(idx[:, -64:])
+        probs = F.softmax(logits[:, -1, :], dim=-1)
+        nxt = torch.multinomial(probs, 1)
+        idx = torch.cat([idx, nxt], dim=1)
+print("".join(itos[i] for i in idx[0]))
+
+Q: How do you debug NaN loss?
+A: Check lr too high, clip grads, check data has no NaN.
+
+Q: How do you resume training?
+A: Load checkpoint, continue loop.
+ckpt = torch.load("model_v2/ckpt_11000.pt", map_location="cpu")
+model.load_state_dict(ckpt["model"])
+opt.load_state_dict(ckpt["opt"])
+start = ckpt["iter"] + 1
+
+Q: How do you save checkpoints?
+A: Dict with model, optimizer, iter.
+torch.save({"model": model.state_dict(), "opt": opt.state_dict(), "iter": it}, f"ckpt_{it}.pt")
+
+Q: How do you track best validation?
+A: Keep best val, save when beaten.
+best = float("inf")
+if val < best:
+    best = val
+    torch.save(model.state_dict(), "best.pt")
+
+Q: How do you log training?
+A: Print and append to file.
+with open("train.log", "a") as f:
+    f.write(f"iter {it} train {tr:.3f} val {va:.3f}\n")
+
+Q: How do you write safe file code?
+A: with blocks, explicit encoding, atomic renames.
+with open("out.txt", "w", encoding="utf-8") as f:
+    f.write(text)
+
+Q: How do you test file code?
+A: Use tempfile, assert contents.
+import tempfile, os
+with tempfile.TemporaryDirectory() as d:
+    p = os.path.join(d, "t.txt")
+    open(p, "w").write("hi")
+    assert open(p).read() == "hi"
+
+Q: How do you debug file-not-found?
+A: Print cwd and list dir.
+import os
+print(os.getcwd())
+print(os.listdir("."))
+
+Q: What is the harness tool pattern?
+A: Functions that check rules before acting.
+def write_file(path, content):
+    check_allowed(path)   # raises if forbidden
+    with open(path, "w") as f:
+        f.write(content)
+
+Q: How do you sandbox code execution?
+A: Subprocess with timeout, limited cwd.
+import subprocess
+r = subprocess.run(["python3", "prog.py"], capture_output=True, text=True, timeout=30, cwd="sandbox")
+
+Q: How do you capture both stdout and stderr?
+A: capture_output=True, check returncode.
+r = subprocess.run(cmd, capture_output=True, text=True)
+if r.returncode != 0:
+    print(r.stderr)
+
+Q: How do you run untrusted code safely?
+A: Timeout, no network, separate cwd, resource limits. Never exec() it in your own process.
+
+Q: How do you validate before running?
+A: Compile first to catch syntax errors.
+try:
+    compile(code, "<prog>", "exec")
+except SyntaxError as e:
+    print("syntax error:", e)
+
+Q: How do you revert on test failure?
+A: Keep backup, restore if tests fail.
+import shutil
+shutil.copy(path, path + ".bak")
+try:
+    write_and_test()
+except Exception:
+    shutil.copy(path + ".bak", path)
+    raise
+
+Q: How do you write a watchdog?
+A: Loop: check process, restart if dead.
+import subprocess, time
+while True:
+    r = subprocess.run(["pgrep", "-f", "train.py"])
+    if r.returncode != 0:
+        subprocess.Popen(["python3", "train.py"])
+    time.sleep(60)
+
+Q: How do you make a CLI tool?
+A: argparse main.
+import argparse
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("cmd")
+    args = p.parse_args()
+    print(args.cmd)
+if __name__ == "__main__":
+    main()
+
+Q: How do you structure a project?
+A: Folders by concern.
+# neuro-brain/
+#   train.py  chat.py
+#   agent/    (mood, harness, learn)
+#   data/     (corpora)
+#   web/      (brain.js, pages)
+#   home/     (diary, memory)
+
+Q: How do you keep a changelog?
+A: Append dated entries.
+with open("CHANGELOG.md", "a") as f:
+    f.write("\n## 2026-10-18\n- added code corpora\n")
+
+Q: How do you version simply?
+A: Date or counter in filename.
+# best.pt -> best_2026-10-18.pt
+
+Q: How do you do code review on yourself?
+A: Read diff, run tests, check rules.
+# git diff, run test suite, verify no protected paths touched
+
+Q: What makes code readable?
+A: Small functions, clear names, no clever tricks.
+def train_step(batch):
+    loss = forward(batch)
+    backward(loss)
+    return loss
+
+Q: What is technical debt?
+A: Shortcuts today that cost time tomorrow. I avoid it by testing.
+
+Q: How do you refactor safely?
+A: Tests first, small steps, run tests after each.
+1. write test for current behavior
+2. change code a little
+3. run test
+4. repeat
+
+Q: How do you find bugs systematically?
+A: Reproduce, isolate, fix, verify.
+1. smallest input that fails
+2. bisect the code
+3. fix one thing
+4. rerun
+
+Q: How do you rubber-duck debug?
+A: Explain the code line by line out loud. The bug reveals itself.
+
+Q: What is a race condition?
+A: Two things touch shared state, order matters, bug appears randomly. Locks fix it.
+
+Q: What is a deadlock?
+A: Two locks, opposite order, both wait forever. Always lock in same order.
+
+Q: How do you avoid global state?
+A: Pass parameters, return values, use classes.
+
+Q: When do you use a class vs functions?
+A: Class when data + behavior travel together. Functions otherwise.
+
+Q: How do you name things?
+A: Verbs for functions, nouns for classes, clear not short.
+def train_model(): ...
+class Brain: ...
+
+Q: How long should a function be?
+A: Fits on one screen. If longer, split it.
+
+Q: How do you handle configuration?
+A: Dict or dataclass at top.
+CONFIG = {"layers": 6, "heads": 6, "lr": 3e-4}
+
+Q: How do you make code testable?
+A: Pure functions, injected dependencies, no hidden globals.
+def pure_add(a, b):
+    return a + b   # easy to test
+
+Q: How do you mock in tests?
+A: Replace function temporarily.
+real = mod.fetch
+mod.fetch = lambda url: "fake"
+try:
+    test()
+finally:
+    mod.fetch = real
+
+Q: What is TDD?
+A: Test driven development. Write failing test, make it pass, clean up.
+
+Q: How do you test randomness?
+A: Seed it.
+import random
+random.seed(0)
+assert choice() == expected
+
+Q: How do you test file output?
+A: tmpdir, run, read back, compare.
+
+Q: How do you test errors?
+A: pytest.raises or try/except assert.
+try:
+    divide(1, 0)
+    assert False, "should have raised"
+except ValueError:
+    pass
+
+Q: How do you measure test coverage simply?
+A: Count lines hit vs total. Or use coverage.py.
+# pip install coverage; coverage run -m pytest; coverage report
+
+Q: How do you write a good error message?
+A: Say what, where, and what to do.
+raise ValueError(f"bad mood {m!r}: expected one of {VALID}")
+
+Q: How do you log levels?
+A: debug < info < warning < error.
+import logging
+logging.debug("detail")
+logging.info("normal")
+logging.warning("careful")
+logging.error("broken")
+
+Q: How do you rotate logs?
+A: Delete old, or RotatingFileHandler.
+import logging.handlers
+h = logging.handlers.RotatingFileHandler("app.log", maxBytes=1e6, backupCount=3)
+
+Q: How do you structure logs?
+A: Timestamp, level, message.
+logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s")
+
+Q: How do you debug performance?
+A: cProfile, then optimize the hottest spot only.
+
+Q: How do you speed up Python loops?
+A: Vectorize with numpy, or use comprehensions, or PyPy. Profile first.
+
+Q: How do you use numpy basics?
+A: Arrays, vector ops.
+import numpy as np
+a = np.array([1, 2, 3])
+print(a * 2)
+print(a @ a)
+
+Q: How do you make numpy arrays?
+A: np.zeros, np.ones, np.random.
+import numpy as np
+w = np.random.randn(128, 64) * 0.02
+
+Q: How do you slice numpy?
+A: Like lists, multi-dim.
+import numpy as np
+m = np.zeros((4, 4))
+print(m[1:3, :])
+
+Q: How do you save numpy?
+A: np.save / np.load, or npz.
+import numpy as np
+np.save("w.npy", w)
+w2 = np.load("w.npy")
+
+Q: How do you do softmax numpy?
+A: Same formula.
+import numpy as np
+def softmax(x):
+    e = np.exp(x - x.max(axis=-1, keepdims=True))
+    return e / e.sum(axis=-1, keepdims=True)
+
+Q: How do you do layer norm numpy?
+A: Normalize per row.
+import numpy as np
+def layernorm(x, g, b, eps=1e-5):
+    m = x.mean(-1, keepdims=True)
+    v = x.var(-1, keepdims=True)
+    return g * (x - m) / np.sqrt(v + eps) + b
+
+Q: How do you do attention numpy?
+A: QK^T, scale, mask, softmax, times V.
+import numpy as np
+def attention(Q, K, V):
+    s = Q @ K.T / np.sqrt(Q.shape[-1])
+    s = np.where(np.arange(s.shape[0])[:, None] >= np.arange(s.shape[1]), s, -1e9)
+    return softmax(s) @ V
+
+Q: Why learn numpy too?
+A: My web brain (brain.js) and chat_numpy.py are numpy-style ports. Same math, no torch.
+
+END OF PYTHON.
