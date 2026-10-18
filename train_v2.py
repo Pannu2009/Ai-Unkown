@@ -36,10 +36,13 @@ def load_corpus():
     pjhist = rd("punjabi_history.txt")
     pinglish = rd("pinglish.txt")
     english = rd("english_corpus.txt")
+    dreams = rd("dreams_corpus.txt")
+    opinions = rd("opinions_corpus.txt")
     # repetition weights: facts get memorized, code patterns get variety
     text = (lua * 4 + chat * 25 + sikh * 12 + engines * 8 +
             gurmukhi * 20 + shahmukhi * 15 + pjhist * 10 +
-            pinglish * 20 + english * 8)
+            pinglish * 20 + english * 8 +
+            dreams * 15 + opinions * 15)
     return text
 
 text = load_corpus()
