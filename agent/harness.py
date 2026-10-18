@@ -16,6 +16,7 @@ ALLOWED_ROOTS = [
     os.path.join(ROOT, "data"),
     os.path.join(ROOT, "web"),
     os.path.join(ROOT, "worker"),
+    os.path.join(ROOT, "home"),  # Arjan's home — his own computer
 ]
 
 # These can NEVER be written by the agent, no matter what.
