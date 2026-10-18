@@ -101,13 +101,20 @@ const Brain = (() => {
   }
 
   async function load(base) {
-    const v = "?v=4"; // cache-buster: bump when weights change
+    const v = "?v=6"; // cache-buster: bump when weights change
     const man = await (await fetch(base + "/data/manifest.json" + v)).json();
     cfg = man;
     const vt = await (await fetch(base + "/data/vocab.txt" + v)).text();
     vocab = [...vt]; stoi = {}; vocab.forEach((c, i) => stoi[c] = i);
-    const buf = await (await fetch(base + "/data/weights.bin" + v)).arrayBuffer();
-    const f32 = new Float32Array(buf);
+    // sharded weights: fetch all parts, concatenate, then slice by global offset
+    const shards = man.shards || ["weights.bin"];
+    const parts = await Promise.all(
+      shards.map(s => fetch(base + "/data/" + s + v).then(r => r.arrayBuffer())));
+    const total = parts.reduce((a, b) => a + b.byteLength, 0);
+    const cat = new Uint8Array(total);
+    let off = 0;
+    for (const p of parts) { cat.set(new Uint8Array(p), off); off += p.byteLength; }
+    const f32 = new Float32Array(cat.buffer);
     for (const t of man.tensors) {
       const n = t.shape.reduce((a, b) => a * b, 1);
       T[t.name] = f32.subarray(t.offset, t.offset + n);
