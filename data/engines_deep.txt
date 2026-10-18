@@ -1,0 +1,185 @@
+DEEP V8 ENGINE KNOWLEDGE
+
+Q: What are the exact bore and stroke of a Chevrolet small-block 350?
+A: The Chevrolet small-block 350 uses a 4.000 inch bore and a 3.480 inch stroke. With 8 cylinders that works out to 349.8 cubic inches, rounded to 350. The block deck height is 9.025 inches and the stock rod length is 5.700 inches. Production ran from 1967 through the early 2000s in many forms, from the 2-bolt main truck blocks to the 4-bolt main performance blocks. The firing order is 1-8-4-3-6-5-7-2.
+
+Q: What are the exact bore and stroke of a Ford 302?
+A: The Ford 302 Windsor uses a 4.000 inch bore and a 3.000 inch stroke, giving 301.6 cubic inches. Deck height is 8.206 inches and the stock rod length is 5.090 inches. The firing order on the classic 302 is 1-5-4-2-6-3-7-8, while the 302 HO and 351W use 1-3-7-2-6-5-4-8. The short 3.000 inch stroke is why the 302 loves to rev, with safe street redlines around 6500 rpm on stock bottom ends.
+
+Q: What are the exact bore and stroke of the 426 HEMI?
+A: The 426 Street HEMI uses a 4.250 inch bore and a 3.750 inch stroke, giving 425.6 cubic inches. The hemispherical combustion chambers with the valves arranged across from each other gave it huge airflow, which is why it dominated drag racing. Stock compression was 10.25:1 and factory ratings were famously underrated at 425 horsepower.
+
+Q: What are the specs of the Chevrolet 454 big block?
+A: The 454 big block uses a 4.250 inch bore and a 4.000 inch stroke, giving 453.6 cubic inches. The long 4 inch stroke makes it a torque monster, with stock versions making over 500 lb-ft. Deck height on the Mark IV big block is 9.800 inches with a 6.135 inch rod.
+
+Q: What is a 383 stroker?
+A: A 383 stroker is a small-block Chevy 350 block bored 0.030 over to 4.030 inches and fitted with a 3.750 inch stroke crank from a 400 small block. That gives 382.7 cubic inches. The combination of a 350 block and a 400 crank needs clearancing at the bottom of the cylinder bores and the pan rails because the longer stroke swings the rod bolts into the block. Main journals on a 400 crank are larger, so the crank is turned down or the block uses spacer bearings. A typical pump-gas 383 with aluminum heads makes 450 to 500 horsepower naturally aspirated.
+
+Q: What are the bore and stroke of an LS1?
+A: The GM LS1 is 5.7 liters with a 3.898 inch bore and a 3.622 inch stroke. The LS3 is 6.2 liters with a 4.065 inch bore and the same 3.622 inch stroke. LS blocks use a deep-skirt design with 6-bolt cross-bolted main caps, which is a big part of why they hold so much power on stock bottom ends.
+
+Q: What is the displacement formula?
+A: Displacement equals pi divided by 4, times bore squared, times stroke, times the number of cylinders. In inches: CID = 0.7854 x bore^2 x stroke x 8 for a V8. To convert cubic inches to liters, multiply by 0.016387. So a 350 cubic inch engine is 350 x 0.016387 = 5.736 liters. To go the other way, liters divided by 0.016387 gives cubic inches.
+
+Q: How do you calculate compression ratio?
+A: Compression ratio is total cylinder volume at bottom dead center divided by the volume at top dead center. You need four numbers: swept volume of one cylinder, combustion chamber volume, head gasket volume, and piston deck plus dome or dish volume. Example: a 350 with 64cc chambers, flat-top pistons with 6cc of valve reliefs, a 0.041 inch compressed gasket, and zero deck gives about 10.2:1. Raising compression from 9:1 to 11:1 is worth roughly 4 percent power per point on pump gas, but detonation risk rises fast past 11:1 on 91 octane with iron heads.
+
+Q: How do you calculate engine airflow in CFM?
+A: CFM = (displacement in cubic inches x RPM x volumetric efficiency) / 3456. A 350 at 6000 rpm with 85 percent volumetric efficiency needs (350 x 6000 x 0.85) / 3456 = 516 CFM. That is why a 750 CFM carburetor works on a hot 350: the carb rating is at 1.5 inches of mercury pressure drop, and the engine at wide open throttle does not pull the full rating, so you size up about 20 to 30 percent. For forced induction, multiply by the pressure ratio: 10 psi of boost is a pressure ratio of about 1.68, so the same 350 needs about 867 CFM.
+
+Q: What are stock torque specs for a small-block Chevy?
+A: Main bearing cap bolts: 65 ft-lb on the inner bolts and 40 ft-lb on the outer bolts of a 4-bolt main. Connecting rod bolts: 45 ft-lb with stock bolts. Cylinder head bolts: 65 ft-lb in three steps. Intake manifold: 30 ft-lb. Oil pan: 12 ft-lb. Timing cover: 6 ft-lb. Harmonic balancer bolt: 60 ft-lb. Flywheel: 60 ft-lb. Always use the proper sequence: mains from the center cap outward, heads from the center bolts spiraling outward, intake from the center out in a crisscross.
+
+Q: What are stock torque specs for a Ford 302?
+A: Main caps: 60 to 70 ft-lb. Rod bolts: 40 to 45 ft-lb. Head bolts: 65 to 72 ft-lb in sequence, done in three passes. Intake manifold: 23 to 25 ft-lb. Rocker arms on pedestal mounts: 18 to 20 ft-lb. Oil pan: 7 to 9 ft-lb. Harmonic balancer: 70 to 90 ft-lb. Ford head bolts go into the water jacket on many Windsor blocks, so thread sealant on the head bolts is required or coolant will weep up the threads.
+
+MAIN BEARING CLEARANCES
+
+Q: What is the correct main bearing clearance on a small-block V8?
+A: Target 0.002 to 0.003 inch on the mains for a street engine, measured with a dial bore gauge or plastigage. High performance and high rpm builds run 0.0025 to 0.0032 inch because oil film thickness has to grow with load and speed. Under 0.002 inch the bearing runs hot and can seize; over 0.0035 inch you lose oil pressure and the crank hammers the bearing. The old rule of thumb is 0.001 inch of clearance per inch of journal diameter, so a 2.45 inch main journal wants about 0.0025 inch.
+
+Q: What is rod bearing clearance and side clearance?
+A: Rod bearing clearance is also targeted at 0.002 to 0.003 inch on most street V8s, measured between the crank journal and the bearing. Side clearance between adjacent rods on a shared journal should be 0.010 to 0.025 inch. Too little side clearance starves the rods of oil fling and overheats them; too much lets the rods walk and hammers the bearings. Crankshaft endplay, controlled by the thrust bearing, should be 0.004 to 0.008 inch. Check it with a dial indicator by prying the crank gently fore and aft.
+
+Q: What piston ring gaps should a street 350 run?
+A: On a 4.000 inch bore street engine, run the top ring at 0.018 to 0.022 inch, the second ring at 0.014 to 0.018 inch, and the oil rails at a minimum of 0.015 inch. The rule of thumb for the top ring is 0.004 inch of gap per inch of bore on naturally aspirated engines, which gives 0.016 on a 4 inch bore; add margin for safety on the street. For nitrous or forced induction, open the top ring to 0.0055 to 0.0065 inch per inch of bore because the extra heat expands the ring. File the rings with a proper ring filer and deburr the edges. Rings must be installed with the marked side up and the gaps clocked 120 degrees apart around the piston, never lined up.
+
+Q: What is valve lash and how do you set it on solid lifters?
+A: Valve lash is the small gap between the rocker arm and the valve tip on engines with solid lifters. Typical hot lash is 0.016 to 0.024 inch on the intake and 0.018 to 0.026 on the exhaust, but always use the cam maker's spec. Set it with the engine hot and each lifter on the base circle of the cam lobe. Use the EOIC method: when the Exhaust valve starts to Open, set the Intake; when the Intake is nearly Closed, set the Exhaust. Too tight and the valve hangs open, burns, and kills compression; too loose and you get noise, lost lift, and hammered valvetrain parts.
+
+Q: How do you adjust hydraulic lifters?
+A: With hydraulic lifters you want zero lash plus preload. Spin the pushrod while tightening the rocker until you feel slight resistance, that is zero lash. Then go one half to three quarters of a turn further to put the lifter plunger in the middle of its travel. That is all. Do not treat them like solids and set a gap. If a hydraulic lifter ticks at idle, it is usually a worn lifter, low oil pressure, or varnish; replacing the lifter and checking oil pressure is the fix, not tightening it harder.
+
+CAMSHAFTS
+
+Q: What do camshaft duration, lift, and lobe separation mean?
+A: Duration is how long the valve stays open, measured in crankshaft degrees. Advertised duration is measured at very low lift and looks big; duration at 0.050 inch of lifter rise is the honest number engine builders compare. Lift is how far the valve opens, calculated as lobe lift times rocker ratio. Lobe separation angle is the angle in cam degrees between the intake and exhaust lobe peaks; tighter LSA like 106 to 110 gives more overlap, a rougher idle, and a narrower powerband, while wider LSA like 112 to 116 idles smoother and makes a broader curve. A classic street cam for a 350 is about 218 to 224 degrees at 0.050, 0.470 inch lift, on a 112 LSA.
+
+Q: What happens when you advance or retard a camshaft?
+A: Advancing the cam 4 degrees moves the powerband down about 200 rpm, improving low-end torque and throttle response at the cost of top end. Retarding it 4 degrees moves power up, better for high rpm racing. Most street builds run the cam straight up or 2 to 4 degrees advanced. Always degree the cam with a degree wheel on assembly; do not trust the dots alone, because timing sets and keyways have tolerances that can put the cam several degrees off.
+
+Q: What is valve overlap and why does it matter?
+A: Overlap is the period when both the intake and exhaust valves are open at the same time, near top dead center between the exhaust and intake strokes. High overlap scavenges the cylinder and makes big top-end power, but at idle it lets exhaust dilute the intake charge, which is why race cams idle rough and have low vacuum. Street engines want low overlap for vacuum for power brakes; race engines want high overlap for scavenging. Overlap is a function of duration and lobe separation: long duration plus tight LSA equals big overlap.
+
+IGNITION TIMING
+
+Q: What is initial, mechanical, and total timing?
+A: Initial timing is what the distributor is set to at idle with the vacuum advance disconnected, typically 10 to 16 degrees before top dead center on a street small block. Mechanical advance is added by the centrifugal weights as rpm rises. Total timing is initial plus mechanical, and it should be 34 to 36 degrees all in by about 2800 to 3200 rpm on most wedge-head V8s. HEMI and fast-burn heads need less total, often 30 to 32 degrees, because the chamber burns faster.
+
+Q: How do you set timing with a light?
+A: Warm the engine, disconnect and plug the vacuum advance, and connect an inductive timing light to cylinder 1. Loosen the distributor hold-down, aim the light at the harmonic balancer, and turn the distributor until the timing mark lines up with your target initial value on the timing tab. Tighten the hold-down and recheck, because tightening moves the distributor slightly. Then rev the engine past 3000 rpm and verify total timing is 34 to 36 degrees. Reconnect the vacuum advance last. If the engine pings under load, back the initial timing off 2 degrees at a time until the ping stops.
+
+Q: What does vacuum advance do?
+A: Vacuum advance adds 10 to 14 degrees of timing at light throttle and cruise, when manifold vacuum is high and the mixture is lean and slow-burning. It improves cruise fuel economy and throttle response and drops out under load when vacuum falls, so it does not cause detonation at wide open throttle. Connect it to ported vacuum, which is zero at idle and rises off idle, or to manifold vacuum for a slightly different idle character; ported is the standard street setup.
+
+FUEL AND AIR
+
+Q: What air fuel ratios should a street V8 run?
+A: Stoichiometric for gasoline is 14.7:1, which is what you want at idle and steady cruise for clean running and economy. Light acceleration wants 14.0 to 14.5. Wide open throttle wants 12.5 to 13.2 for best power; richer than 12.0 just washes the cylinders and wastes fuel. Deceleration can go lean past 15.5. These are gasoline numbers; E85 wants 9.8:1 stoichiometric and about 8.5:1 at wide open throttle because ethanol carries less energy per pound but resists knock far better.
+
+Q: How do you jet a carburetor for best power?
+A: Start with the factory jetting for your carburetor size, then tune with a wideband oxygen sensor. Set the idle mixture screws for highest vacuum, usually 1 to 1.5 turns out. Cruise is controlled by the primary jets and metering rods; wide open throttle is controlled by the secondaries and the power valve. The power valve should open about 2 inches of mercury below your idle vacuum reading; if you idle at 12 inches, run a 10.5 or 8.5 power valve. Change jets two sizes at a time and watch the wideband: leaner jets raise the AFR number, richer jets lower it. A plug chop after a full-throttle run tells the same story: tan porcelain is right, white is lean, black and sooty is rich.
+
+Q: What size carburetor does a 350 need?
+A: A mild 350 to 5500 rpm is happy with a 600 CFM carburetor. A hot street 350 turning 6500 wants 750 CFM. A race 383 turning 7000 wants 850 CFM. Oversized carbs hurt throttle response and low-end torque because the airspeed through the venturi drops and fuel atomization suffers. Vacuum secondary carbs are forgiving on the street because they only open the secondaries as the engine demands; mechanical secondaries need the right gear and stall to avoid a bog.
+
+DYNO TUNING
+
+Q: What is the procedure for a chassis dyno tuning session?
+A: Start with a full mechanical check: fresh oil, correct coolant level, no exhaust leaks before the oxygen sensor, correct tire pressure, and the air filter you will run on the street. Warm the engine fully. Make a baseline pull in the gear closest to 1:1, usually third or fourth, from about 2500 rpm to redline. Log air fuel ratio, rpm, and power. Then tune in order: first set total ignition timing for best torque, adding 2 degrees at a time until power stops rising, then back off 2 degrees for safety. Next jet the carburetor or adjust the fuel map for 12.8 to 13.2 AFR at wide open throttle. Then fine-tune the part-throttle cruise areas. A typical street V8 picks up 5 to 15 percent over an untuned baseline from timing and fuel alone. Never tune through detonation; if you hear ping, stop and pull timing immediately.
+
+FORCED INDUCTION
+
+Q: What is the difference between a supercharger and a turbocharger?
+A: A supercharger is belt-driven off the crankshaft, so boost is instant and rises with engine rpm, but it costs crankshaft power to turn, typically 50 to 100 horsepower on a big blower. A turbocharger is driven by exhaust gas, so it is more efficient and costs almost no crank power, but it has lag while the exhaust spools the turbine. Roots blowers like the classic 6-71 sit on top of the manifold and make boost from idle with a deep whine. Centrifugal superchargers like ProCharger and Vortech build boost with rpm like a belt-driven turbo. Turbos make more peak power per psi of boost; superchargers make better low-end response.
+
+Q: How much power does boost add?
+A: Roughly, every 14.7 psi of boost doubles the air density, so power roughly follows the pressure ratio. In the real world, 7 psi on a well-tuned V8 adds about 40 to 50 percent power because of heat and efficiency losses. So a 350 making 350 horsepower naturally aspirated makes about 500 to 525 at 7 psi with an intercooler. A pressure ratio of 2.0, about 14.7 psi, gets you close to double the naturally aspirated power if the fuel system, cooling, and bottom end can take it.
+
+Q: What is an intercooler and why does boost need one?
+A: Compressing air heats it; a turbo at 15 psi can push charge air past 250 degrees Fahrenheit. Hot air is less dense and detonates easily. An intercooler is a heat exchanger that cools the compressed air before it enters the engine. Air-to-air intercoolers use outside airflow and are simple; air-to-water intercoolers use a coolant loop and work better at the drag strip where there is no airflow at the starting line. Cooling the charge from 250 to 120 degrees is worth roughly 10 percent more power and a large margin against detonation.
+
+Q: How do you size a turbo for a V8?
+A: Size the turbo from the engine's airflow at your target rpm. A 350 at 6000 rpm and 85 percent volumetric efficiency moves about 516 CFM naturally aspirated; at 10 psi the pressure ratio is 1.68, so the turbo must flow about 867 CFM. Read the compressor map: you want the engine's operating point to fall in the 70 percent efficiency island of the map at peak power, and above the surge line at low rpm. Too big a turbo and it never spools; too small and it chokes the top end and overheats the charge. Twin turbos split the flow, so each turbo only needs to flow half, which is why twin small turbos spool faster than one big one on a V8.
+
+Q: What fuel system changes does forced induction need?
+A: Boosted engines need about 40 percent more fuel per psi range, so the fuel pump, lines, and injectors must be upsized. A common rule is that injector size in lb/hr should be roughly horsepower divided by the number of injectors, divided by 0.8 for duty cycle headroom, then multiplied up for boost. A 600 horsepower boosted V8 with 8 injectors wants at least 60 lb/hr injectors at 43 psi base pressure. A rising-rate fuel pressure regulator adds 1 psi of fuel pressure for every 1 psi of boost to keep the pressure differential across the injector constant. Always run colder spark plugs, one to two heat ranges colder, and gap them tighter, 0.028 to 0.032 inch, because boost blows out the spark.
+
+Q: What is detonation and how do you avoid it under boost?
+A: Detonation is uncontrolled explosion of the fuel mixture instead of a smooth flame front; it sounds like marbles rattling in the engine and it breaks pistons and ring lands. Under boost, prevent it four ways: lower the static compression ratio to 8.5:1 to 9.5:1 for pump gas boost, run an intercooler, retard timing 1 to 1.5 degrees per psi of boost from the naturally aspirated curve, and run rich enough at wide open throttle, 11.5 to 12.0 AFR on gasoline under boost. Water-methanol injection is a cheap fifth tool: it cools the charge and adds octane, letting you run 2 to 3 more psi on pump gas.
+
+COMMON FAILURES AND DIAGNOSIS
+
+Q: What is blowby and how do you diagnose it?
+A: Blowby is combustion pressure leaking past worn piston rings into the crankcase. Symptoms are oil pushing out of the breathers, a milky or pressurized oil cap that dances on the valve cover, and oil consumption with blue exhaust smoke. Diagnose with a compression test and a leakdown test. In a leakdown test you pressurize each cylinder at top dead center with compressed air and listen: air hissing from the oil filler means rings, from the intake means an intake valve, from the exhaust means an exhaust valve, and bubbles in the radiator mean a head gasket. Over 20 percent leakdown on a street engine means it is tired; under 10 percent is healthy.
+
+Q: What causes a spun bearing?
+A: A spun bearing happens when the bearing shell rotates in its bore, usually because of oil starvation, too little clearance, or detonation hammering. The first sign is a deep knocking that follows rpm and a sudden drop in oil pressure. Causes include low oil level, a failed oil pump, clogged pickup screen, too-thin oil for the clearances, or overheating that thins the oil. Once it knocks, the crank journal is scored and both the crank and the rod or block need machine work. Prevention is simple: correct clearances, clean oil, proper oil level, and a windage tray and good pickup so the pump never sucks air in hard corners.
+
+Q: What are the symptoms of a burnt valve?
+A: A burnt exhaust valve leaks compression, so the engine misfires at idle, has low power, and may pop back through the intake or exhaust. A compression test shows one cylinder much lower than the rest, and a leakdown test hisses through the exhaust. Burnt valves come from too-tight lash that holds the valve off its seat, lean mixtures that raise exhaust temperature, or detonation. The fix is a valve job: replace or regrind the valve, cut the seat, and reset the lash correctly.
+
+Q: What is hydrolock?
+A: Hydrolock is when liquid water or fuel fills a cylinder and the piston cannot compress it, which bends connecting rods instantly. It happens from driving through deep water with a low intake, a blown head gasket filling a cylinder with coolant overnight, or a stuck injector flooding a cylinder. The engine stops dead with a clunk and will not turn over. Never force it with the starter; pull the spark plugs and turn it by hand to push the liquid out, then find the source before restarting.
+
+Q: How do you read spark plugs?
+A: The porcelain color tells the fuel story. Light tan to gray is correct. White or blistered porcelain means lean or too hot a plug; check for vacuum leaks and jet up. Black sooty plugs mean rich or too cold a plug. Oily wet plugs mean oil is getting past the rings or valve seals. Tiny aluminum specks on the porcelain mean detonation is eating the piston. Read plugs after a full-throttle run with the engine shut off immediately, not after idling back to the pits, because idle fouls the reading.
+
+FULL REBUILD PROCEDURE
+
+Q: What are the steps of a complete V8 rebuild in order?
+A: One, remove the engine and strip it to a bare block: intake, heads, pan, timing set, cam, crank, pistons. Two, send the block to the machine shop for hot tanking, magnaflux crack checking, boring and honing with a torque plate, decking if needed, and align-honing the mains. Three, have the crankshaft magnafluxed, ground undersize if scored, and polished. Four, resize the connecting rods and fit new rod bolts. Five, order bearings, rings, gaskets, cam, lifters, timing set, and oil pump to match the finished sizes. Six, clean everything obsessively: wash the block with hot soapy water and brushes until a white rag comes out clean, then oil the bores immediately. Seven, file-fit the piston rings to each bore. Eight, install the camshaft with assembly lube, then the crankshaft with plastigage checks on every main. Nine, install pistons with a ring compressor, checking rod bearing clearance on each. Ten, install the timing set degreed to spec, the oil pump and pickup, and the pan. Eleven, install the heads with new gaskets torqued in sequence, then the valvetrain lashed to spec. Twelve, install the intake, distributor, and accessories. Thirteen, prime the oil system with a drill on the oil pump driveshaft until oil reaches the rockers. Fourteen, break in the cam: start the engine and run it at 2000 to 2500 rpm for 20 minutes with break-in oil, varying rpm slightly, never idling. Fifteen, change the oil and filter, retorque the intake, reset the lash hot, and tune.
+
+Q: How do you check bearing clearance with plastigage?
+A: Cut a piece of plastigage the width of the journal and lay it across the bearing journal, away from the oil hole. Install the cap and torque to spec, then remove the cap without turning the crank. Compare the squashed width of the plastigage to the scale on the package. The scale reads directly in thousandths of an inch. Plastigage is a check, not a substitute for a dial bore gauge on a performance build, but it catches wrong-size bearings and tapered journals reliably. Always confirm with the crank manufacturer: if the box says 0.010 under and the block is standard, the plastigage will show it immediately.
+
+Q: What is the correct cylinder head torque sequence?
+A: Always work from the center outward in a spiral or crisscross pattern so the head pulls down flat. On a small-block Chevy with 17 head bolts per side, start with the center bolts and spiral outward, torquing in three passes: first to 25 ft-lb, then 45, then the final 65. Use thread sealant on bolts that enter the water jacket. With aftermarket head studs, torque to the stud maker's spec, usually 70 to 75 ft-lb with moly lube, and recheck after one heat cycle. Aluminum heads need retorquing after the first full warmup because aluminum expands more than iron.
+
+Q: How do you degree a camshaft?
+A: Bolt a degree wheel to the crank snout and mount a dial indicator on the number one intake lifter. Find exact top dead center with a piston stop: turn the crank both ways against the stop, mark the wheel, and split the difference. Then rotate to the cam maker's specified intake centerline, usually around 106 to 112 degrees after top dead center, and read the dial indicator at maximum lobe lift. If the centerline is off, move the cam with an offset bushing or a multi-keyway timing set. Verify the exhaust centerline the same way. A cam that is 4 degrees retarded from the card will feel lazy down low; 4 degrees advanced will feel strong down low and soft up top.
+
+Q: What is proper piston to wall clearance?
+A: Forged pistons need 0.004 to 0.006 inch on a 4 inch bore street engine because forged aluminum expands more than cast. Hypereutectic cast pistons run tighter, 0.0015 to 0.0025 inch, which is why they are quieter cold. Measure with a bore gauge and a micrometer at the piston's gauge point, usually 90 degrees to the pin and half an inch up from the bottom of the skirt. Too tight and the piston seizes when hot; too loose and it slaps cold and burns oil.
+
+Q: How do you break in a flat tappet camshaft?
+A: Use a dedicated break-in oil or additive with high zinc and phosphorus, at least 1200 ppm ZDDP, because modern oils removed it and flat tappets die without it. Coat the lobes and lifter faces with the supplied moly paste. Start the engine and immediately bring it to 2000 to 2500 rpm; do not let it idle, because oil splash to the cam is rpm-dependent. Run 20 minutes, varying rpm between 2000 and 2800 every few minutes. Shut down, change oil and filter while hot, and cut the filter open to inspect for metal. If the engine overheats during break-in, shut it off, fix the cooling, and restart the clock; a half-broken-in cam is a dead cam.
+
+Q: What oil should a fresh V8 run?
+A: Break-in: conventional 10W-30 break-in oil with high ZDDP for the first 500 miles. After break-in on a flat tappet cam, keep a high-zinc oil or additive forever. Roller cam engines can run modern synthetic 5W-30 or 10W-30. Clearances drive viscosity: a stock-clearance engine is happy on 10W-30, while a loose race engine with 0.0035 inch clearances wants 20W-50 to hold oil pressure hot. Watch hot idle oil pressure: 15 to 25 psi hot at idle and 10 psi per 1000 rpm is the rule of thumb.
+
+OILING SYSTEMS
+
+Q: What are the parts of a V8 oiling system?
+A: The oil pump, usually a gear-type pump driven off the distributor or crank, pulls oil through the pickup screen in the sump, pushes it through the filter, then into the main oil gallery. From the gallery it feeds the main bearings first, then up through the block to the cam bearings, and up the pushrods or through head passages to the valvetrain. A pressure relief valve in the pump caps maximum pressure, typically 60 to 80 psi. The pickup must sit 3/8 to 1/2 inch above the pan floor; too close and it sucks the pan dry of flow, too far and it sucks air under braking.
+
+Q: What is oil pump priming and why does it matter?
+A: Priming spins the oil pump with a drill and priming shaft before first start, filling the galleries, filter, and bearings with oil. Pull a valve cover and prime until oil flows from the pushrods. An engine started dry takes several seconds to build pressure, and those seconds at 2000 rpm cam break-in speed will wipe cam lobes. Always prime after any rebuild or after the engine has sat long enough for the oil to drain back.
+
+HEADS, PORTING, AND COMBOS
+
+Q: What do cylinder head flow numbers mean?
+A: Head flow is measured on a flow bench in cubic feet per minute at a standard test pressure, usually 28 inches of water, at various valve lifts. A stock smog-era 350 head flows about 180 CFM on the intake at 0.500 inch lift; a good aftermarket aluminum head flows 250 to 280 CFM. Power follows airflow: a naturally aspirated engine makes roughly 2 horsepower per CFM of intake flow at peak, so 250 CFM heads support about 500 horsepower. The exhaust to intake ratio should be 70 to 80 percent; if the exhaust is weak, a split-pattern cam with more exhaust duration compensates.
+
+Q: What is porting and is it worth it?
+A: Porting reshapes the intake and exhaust passages in the cylinder head to flow more air. The biggest gains come from the bowl area under the valve seat and from unshrouding the valves near the chamber wall, not from making the ports huge. Big ports slow the air down at low rpm and kill torque; the right size keeps velocity high. On stock iron heads a good valve job with back-cut valves and bowl blending is worth 20 to 30 horsepower; full porting on aftermarket heads can add 40 to 60. Always flow-test before and after so you know what changed.
+
+Q: What are the classic small-block Chevy stroker combos?
+A: The 383 is a 4.030 bore with a 3.750 stroke crank, 382 cubic inches, the most popular stroker ever. The 377 is a 400 block destroked with a 350 crank: 4.155 bore by 3.480 stroke, a high-rpm screamer. The 406 is a 400 block bored 0.030 over with the stock 3.750 stroke, 408 cubic inches, a torque monster that needs steam holes in the heads because 400 blocks are siamesed. The 434 is a 4.155 bore with a 4.000 stroke crank in an aftermarket block, 434 cubic inches, a serious race piece. Bigger stroke always means more torque down low and more piston speed, so match the stroke to the rpm range.
+
+Q: How does nitrous oxide work?
+A: Nitrous oxide injected into the intake breaks down in the combustion chamber into nitrogen and oxygen, adding oxygen the engine could not otherwise get. A 150 shot adds about 150 horsepower instantly. Wet systems add fuel with the nitrous through a separate nozzle; dry systems rely on the injectors to add fuel. Rules: retard timing 2 degrees per 50 horsepower of nitrous, run one heat range colder plugs, use high-octane fuel, and never engage below 3000 rpm or at part throttle, because nitrous backfires destroy intakes. A 150 shot on a stock-bottom 350 is generally safe; past 200 you need forged pistons and better ring gaps.
+
+Q: What is involved in an LS swap?
+A: Swapping a modern LS into an older car needs motor mount adapters, an oil pan that clears the crossmember, headers built for the chassis, and a way to run the electronics: either the factory computer with a standalone harness or a carbureted intake with an ignition controller. The fuel system needs 58 psi for fuel injection, so an in-tank pump or inline pump with a return line is required. Cooling needs a steam vent line from the heads to the radiator because the LS traps air in the back of the heads. Done right, a 5.3 liter junkyard LS with a cam makes 400 reliable horsepower for less than rebuilding the original engine.
+
+FAMOUS FACTORY V8S
+
+Q: What made the Ford 427 side-oiler special?
+A: The 427 side-oiler oiled the main bearings first, through a gallery down the side of the block, instead of oiling the cam first like most engines. At 7000 rpm in NASCAR and Le Mans, mains-first oiling kept the crank alive. With tunnel-port or high-riser heads it made over 500 horsepower in race trim, and the 427 Cobra became the most feared American sports car of the 1960s.
+
+Q: What is the Chevrolet LS7?
+A: The LS7 is the 7.0 liter, 427 cubic inch small block in the 2006 to 2013 Corvette Z06: 4.125 inch bore by 4.000 inch stroke, titanium connecting rods and intake valves, dry sump oiling, and 505 horsepower stock. It is the largest displacement small block Chevy ever put in a production car and revs to 7000 rpm with a hydraulic cam.
+
+Q: What is the Ford Coyote 5.0?
+A: The Coyote is Ford's modern 5.0 liter dual overhead cam V8: 3.630 inch bore by 3.650 inch stroke, four valves per cylinder, variable cam timing on all four cams, and 460 horsepower stock in the Mustang GT. It revs past 7500 rpm and responds to boost extremely well, with stock bottom ends surviving 700 to 800 horsepower with proper tuning.
