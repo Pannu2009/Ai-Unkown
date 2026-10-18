@@ -1,0 +1,33 @@
+V8 engine blueprint. Every part, where it goes, what it does.
+
+A V8 engine has eight cylinders arranged in two banks of four, set in a V shape, usually at 90 degrees. It runs on the four-stroke cycle: intake, compression, power, exhaust. Each piston fires once every two crankshaft revolutions.
+
+THE BLOCK. The cylinder block is the foundation. Everything bolts to it. It holds the eight cylinder bores, four per bank, in the V. Coolant passages run through it. Oil galleries run through it. The crankshaft sits in the bottom of the block on main bearings. Typical V8 main bearing count is five.
+
+THE CRANKSHAFT. The crankshaft converts the up-down motion of pistons into rotation. It has main journals that ride in the block's main bearings, and rod journals where the connecting rods attach. A cross-plane V8 crank has throws at 90 degrees; a flat-plane crank has throws at 180 degrees and revs higher. The harmonic balancer bolts to the front of the crankshaft and absorbs vibration. The flywheel or flexplate bolts to the rear and connects to the transmission.
+
+PISTONS AND RODS. Each cylinder has one piston connected to the crank by a connecting rod. The piston has rings: two compression rings that seal combustion pressure, and one oil ring that scrapes oil off the bore. The small end of the rod holds the wrist pin through the piston; the big end clamps around the crank's rod journal with rod bearings. Forged pistons handle more power than cast.
+
+CYLINDER HEADS. One head per bank, two heads total, bolted to the top of the block with head bolts and a head gasket sealing each. Each head holds the valves, valve seats, valve guides, and the combustion chamber for its four cylinders. Two valves per cylinder is classic; four valves per cylinder breathes better.
+
+CAMSHAFT AND VALVETRAIN. The camshaft opens the valves. In a pushrod V8 the cam sits in the block; lifters ride on the cam lobes, pushrods go up through the block to rocker arms on the head, rockers push the valves open. In an overhead cam V8 the cams sit in the heads and act on the valves directly or through followers. A timing chain or belt connects the crankshaft to the camshaft and keeps them synchronized: the cam turns at half crank speed. Valvesprings close the valves. Retainers and keepers hold the springs.
+
+INTAKE. Air enters through the filter, past the throttle body, into the intake manifold, then down individual runners into each cylinder's intake port when the intake valve opens. The manifold bolts to the top of the engine between the heads.
+
+FUEL. Fuel injectors spray fuel: port injection sprays into the intake port, direct injection sprays into the cylinder. The fuel rail feeds all eight injectors. The pump, in the tank or on the engine, supplies pressure.
+
+IGNITION. Each cylinder has a spark plug threaded into the head. Coils fire the plugs. Firing order for a classic small-block Chevy V8 is 1-8-4-3-6-5-7-2. Cylinders are numbered: driver side bank 1-3-5-7 front to back, passenger bank 2-4-6-8.
+
+EXHAUST. Burned gas exits past the exhaust valve into exhaust manifolds or headers, one per bank, merging into collectors, then through catalytic converters and mufflers to the tailpipe. Headers with equal-length tubes scavenge better than cast manifolds.
+
+LUBRICATION. The oil pan bolts under the block and holds the oil. The pickup tube feeds the oil pump, driven by the crank or cam. The pump pushes oil through the filter, then galleries to main bearings, rod bearings, cam bearings, lifters, and up to the heads. Then it drains back to the pan.
+
+COOLING. The water pump, driven by the crank belt, pushes coolant through block passages around the cylinders, up into the heads, out to the radiator. The thermostat blocks flow until the engine warms up. The radiator dumps heat to the air; the fan pulls air through.
+
+DISPLACEMENT. Displacement equals bore squared times stroke times 0.7854 times cylinder count. A 4.00 inch bore and 3.48 inch stroke V8 displaces 350 cubic inches, about 5.7 liters.
+
+COMPRESSION. The piston squeezes the air-fuel mix, typically 9:1 to 11:1 in a street V8. Higher compression makes more power but needs higher octane fuel.
+
+ASSEMBLY ORDER. Block on the stand. Crankshaft into main bearings, torque main caps. Pistons onto rods, rings gapped and installed, piston assemblies into bores, rod caps torqued. Camshaft in, timing set installed and timed. Oil pump and pickup, pan on. Heads on with gaskets, torqued in sequence. Valvetrain: lifters, pushrods, rockers, set lash. Intake manifold on. Front accessories: water pump, balancer, pulleys. Flywheel on the rear. Plugs, wires or coils, injectors, rails. Then fluids, prime the oil system, and first start.
+
+FAILURE POINTS. Overheating warps heads and blows head gaskets. Oil starvation wipes bearings first. Detonation breaks ring lands. A slipped timing chain bends valves in an interference engine.

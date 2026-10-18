@@ -1,0 +1,606 @@
+-- NeuroBrain Lua corpus: idiomatic Roblox Lua patterns
+
+-- services
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ServerStorage = game:GetService("ServerStorage")
+local TweenService = game:GetService("TweenService")
+local DataStoreService = game:GetService("DataStoreService")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local HttpService = game:GetService("HttpService")
+local MarketplaceService = game:GetService("MarketplaceService")
+local PathfindingService = game:GetService("PathfindingService")
+local Debris = game:GetService("Debris")
+
+-- parts
+local part = Instance.new("Part")
+part.Size = Vector3.new(4, 1, 2)
+part.Position = Vector3.new(0, 10, 0)
+part.Anchored = true
+part.BrickColor = BrickColor.new("Bright red")
+part.Material = Enum.Material.SmoothPlastic
+part.Parent = workspace
+
+local function makePart(name, size, pos, color)
+    local p = Instance.new("Part")
+    p.Name = name
+    p.Size = size
+    p.Position = pos
+    p.Anchored = true
+    p.BrickColor = BrickColor.new(color)
+    p.Parent = workspace
+    return p
+end
+
+-- events
+part.Touched:Connect(function(hit)
+    local char = hit.Parent
+    local hum = char and char:FindFirstChildOfClass("Humanoid")
+    if hum then
+        hum.Health = hum.Health - 10
+    end
+end)
+
+Players.PlayerAdded:Connect(function(player)
+    print(player.Name .. " joined")
+    player.CharacterAdded:Connect(function(char)
+        local hum = char:WaitForChild("Humanoid")
+        hum.Died:Connect(function()
+            print(player.Name .. " died")
+        end)
+    end)
+end)
+
+-- debounce pattern
+local canTouch = true
+part.Touched:Connect(function(hit)
+    if not canTouch then return end
+    canTouch = false
+    print("touched by " .. hit.Name)
+    task.wait(1)
+    canTouch = true
+end)
+
+-- remote events: server
+local remote = Instance.new("RemoteEvent")
+remote.Name = "DamageRemote"
+remote.Parent = ReplicatedStorage
+
+remote.OnServerEvent:Connect(function(player, target, amount)
+    if typeof(target) ~= "Instance" then return end
+    if typeof(amount) ~= "number" then return end
+    amount = math.clamp(amount, 0, 100)
+    local hum = target:FindFirstChildOfClass("Humanoid")
+    if hum then hum:TakeDamage(amount) end
+end)
+
+-- remote events: client
+local remote = ReplicatedStorage:WaitForChild("DamageRemote")
+local button = script.Parent
+button.MouseButton1Click:Connect(function()
+    remote:FireServer(workspace.Enemy, 25)
+end)
+
+-- remote functions: server
+local getCoins = Instance.new("RemoteFunction")
+getCoins.Name = "GetCoins"
+getCoins.Parent = ReplicatedStorage
+getCoins.OnServerInvoke = function(player)
+    local leaderstats = player:FindFirstChild("leaderstats")
+    local coins = leaderstats and leaderstats:FindFirstChild("Coins")
+    return coins and coins.Value or 0
+end
+
+-- remote functions: client
+local coins = ReplicatedStorage:WaitForChild("GetCoins"):InvokeServer()
+print("coins: " .. coins)
+
+-- datastore
+local store = DataStoreService:GetDataStore("PlayerData")
+local function loadData(player)
+    local ok, data = pcall(function()
+        return store:GetAsync("u_" .. player.UserId)
+    end)
+    if ok and data then return data end
+    return { coins = 0, level = 1 }
+end
+local function saveData(player, data)
+    pcall(function()
+        store:SetAsync("u_" .. player.UserId, data)
+    end)
+end
+Players.PlayerRemoving:Connect(function(player)
+    saveData(player, player:GetAttribute("SaveData"))
+end)
+
+-- leaderstats
+Players.PlayerAdded:Connect(function(player)
+    local ls = Instance.new("Folder")
+    ls.Name = "leaderstats"
+    local coins = Instance.new("IntValue")
+    coins.Name = "Coins"
+    coins.Value = 0
+    coins.Parent = ls
+    local kills = Instance.new("IntValue")
+    kills.Name = "Kills"
+    kills.Value = 0
+    kills.Parent = ls
+    ls.Parent = player
+end)
+
+-- tween
+local info = TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local goal = { Position = Vector3.new(0, 20, 0), Transparency = 0.5 }
+local tween = TweenService:Create(part, info, goal)
+tween:Play()
+tween.Completed:Connect(function(state)
+    if state == Enum.PlaybackState.Completed then
+        print("tween done")
+    end
+end)
+
+-- raycast
+local function raycastFrom(pos, dir, dist, ignore)
+    local params = RaycastParams.new()
+    params.FilterType = Enum.RaycastFilterType.Exclude
+    params.FilterDescendantsInstances = ignore or {}
+    return workspace:Raycast(pos, dir * dist, params)
+end
+local result = raycastFrom(part.Position, Vector3.new(0, -1, 0), 100)
+if result then
+    print("hit " .. result.Instance.Name .. " at " .. tostring(result.Position))
+end
+
+-- oop with metatables
+local Sword = {}
+Sword.__index = Sword
+function Sword.new(damage)
+    local self = setmetatable({}, Sword)
+    self.Damage = damage or 10
+    self.Cooldown = 0.5
+    return self
+end
+function Sword:swing(target)
+    local hum = target:FindFirstChildOfClass("Humanoid")
+    if hum then hum:TakeDamage(self.Damage) end
+end
+local blade = Sword.new(25)
+blade:swing(workspace.Enemy)
+
+-- module script
+local Math2 = {}
+function Math2.clamp01(x)
+    return math.clamp(x, 0, 1)
+end
+function Math2.lerp(a, b, t)
+    return a + (b - a) * t
+end
+return Math2
+
+-- using a module
+local Math2 = require(ReplicatedStorage:WaitForChild("Math2"))
+print(Math2.lerp(0, 100, 0.5))
+
+-- tool activation
+local tool = script.Parent
+tool.Activated:Connect(function()
+    local char = tool.Parent
+    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+    if not hrp then return end
+    local params = RaycastParams.new()
+    params.FilterDescendantsInstances = { char }
+    local hit = workspace:Raycast(hrp.Position, hrp.CFrame.LookVector * 10, params)
+    if hit then print("hit " .. hit.Instance.Name) end
+end)
+
+-- user input: client
+UserInputService.InputBegan:Connect(function(input, gpe)
+    if gpe then return end
+    if input.KeyCode == Enum.KeyCode.E then
+        print("E pressed")
+    end
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        print("clicked")
+    end
+end)
+
+-- gui button: client
+local gui = Players.LocalPlayer:WaitForChild("PlayerGui")
+local btn = gui:WaitForChild("ShopGui"):WaitForChild("BuyButton")
+local label = gui.ShopGui:WaitForChild("CoinsLabel")
+btn.MouseButton1Click:Connect(function()
+    label.Text = "Bought!"
+    task.wait(1)
+    label.Text = "Buy"
+end)
+
+-- heartbeat loop
+local speed = 16
+RunService.Heartbeat:Connect(function(dt)
+    speed = math.min(speed + dt * 2, 32)
+end)
+
+-- while loop with task.wait
+task.spawn(function()
+    while true do
+        task.wait(5)
+        print("tick " .. os.time())
+    end
+end)
+
+-- countdown
+for i = 10, 1, -1 do
+    print(i)
+    task.wait(1)
+end
+print("go!")
+
+-- pathfinding
+local humanoid = script.Parent:WaitForChild("Humanoid")
+local hrp = script.Parent:WaitForChild("HumanoidRootPart")
+local path = PathfindingService:CreatePath({ AgentRadius = 2, AgentCanJump = true })
+path:ComputeAsync(hrp.Position, Vector3.new(50, 5, 50))
+if path.Status == Enum.PathStatus.Success then
+    for _, wp in ipairs(path:GetWaypoints()) do
+        humanoid:MoveTo(wp.Position)
+        if wp.Action == Enum.PathWaypointAction.Jump then
+            humanoid.Jump = true
+        end
+        humanoid.MoveToFinished:Wait()
+    end
+end
+
+-- proximity prompt
+local prompt = Instance.new("ProximityPrompt")
+prompt.ActionText = "Open"
+prompt.HoldDuration = 0.5
+prompt.Parent = part
+prompt.Triggered:Connect(function(player)
+    print(player.Name .. " opened the door")
+end)
+
+-- attributes
+part:SetAttribute("Health", 100)
+local hp = part:GetAttribute("Health")
+part:GetAttributeChangedSignal("Health"):Connect(function()
+    print("health now " .. part:GetAttribute("Health"))
+end)
+
+-- tables
+local inv = { "sword", "shield", "potion" }
+table.insert(inv, "bow")
+table.remove(inv, 1)
+for i, item in ipairs(inv) do
+    print(i, item)
+end
+local stats = { atk = 10, def = 5 }
+for k, v in pairs(stats) do
+    print(k .. " = " .. v)
+end
+
+-- string patterns
+local msg = "hello world"
+print(msg:upper())
+print(msg:sub(1, 5))
+local name, score = ("arzh:2500"):match("(%a+):(%d+)")
+print(name, tonumber(score))
+
+-- pcall for safety
+local ok, err = pcall(function()
+    return game.Workspace.Missing.Value
+end)
+if not ok then warn("failed: " .. err) end
+
+-- debris cleanup
+local boom = Instance.new("Explosion")
+boom.Position = part.Position
+boom.Parent = workspace
+Debris:AddItem(boom, 2)
+
+-- weld
+local weld = Instance.new("WeldConstraint")
+weld.Part0 = part
+weld.Part1 = workspace.Baseplate
+weld.Parent = part
+
+-- click detector
+local cd = Instance.new("ClickDetector")
+cd.MaxActivationDistance = 10
+cd.Parent = part
+cd.MouseClick:Connect(function(player)
+    print(player.Name .. " clicked")
+end)
+
+-- spawn locations and teams
+local spawn = Instance.new("SpawnLocation")
+spawn.Size = Vector3.new(6, 1, 6)
+spawn.Position = Vector3.new(0, 5, 0)
+spawn.Anchored = true
+spawn.Parent = workspace
+
+-- character tools
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(char)
+        local sword = ServerStorage.Sword:Clone()
+        sword.Parent = char
+    end)
+end)
+
+-- magnitude check
+local function nearestPlayer(pos)
+    local best, bestDist
+    for _, plr in ipairs(Players:GetPlayers()) do
+        local char = plr.Character
+        local hrp = char and char:FindFirstChild("HumanoidRootPart")
+        if hrp then
+            local d = (hrp.Position - pos).Magnitude
+            if not bestDist or d < bestDist then
+                best, bestDist = plr, d
+            end
+        end
+    end
+    return best, bestDist
+end
+
+-- animations: server loading
+local hum = script.Parent:WaitForChild("Humanoid")
+local anim = Instance.new("Animation")
+anim.AnimationId = "rbxassetid://507766388"
+local track = hum:LoadAnimation(anim)
+track:Play()
+track:AdjustSpeed(1.5)
+track.Stopped:Connect(function() print("anim over") end)
+
+-- camera shake: client
+local cam = workspace.CurrentCamera
+local function shake(intensity, time)
+    local t = 0
+    while t < time do
+        t += task.wait()
+        cam.CFrame = cam.CFrame * CFrame.new(
+            math.random(-intensity, intensity),
+            math.random(-intensity, intensity), 0)
+    end
+end
+
+-- spring math
+local function spring(pos, target, vel, stiff, damp, dt)
+    local force = (target - pos) * stiff
+    vel = (vel + force * dt) * (1 - damp * dt)
+    return pos + vel * dt, vel
+end
+
+-- weighted random
+local loot = { {n="common", w=70}, {n="rare", w=25}, {n="epic", w=5} }
+local function roll()
+    local total = 0
+    for _, e in ipairs(loot) do total += e.w end
+    local r = math.random() * total
+    for _, e in ipairs(loot) do
+        r -= e.w
+        if r <= 0 then return e.n end
+    end
+end
+
+-- cooldown helper
+local Cooldown = {}
+Cooldown.__index = Cooldown
+function Cooldown.new(dur)
+    return setmetatable({ dur = dur, last = 0 }, Cooldown)
+end
+function Cooldown:ready()
+    return os.clock() - self.last >= self.dur
+end
+function Cooldown:use()
+    self.last = os.clock()
+end
+
+-- signal / event bus
+local Signal = {}
+Signal.__index = Signal
+function Signal.new()
+    return setmetatable({ _c = {} }, Signal)
+end
+function Signal:connect(fn)
+    table.insert(self._c, fn)
+    return function()
+        for i, f in ipairs(self._c) do
+            if f == fn then table.remove(self._c, i) break end
+        end
+    end
+end
+function Signal:fire(...)
+    for _, fn in ipairs(self._c) do task.spawn(fn, ...) end
+end
+
+-- state machine
+local State = { Idle = 1, Chase = 2, Attack = 3 }
+local mob = { state = State.Idle }
+function mob:update(dt, target)
+    if self.state == State.Idle then
+        if (target.Position - self.pos).Magnitude < 20 then
+            self.state = State.Chase
+        end
+    elseif self.state == State.Chase then
+        self:moveToward(target.Position, dt)
+        if (target.Position - self.pos).Magnitude < 5 then
+            self.state = State.Attack
+        end
+    elseif self.state == State.Attack then
+        self:attack(target)
+        self.state = State.Chase
+    end
+end
+
+-- binary search
+local function bsearch(arr, x)
+    local lo, hi = 1, #arr
+    while lo <= hi do
+        local mid = math.floor((lo + hi) / 2)
+        if arr[mid] == x then return mid
+        elseif arr[mid] < x then lo = mid + 1
+        else hi = mid - 1 end
+    end
+end
+
+-- shuffle
+local function shuffle(t)
+    for i = #t, 2, -1 do
+        local j = math.random(i)
+        t[i], t[j] = t[j], t[i]
+    end
+end
+
+-- deep copy
+local function deepcopy(o)
+    if type(o) ~= "table" then return o end
+    local c = {}
+    for k, v in pairs(o) do c[deepcopy(k)] = deepcopy(v) end
+    return setmetatable(c, getmetatable(o))
+end
+
+-- json save
+local data = { coins = 100, pets = { "cat", "dog" } }
+local json = HttpService:JSONEncode(data)
+local back = HttpService:JSONDecode(json)
+print(back.coins)
+
+-- ordered datastore leaderboard
+local board = DataStoreService:GetOrderedDataStore("TopCoins")
+board:SetAsync("u_1", 5000)
+local pages = board:GetSortedAsync(false, 10)
+for _, entry in ipairs(pages:GetCurrentPage()) do
+    print(entry.key, entry.value)
+end
+
+-- marketplace purchase
+MarketplaceService.PromptProductPurchase(Players.LocalPlayer, 123456)
+MarketplaceService.ProcessReceipt = function(receipt)
+    local player = Players:GetPlayerByUserId(receipt.PlayerId)
+    if player then
+        local ls = player:FindFirstChild("leaderstats")
+        if ls then ls.Coins.Value += 100 end
+    end
+    return Enum.ProductPurchaseDecision.PurchaseGranted
+end
+
+-- chat command: server
+Players.PlayerAdded:Connect(function(player)
+    player.Chatted:Connect(function(msg)
+        local args = msg:split(" ")
+        if args[1] == "!speed" and tonumber(args[2]) then
+            local hum = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+            if hum then hum.WalkSpeed = math.clamp(tonumber(args[2]), 16, 100) end
+        end
+    end)
+end)
+
+-- day night cycle
+local lighting = game:GetService("Lighting")
+task.spawn(function()
+    while true do
+        task.wait(60)
+        lighting.ClockTime = (lighting.ClockTime + 1) % 24
+    end
+end)
+
+-- region3 zone check (modern: overlap params)
+local function inZone(pos, center, size)
+    local op = OverlapParams.new()
+    op.FilterType = Enum.RaycastFilterType.Include
+    local parts = workspace:GetPartBoundsInBox(CFrame.new(center), size, op)
+    return #parts > 0
+end
+
+-- npc dialogue
+local dialogue = {
+    "Hello traveller.",
+    "The dungeon lies north.",
+    "Take this sword.",
+}
+prompt.Triggered:Connect(function(player)
+    local gui = player.PlayerGui:FindFirstChild("Dialogue")
+    for _, line in ipairs(dialogue) do
+        gui.TextLabel.Text = line
+        task.wait(2)
+    end
+    gui.Enabled = false
+end)
+
+-- datastore session lock pattern
+local sessionStore = DataStoreService:GetDataStore("Sessions")
+local function tryLock(key, id)
+    return sessionStore:UpdateAsync(key, function(old)
+        if old and old.lock and os.time() - old.lock < 300 then return nil end
+        return { lock = os.time(), owner = id }
+    end)
+end
+
+-- rate limit helper
+local buckets = {}
+local function allowed(key, max, window)
+    local now = os.clock()
+    local b = buckets[key] or {}
+    local fresh = {}
+    for _, t in ipairs(b) do
+        if now - t < window then table.insert(fresh, t) end
+    end
+    if #fresh >= max then return false end
+    table.insert(fresh, now)
+    buckets[key] = fresh
+    return true
+end
+
+-- vector math helpers
+local function flat(v) return Vector3.new(v.X, 0, v.Z) end
+local function dist2d(a, b) return (flat(a) - flat(b)).Magnitude end
+
+-- cframe lookAt turret
+RunService.Heartbeat:Connect(function()
+    local target = nearestPlayer(turret.Position)
+    if target then
+        local hrp = target.Character.HumanoidRootPart
+        turret.CFrame = CFrame.lookAt(turret.Position, hrp.Position)
+    end
+end)
+
+-- growing plant loop
+local stages = { "Seed", "Sprout", "Plant", "Tree" }
+local stage = 1
+task.spawn(function()
+    while stage < #stages do
+        task.wait(30)
+        stage += 1
+        print("grew to " .. stages[stage])
+    end
+end)
+
+-- pet follow
+RunService.Heartbeat:Connect(function(dt)
+    local char = player.Character
+    if not char then return end
+    local hrp = char:FindFirstChild("HumanoidRootPart")
+    if hrp and pet then
+        local goal = hrp.Position - hrp.CFrame.LookVector * 4
+        pet.CFrame = pet.CFrame:Lerp(CFrame.new(goal), math.min(dt * 5, 1))
+    end
+end)
+
+-- car chassis basics
+local vehicle = script.Parent
+local seat = vehicle:WaitForChild("VehicleSeat")
+seat:GetPropertyChangedSignal("Occupant"):Connect(function()
+    local hum = seat.Occupant
+    if hum then print("driver seated") end
+end)
+
+-- explosion chain safety
+local function explode(pos, radius, pressure)
+    local e = Instance.new("Explosion")
+    e.Position = pos
+    e.BlastRadius = radius or 10
+    e.BlastPressure = pressure or 1000
+    e.DestroyJointRadiusPercent = 0
+    e.Parent = workspace
+end

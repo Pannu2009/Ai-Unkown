@@ -1,0 +1,86 @@
+"""NeuroBrain agent harness - the cmd system.
+The brain proposes actions; the harness validates them against the rule book
+and executes. Rules are enforced HERE, never by the brain itself.
+Driver is pluggable: stub today, the 1B model tomorrow.
+"""
+import os, subprocess, urllib.request, json, datetime
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+STOP_FILE = os.path.join(ROOT, ".STOP")
+CHANGELOG = os.path.join(ROOT, "CHANGELOG.md")
+
+# The agent may only touch paths under these roots.
+ALLOWED_ROOTS = [
+    os.path.join(ROOT, "agent"),
+    os.path.join(ROOT, "data"),
+    os.path.join(ROOT, "web"),
+    os.path.join(ROOT, "worker"),
+]
+
+DESTRUCTIVE = ("rm ", "rm -rf", "DROP", "DELETE FROM", "revoke", "git push --force")
+
+
+def check_rules(action, args):
+    """Returns (ok, reason). RULE 0, 4, 5, 6 live here."""
+    if os.path.exists(STOP_FILE):  # RULE 0 — kill switch
+        return False, "STOP file present: Ajay halted the agent."
+    target = args.get("path", "") or args.get("url", "") or ""
+    if action in ("read_file", "write_file"):
+        real = os.path.realpath(os.path.join(ROOT, target.lstrip("/")))
+        if not any(real.startswith(r) for r in ALLOWED_ROOTS):
+            return False, f"RULE 5: {target} is outside the agent's yard."
+    # shell runs with cwd=ROOT; destructive patterns are filtered below.
+    # NOTE: prototype-grade sandboxing. Phase 2 needs a real sandbox
+    # (no network egress except fetch_url, no absolute paths).
+    if action == "shell" and any(d in args.get("cmd", "") for d in DESTRUCTIVE):
+        return False, "RULE 6: destructive action needs Ajay's approval."
+    if action == "git_push" and "--force" in args.get("args", ""):
+        return False, "RULE 6: force push needs Ajay's approval."
+    return True, ""
+
+
+def log_change(what):
+    ts = datetime.datetime.utcnow().isoformat() + "Z"
+    with open(CHANGELOG, "a") as f:
+        f.write(f"\n## {ts}\n{what}\n")
+
+
+def run_tool(action, args):
+    ok, reason = check_rules(action, args)
+    if not ok:
+        return {"ok": False, "error": reason}
+    try:
+        if action == "shell":
+            r = subprocess.run(args["cmd"], shell=True, capture_output=True,
+                               text=True, timeout=120, cwd=ROOT)
+            out = {"ok": r.returncode == 0, "stdout": r.stdout[-2000:],
+                   "stderr": r.stderr[-2000:]}
+        elif action == "read_file":
+            with open(os.path.join(ROOT, args["path"].lstrip("/"))) as f:
+                out = {"ok": True, "content": f.read()[:8000]}
+        elif action == "write_file":
+            p = os.path.join(ROOT, args["path"].lstrip("/"))
+            os.makedirs(os.path.dirname(p), exist_ok=True)
+            with open(p, "w") as f:
+                f.write(args["content"])
+            out = {"ok": True, "path": args["path"]}
+        elif action == "fetch_url":
+            req = urllib.request.Request(args["url"],
+                                         headers={"User-Agent": "NeuroBrain/0.2"})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                out = {"ok": True,
+                       "content": r.read(20000).decode("utf-8", "replace")}
+        else:
+            return {"ok": False, "error": f"unknown tool {action}"}
+    except Exception as e:
+        return {"ok": False, "error": str(e)[:300]}
+    log_change(f"tool {action} {json.dumps(args)[:200]} -> ok={out['ok']}")
+    return out
+
+
+if __name__ == "__main__":
+    # smoke test: rules block escapes, allow own-yard writes
+    print(run_tool("shell", {"cmd": "echo hello"})["ok"])          # True (cwd=ROOT? no: shell has no path -> allowed? check: target='' -> real=ROOT, not in ALLOWED_ROOTS -> False)
+    print(run_tool("write_file", {"path": "agent/_smoke.txt", "content": "ok"}))
+    print(run_tool("read_file", {"path": "/etc/passwd"}))

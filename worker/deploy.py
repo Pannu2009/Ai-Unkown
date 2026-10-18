@@ -14,6 +14,8 @@ with open("worker/worker.js", "rb") as f:
 metadata = json.dumps({
     "main_module": "worker.js",
     "compatibility_date": "2024-06-01",
+    "bindings": [{"type": "kv_namespace", "name": "BRAIN",
+                  "namespace_id": "ff0d7c88985844898d1041b9cb8333b4"}],
 }).encode()
 
 boundary = uuid.uuid4().hex.encode()
