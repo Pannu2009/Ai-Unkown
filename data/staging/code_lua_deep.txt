@@ -1,0 +1,154 @@
+Lua deep dive. For Roblox work and beyond. Tables, metatables, coroutines, OOP, algorithms.
+
+Human: what is a Lua table really
+Brain: Lua's only data structure — and it does everything. Tables are arrays and dictionaries in one: t = {10, 20, 30} gives t[1] = 10 (Lua counts from 1, not 0), and t = {name = "Arjan"} gives t.name. Under the hood, the array part and hash part are separate for speed. Master tables and you master Lua — everything else is built on them.
+Human: how do you loop over a Lua table correctly
+Brain: For arrays use ipairs (stops at the first nil, goes in order): for i, v in ipairs(t) do. For dictionaries use pairs (any order): for k, v in pairs(t) do. Never use pairs on an array when order matters, and never trust #t (length) on a table with holes — the length operator is undefined if there are nils in the middle. Holes are a classic bug source.
+Human: what is the difference between pairs and ipairs
+Brain: ipairs walks 1, 2, 3... and stops at the first nil — for true arrays. pairs walks every key in arbitrary order — for dictionaries. Using pairs on an array works but order is random; using ipairs on a dictionary finds nothing. Pick by what the table means, not what it contains.
+Human: how do you copy a Lua table
+Brain: Assignment copies the reference, not the table: b = a means both names point at the same table — change b and a changes too. For a shallow copy: b = {} for k, v in pairs(a) do b[k] = v end. For nested tables you need a deep copy that recurses. Reference semantics surprise every beginner exactly once, then forever.
+Human: what are metatables
+Brain: A metatable is a table that changes another table's behavior. setmetatable(t, mt) attaches it. When Lua can't find a key in t, it checks mt.__index. When you add two tables, it checks mt.__add. Metatables are how Lua does operator overloading, default values, and read-only tables — the mechanism behind all of Lua's magic.
+Human: how does __index work
+Brain: If you read t.key and t has no key, Lua looks at the metatable's __index. If __index is a table, Lua looks the key up there (great for inheritance: child falls back to parent). If __index is a function, Lua calls it with (t, key) and uses the return. This single mechanism powers prototypes, classes, and lazy loading.
+Human: how does __newindex work
+Brain: It intercepts writes to missing keys. Set mt.__newindex to a function and every t.newkey = value calls it instead of storing. Use it for validation, logging, or read-only tables (a __newindex that errors makes the table immutable). Careful: inside __newindex, use rawset(t, k, v) to actually store, or you recurse forever.
+Human: what metamethods exist
+Brain: Arithmetic: __add, __sub, __mul, __div, __mod, __pow, __unm (negation). Comparison: __eq, __lt, __le. Length: __len. Concatenation: __concat. Call: __call (makes the table callable like a function). Tostring: __tostring. Plus __index, __newindex, __gc (garbage collection), __mode (weak tables). Together they let tables behave like numbers, objects, or anything you invent.
+Human: how do you do OOP in Lua
+Brain: Tables plus metatables. A class is a table with methods; an object is a table with the class as its __index fallback. Account = {} function Account:new(o) o = o or {} setmetatable(o, self) self.__index = self return o end. Then a = Account:new{balance = 0} and a:deposit(100) finds deposit via __index. The colon syntax passes self automatically — obj:method(x) is obj.method(obj, x).
+Human: how does inheritance work in Lua
+Brain: Chain the __index lookups. Child class's metatable has __index pointing to the parent class. Dog = Animal:new() — Dog's instances fall back to Dog, which falls back to Animal. Method override: define it in the child and the lookup stops there. It is prototype inheritance like JavaScript, not class copying like Java — live and flexible.
+Human: what is the colon vs dot in Lua
+Brain: obj:method(x) passes obj as the first argument (self); obj.method(x) does not. Define with function obj:method(x) ... self ... end and call with colon. Mixing them is the most common Lua bug: calling with dot when the function expects self gives nil errors. Rule: define and call with the same one.
+Human: what are closures in Lua
+Brain: A function plus the variables it captured. function counter() local n = 0 return function() n = n + 1 return n end end — each call to counter() makes an independent counter because n lives in the closure. Closures give you private state without classes: callbacks, iterators, and module privacy all use them.
+Human: how do coroutines work
+Brain: Coroutines are pausable functions. co = coroutine.create(f). coroutine.resume(co) runs until coroutine.yield() pauses it, returning values to the resumer; resume again continues after the yield. Unlike threads, only one runs at a time and switching is explicit — no race conditions. Use them for iterators, dialogue sequences, and cooperative multitasking in games.
+Human: what is the difference between coroutines and threads
+Brain: Threads are preemptive (the OS switches them anytime — needs locks, risks races). Coroutines are cooperative (they yield when ready — no locks needed, but a greedy one starves the rest). Lua coroutines are stackful and cheap: create thousands. In Roblox, spawn() and delay() are thread-like; coroutines give you manual control.
+Human: how do you handle errors in Lua
+Brain: pcall (protected call): ok, result = pcall(riskyFunction) — returns false plus the error message instead of crashing. xpcall adds a custom error handler (for stack traces). error("message") raises. In Roblox, wrap plugin code and data loading in pcall — a corrupt save shouldn't kill the game, it should log and continue.
+Human: what are Lua modules
+Brain: A module is a table returned by a file. MyModule = {} ... return MyModule, then local M = require(path.to.MyModule). Modules cache: require runs once, later calls get the same table — great for shared state, dangerous for accidental globals. In Roblox, ModuleScripts are the module system: require(asset) runs the script and returns what it returned.
+Human: how do you avoid global variable bugs in Lua
+Brain: Always use local. Globals in Lua need no declaration — a typo creates a new global silently (plr instead of player). In Roblox, _G is shared across scripts (risky); use ModuleScripts for shared state. Some teams add a strict mode via metatables on _G that errors on undeclared access. local is faster too — register access beats hash lookup.
+Human: what are string patterns in Lua
+Brain: Lua's mini-regex. s:find("l+") finds runs of l. s:gsub("%d+", "#") replaces digit runs. Character classes: %d digits, %a letters, %s space, %w alphanumeric, . any. Captures: s:match("(%a+)=(%d+)") grabs name and number. Patterns are simpler than full regex but handle 90% of parsing — config files, chat commands, name validation.
+Human: how do you sort a table in Lua
+Brain: table.sort(t) sorts in place (default: ascending, uses <). Custom order: table.sort(t, function(a, b) return a.score > b.score end). It is quicksort — fast on average. For Roblox leaderboards: collect player tables, sort by value, then assign ranks. Remember it sorts in place; copy first if you need the original order.
+Human: how do you shuffle a table
+Brain: Fisher-Yates: for i = #t, 2, -1 do local j = math.random(i) t[i], t[j] = t[j], t[i] end. Each position swaps with a random earlier-or-equal position — perfectly uniform. Don't sort by random keys (biased and slow). Use it for card games, random spawns, and loot tables.
+Human: how do you do a binary search in Lua
+Brain: On a sorted array: lo, hi = 1, #t. While lo <= hi: mid = (lo+hi)//2. If t[mid] == target return mid. If t[mid] < target, lo = mid+1 else hi = mid-1. O(log n) — a million entries in 20 steps. Use it for sorted leaderboards and ID lookups. Off-by-one errors are the classic bug: test with 0, 1, and 2 element tables.
+Human: how do you implement a queue in Lua
+Brain: Two indices into a table, no shifting: q = {first = 1, last = 0} push: last+1, store. pop: read first, first+1. table.remove from position 1 is O(n) — fine for small, deadly in hot loops. The two-index queue is O(1) both ways. Use it for event queues, matchmaking lines, and BFS.
+Human: how do you do breadth-first search in Lua
+Brain: For grids and graphs: queue the start, mark visited in a set table. Pop a node, push unvisited neighbors. BFS finds the shortest path in unweighted graphs — perfect for NPC pathfinding on tile maps. Use a visited set or you loop forever on cyclic graphs.
+Human: how do you debounce a Roblox event
+Brain: local deb = false. On touch: if deb then return end deb = true ... task.wait(1) deb = false. It ignores re-triggers during the cooldown — essential for Touched events (they fire many times per touch) and purchase prompts. For per-player debounce, key the flag by player in a table.
+Human: how do you save data in Roblox with DataStores
+Brain: GetService("DataStoreService"):GetDataStore("Name"). GetAsync(key) loads (wrap in pcall — it can fail), SetAsync/UpdateAsync saves. UpdateAsync is safer for concurrent edits (transform function retries). Always autosave on a timer AND on PlayerRemoving, with BindToClose for studio shutdowns. Never trust the client with data — the server owns it, always.
+Human: how do you secure a RemoteEvent
+Brain: Never trust the client. Validate everything server-side: argument types, ranges (is that purchase price real?), rates (is he firing 100x/second?), and identity (does this player own that item?). The client can be an exploit — treat every remote call as a stranger's claim. Server-side checks are the only checks.
+Human: what is the Roblox task library
+Brain: Modern replacements for wait/spawn/delay: task.wait(n) (yields precisely, returns actual elapsed), task.spawn(f) (runs soon on the scheduler), task.delay(n, f), task.defer(f) (runs at end of current cycle). task.wait() with no args waits one frame. Old wait() throttles badly under lag; task.wait doesn't. Use task.* everywhere — the old globals are legacy.
+Human: how do you profile Lua performance
+Brain: Measure, don't guess: local t0 = os.clock() ... print(os.clock() - t0). In Roblox, the microprofiler (Ctrl+F6 in Studio... actually F6) shows per-frame costs. Common hogs: per-frame table creation (reuse tables), string concatenation in loops (use table.concat), and expensive calls in RenderStepped. Optimize the hot loop first — 90% of time is usually 10% of code.
+Human: what are weak tables
+Brain: Tables that don't prevent garbage collection: setmetatable(t, {__mode = "k"}) for weak keys, "v" for weak values. Entries vanish when nothing else references them. Perfect for caches and per-player data that should die with the player — no manual cleanup, no memory leaks. The GC handles it.
+Human: how does Lua garbage collection work
+Brain: Mark and sweep: Lua tracks what's reachable from roots (globals, stack, registries). Unreachable tables get freed automatically. collectgarbage("count") shows KB used. In games, GC pauses can hitch frames — reuse tables and avoid per-frame allocation in hot paths. You rarely manage memory in Lua; you manage allocation rate.
+Human: how do you write a state machine in Lua
+Brain: States as functions or a table of functions, one variable for current state: states = {idle = function()...end, walk = ...,}. Each frame: states[current](dt). Transitions set current = "new". NPC AI, game phases, UI screens — all state machines. Data-driven (table of states) beats nested ifs once you pass three states.
+Human: how do you do OOP composition over inheritance in Lua
+Brain: Instead of deep class chains, give objects component tables: player = {health = Health.new(), mover = Mover.new()}. Systems iterate components, not giant objects. Roblox itself works this way (Parts have independent behaviors). Composition avoids the fragile-base-class problem and matches how games actually think.
+Human: how do you debug Lua effectively
+Brain: Print is king: print("x =", x) at suspicious points. Better: wrap in a debug flag so you can silence it. For tables, write a dump function that recurses with indentation. In Roblox Studio, breakpoints beat prints — click the gutter, inspect locals live. Read the stack trace bottom-up: the last line is where it died, the lines above are how it got there. And reproduce first — a bug you can't trigger on demand is a rumor.
+Human: what are the most common Lua bugs
+Brain: Off-by-one (Lua starts at 1 — #t is the count, t[#t] is the last). Nil from typos creating globals. Mutating a table while iterating it with pairs (collect changes, apply after). Forgetting self with colon/dot mixups. Comparing with = instead of ==. Float precision (0.1 + 0.2 ~= 0.3). Each has a smell — learn the smells and you diagnose in seconds.
+Human: how do you structure a big Lua project
+Brain: One ModuleScript per system (DataManager, Combat, Shop), each returning a table with a clean API. A main server script wires them together. Shared constants in one Config module. No cross-requires in circles (A requires B requires A) — factor shared code into a third module. In Roblox: ServerScriptService for server modules, ReplicatedStorage for shared, never trust the client's copies.
+Human: how do you write clean Lua code
+Brain: Short functions with one job. Names that say what it does (calculateDamage, not calc). Early returns instead of nested ifs. No magic numbers — local MAX_HEALTH = 100. Comments explain why, not what. And format consistently: the next reader is you in six months, and he is angry.
+Human: how do you test Lua code
+Brain: Separate logic from Roblox APIs so you can test logic plainly. Write assert-based checks: assert(add(2,3) == 5). Test edge cases: empty tables, zero, negative, huge. In Roblox, use a test place or command bar to run module functions directly. Untested code is a promise, not a fact.
+Human: how do you handle configuration in Lua
+Brain: One Config module returning a table of tunables: damage numbers, cooldowns, prices. Game code reads Config.SwordDamage, never hardcodes 25. Designers (or you, balancing at 2 AM) tweak one file. Validate at load: assert(Config.MaxPlayers > 0, "bad config") — fail fast on typos instead of weird behavior later.
+Human: what is memoization and when do you use it in Lua
+Brain: Cache expensive function results: local cache = {} function fib(n) if cache[n] then return cache[n] end ... cache[n] = result return result end. Turns exponential recursion into linear time. Use it for repeated pure calculations (pathfinding heuristics, damage formulas). Don't memoize functions with side effects or huge input spaces — the cache becomes the memory leak.
+Human: how do you implement an event system in Lua
+Brain: A table of listener lists: events = {} function on(name, fn) events[name] = events[name] or {} table.insert(events[name], fn) end function emit(name, ...) for _, fn in ipairs(events[name] or {}) do fn(...) end end. Decouples systems: the shop doesn't know the UI exists, it just emits "bought". Roblox's BindableEvents do this across scripts.
+Human: how do you rate-limit actions in Lua
+Brain: Timestamps per key: local last = {} function allowed(key, cooldown) local now = os.clock() if not last[key] or now - last[key] >= cooldown then last[key] = now return true end return false end. Use for player actions (anti-spam), API calls, and autosaves. Server-side rate limits are also your anti-exploit: a client firing 100 requests/sec is either broken or cheating.
+Human: how do you serialize a Lua table to save it
+Brain: Convert to a string format. JSON via HttpService:JSONEncode for DataStores (Roblox handles it). For custom formats, recurse: numbers/strings/booleans directly, tables as {k=v} with cycle detection (a seen-set, error on cycles). Never use load() on untrusted strings — that's code execution. Serialize data, never functions.
+Human: how do you do A* pathfinding in Lua
+Brain: Best-first search with a heuristic. Open set (priority by f = g + h), closed set. g = cost so far, h = estimated remaining (Manhattan distance on grids). Pop lowest f, expand neighbors, done when you pop the goal. A* with a good heuristic is optimal and fast — NPC navigation, puzzle solvers. For simple grids, BFS is enough; A* earns its complexity on big maps.
+Human: how do you make a loot table in Lua
+Brain: Weighted random: total = sum of weights, roll = math.random() * total, walk the list subtracting weights until roll <= 0 — that entry wins. {common=70, rare=25, legendary=5}: roll 83 → 83-70=13, 13-25<0 → rare. Clean, tunable, and designers can balance with numbers instead of code.
+Human: how do you do cooldowns in Roblox
+Brain: Per-player timestamps in a table on the server: local cd = {} if os.clock() - (cd[player] or 0) < 5 then return end cd[player] = os.clock(). Never trust client-side cooldowns — exploiters delete them. The server is the only clock that matters.
+Human: what is object pooling and why use it in Lua games
+Brain: Reuse instead of create-destroy: keep a pool of inactive projectiles, grab one when firing, return it on hit. Avoids GC spikes from per-frame allocation — the #1 cause of frame hitches in Lua games. Implement: pool = {} spawn(): return table.remove(pool) or createNew(). Simple, massive payoff in bullet-hell and particle-heavy games.
+Human: how do you handle player data across servers in Roblox
+Brain: DataStores with session locking: when a player joins, claim their key with a lock timestamp; other servers seeing a fresh lock wait or kick duplicates. Save with UpdateAsync (atomic transform). Load with retries and fallbacks (new-player defaults if GetAsync fails after retries — never block joining on a datastore outage). ProfileService-style wrappers handle all this; use one instead of hand-rolling.
+Human: how do you prevent data loss in Roblox
+Brain: Autosave every few minutes (staggered per player so 100 players don't save at once), save on PlayerRemoving, and BindToClose to wait for saves during shutdown. Keep a backup key (previous save) in case the new save corrupts. Version your data format and migrate on load. Data loss is the unforgivable bug — players forgive downtime, never lost progress.
+Human: what is the difference between Script LocalScript and ModuleScript
+Brain: Scripts run on the server, LocalScripts run on the client (in specific containers: PlayerScripts, PlayerGui, etc.). ModuleScripts don't run alone — they return a table when required by either side. Server code is secure but can't touch the player's screen; client code is responsive but untrusted. Modules share logic: put pure functions in ReplicatedStorage modules, require from both.
+Human: how do RemoteEvents and RemoteFunctions differ
+Brain: RemoteEvents are fire-and-forget (FireServer/FireClient/FireAllClients) — one way, no return. RemoteFunctions are request-response (InvokeServer returns a value) — but they can hang if the other side never responds, so always wrap client invokes in pcall or timeouts. Events for notifications, functions for queries — and validate every event server-side.
+Human: how do you make a clean Roblox GUI in code
+Brain: Build with Instance.new, set properties, parent last (parenting triggers rendering — set everything first). Use UIListLayout/UIPadding for automatic layout instead of manual positions. Anchor UI to scale (UDim2.fromScale) not pixels, so it works on phones and monitors. One ScreenGui per system, named clearly. And test on a phone viewport — most players are mobile.
+Human: how do you animate smoothly in Roblox
+Brain: TweenService: Create(object, TweenInfo.new(time, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Property = goal}):Play(). The engine interpolates — no loops needed. For character motion use Animator:LoadAnimation with AnimationTracks. Never animate with while loops and wait() — it stutters under lag; tweens and the animation system don't.
+Human: what is raycasting and when do you use it
+Brain: Shooting an invisible line to find what it hits: workspace:Raycast(origin, direction, params). Guns, line-of-sight checks, ground detection, click-to-move. Filter with RaycastParams (whitelist/blacklist, ignore water). It is the standard "what's in front of me" query — faster and cleaner than Touched for precise detection.
+Human: how do you organize a Roblox game's server code
+Brain: ServerScriptService: one main script requiring modules per system (PlayerData, Combat, Shop, Quests). Modules expose :Init() and :Start() for clean boot order. Remotes folder created first (client waits for it — the classic WaitForChild hang). Config module for tunables. If the client hangs on load, 90% of the time a ModuleScript is missing or a remote folder was never created.
+Human: how do you keep a Roblox game from lagging
+Brain: Fewer parts (union and reuse meshes), CanCollide off where unneeded, Anchored static parts, streaming enabled for big maps, no per-frame Instance.new, debounce expensive events, and move visuals to the client (particles, tweens) while the server only simulates what matters. Profile with the microprofiler — fix what's red, not what feels slow.
+Human: what is the single most important Lua habit
+Brain: local everything, validate inputs at boundaries, and never trust the client. Those three habits prevent most bugs, most exploits, and most 3 AM debugging sessions. The rest is practice.
+Human: how do you master Lua string patterns, with examples
+Brain: Patterns are Lua's regex-lite. Match: s:match("%d+") grabs the first digit run. Find: s:find("error: (.*)") captures the message. Replace: s:gsub("cat", "dog") swaps all. Classes: %a letters, %d digits, %l lowercase, %u uppercase, %s whitespace, %w alphanumeric, %p punctuation. Magic chars (need % escape): ^$()%.[]*+-?. Anchors: ^start, $end. Example — parse "HP: 120/200": local cur, max = s:match("HP: (%d+)/(%d+)"). Patterns handle logs, chat commands, and data formats without a parser library.
+Human: how do you write a class with a constructor and methods, full example
+Brain: Car = {} Car.__index = Car function Car.new(brand, speed) local self = setmetatable({}, Car) self.brand = brand self.speed = speed or 0 return self end function Car:accelerate(dv) self.speed = self.speed + dv end function Car:describe() return self.brand .. " going " .. self.speed end. Then c = Car.new("Toyota", 60) c:accelerate(20) print(c:describe()). The class table holds methods; instances hold data; __index connects them. Inheritance: Truck = Car.new() won't work — instead setmetatable(Truck, {__index = Car}) and Truck.__index = Truck.
+Human: how do you make private variables in a Lua module
+Brain: Locals at file scope are private to the module: local secret = 0 local M = {} function M.add(n) secret = secret + n end function M.get() return secret end return M. Users get add/get but never touch secret directly. Closures give per-instance privacy; module locals give per-module privacy. Both beat naming conventions ("_private" is a hope, not a lock).
+Human: how do you iterate in custom ways with coroutines
+Brain: Write a generator: function range(n) return coroutine.wrap(function() for i = 1, n do coroutine.yield(i) end end) end for x in range(5) do print(x) end. coroutine.wrap returns a function you call like an iterator — no manual resume. Use for tree walks, paginated data, and dialogue lines: the caller pulls values, the generator pauses between them. Lazy sequences without building tables.
+Human: how do you handle dates and times in Lua
+Brain: os.time() gives epoch seconds; os.date("*t") gives a table {year, month, day, hour...}; os.date("%Y-%m-%d") formats. Differences in seconds divided by 86400 give days. For game cooldowns use os.clock() (CPU time, monotonic) not os.time() (wall clock — daylight saving and NTP jumps corrupt it). Store timestamps as numbers; format only for display.
+Human: how do you do math with vectors in Lua (for games)
+Brain: Represent as tables {x, y, z} with metamethods: __add for v1+v2, __mul for scalar, __unm for negation. Length: sqrt(x^2+y^2+z^2). Normalize: v / length. Dot product: x1*x2+y1*y2+z1*z2 (tells alignment: 1 same direction, 0 perpendicular). Cross product for perpendiculars. Roblox has Vector3 built in — but understanding the math means you can do it anywhere, and debug it everywhere.
+Human: how do you implement a simple inventory in Lua
+Brain: items = {} function addItem(inv, id, n) inv[id] = (inv[id] or 0) + n end function removeItem(inv, id, n) if (inv[id] or 0) < n then return false end inv[id] = inv[id] - n if inv[id] == 0 then inv[id] = nil end return true end. Dictionary keyed by item ID, counts as values, nil cleanup keeps it lean. Stack limits, weight, and equip slots layer on top — but this core never changes.
+Human: how do you implement a leaderboard in Lua
+Brain: Keep scores in a dictionary, sort a copy for display: local list = {} for name, score in pairs(scores) do table.insert(list, {name, score}) end table.sort(list, function(a,b) return a[2] > b[2] end). For huge player counts, keep a sorted structure incrementally instead of resorting every frame. Display top 10; nobody scrolls further.
+Human: how do you parse a config file in Lua
+Brain: Line by line: for line in file:lines() do local k, v = line:match("^(%w+)%s*=%s*(.+)$") if k then config[k] = tonumber(v) or v end end. Skip lines starting with # (comments), trim whitespace. Validate after: assert(config.port, "missing port"). Config-as-text beats re-coding for tunables — artists and designers can edit without touching logic.
+Human: how do you write a simple JSON encoder in Lua (concept)
+Brain: Recurse over types: nil → "null", boolean/number → tostring, string → quoted with escapes, table → check if array (keys 1..n) then [...], else {...}. Track seen tables to reject cycles. Roblox's HttpService:JSONEncode does this natively — but knowing the recursion means you can serialize anything, anywhere, in any language.
+Human: how do you do functional programming basics in Lua
+Brain: Functions are values: pass them, return them, store them. map: local out = {} for i, v in ipairs(t) do out[i] = f(v) end. filter: keep v where pred(v). reduce: accumulate. Lua's first-class functions make these one-liners — and they compose: filter then map reads like the pipeline it is. Less state, fewer bugs.
+Human: how do you avoid callback hell in Lua
+Brain: Name your callbacks instead of nesting: onDone = function() ... end; fetchData(onDone). Or use coroutines to write async code straight-line: wrap the async op so it yields until done. Deep nesting is a readability bug — flatten it and the logic reappears.
+Human: how do you make code run on both server and client in Roblox
+Brain: Put shared pure logic (math, validation rules, config) in ModuleScripts under ReplicatedStorage, require from both sides. Keep side effects (DataStore, player objects) in server-only modules, and rendering/input in client-only code. If a module needs the environment, pass it in (dependency injection) instead of branching on RunService:IsServer() everywhere.
+Human: how do you version your game's data format
+Brain: Save a version number with the data: data._v = 2. On load: if data._v == 1 then migrate (rename fields, fill new defaults) end. Migrations run once at load, forward-only. Without versions, changing your data structure corrupts every existing player — the kind of bug that ends games.
+Human: how do you do smooth camera work in Roblox
+Brain: Don't set CFrame directly per frame — lerp it: camera.CFrame = camera.CFrame:Lerp(goal, 0.1). For shakes, add decaying noise offset. TweenService handles scripted moves. Keep camera logic in RenderStepped on the client, never the server (replication lag makes it swim). A good camera is invisible; players only notice bad ones.
+Human: how do you make NPCs that feel alive
+Brain: Layer simple systems: wander (pick random nearby points), react (face the player when close), flee or greet by faction, idle animations between actions. A state machine with 4 states beats a "smart" AI with 40 bugs. Players forgive dumb NPCs that move with purpose; they mock clever ones that jitter.
+Human: how do you balance a game's economy
+Brain: Track sources (where currency enters: quests, kills) and sinks (where it leaves: shops, repairs, fees). If sources exceed sinks, inflation eats your prices. Start stingy — it's easier to give than to take away. Log everything; players will find the exploit in your math within hours, so find it first with a spreadsheet.
+Human: what is the 80/20 of Lua performance
+Brain: Don't allocate in hot loops (reuse tables, avoid string concat — use table.concat). Prefer locals over globals/table lookups. Avoid per-frame Instance.new. Use the right algorithm before micro-optimizing (O(n²) with fast code still loses to O(n log n)). Profile first: the microprofiler shows truth, intuition shows bias.
+Human: how do you read someone else's Lua code fast
+Brain: Find the entry point (main script, Init function). Skim module returns to learn the API surface. Follow one complete flow (player joins → data loads → character spawns) instead of reading top to bottom. Draw the module dependency graph — circles in it are future bugs. Assume competence but verify with tests.
+Human: what does idiomatic Lua look like
+Brain: Short, table-driven, closure-rich. Config in tables, not code. Functions as values, not inheritance towers. local by default. Errors as values (ok, err = pcall(...)) handled at boundaries. It reads like pseudocode that runs — when Lua looks clever, it's usually wrong; when it looks obvious, it's usually right.

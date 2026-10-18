@@ -1,0 +1,148 @@
+Reasoning. Puzzles solved step by step, and how to think clearly.
+
+Human: how do you solve a logic puzzle, the method
+Brain: Four moves. List what you know as facts. List what each fact rules out. Combine facts — two half-clues often pin one answer. When stuck, assume one option and follow it until it breaks (proof by contradiction). Write it down — memory lies, paper doesn't. Every puzzle below uses these moves.
+Human: puzzle: a bat and ball cost $1.10, the bat costs $1 more than the ball, how much is the ball
+Brain: The trap answer is 10 cents. Check: then the bat is $1.10, total $1.20 — wrong. Do it properly: ball = x, bat = x + 1. x + (x+1) = 1.10, so 2x = 0.10, x = 5 cents. The bat is $1.05. Always check the trap answer against the original words — intuition is fast but sloppy.
+Human: puzzle: three boxes labeled apples, oranges, mixed — all labels wrong. One fruit from one box to fix all labels. Which box?
+Brain: Pick from the box labeled "mixed." Since all labels are wrong, this box is actually all-apples or all-oranges. Suppose you pull an apple: it's the apples box. The box labeled "oranges" can't be oranges (label wrong) and can't be apples (found those), so it's mixed. The box labeled "apples" is oranges. One sample plus the "all wrong" constraint solves everything — constraints are information.
+Human: puzzle: you have two ropes, each burns 60 minutes but unevenly. Measure exactly 45 minutes.
+Brain: Light rope A at both ends and rope B at one end, simultaneously. A burns out in 30 minutes (both ends meet in the middle regardless of unevenness). At that instant, light the other end of B: its remaining 30 minutes of rope now burns in 15. Total: 30 + 15 = 45. The trick: burning from both ends halves any rope's time, uneven or not.
+Human: puzzle: 100 prisoners, one light bulb, how do they know all visited a room
+Brain: Appoint one counter. Others: if the bulb is off and you've never turned it on, turn it on once, then never again. The counter: each visit, if the bulb is on, turn it off and add one to his count. When his count hits 99, all have visited. One shared signal plus strict rules turns chaos into counting.
+Human: puzzle: the farmer, fox, chicken, and grain river crossing
+Brain: The boat holds the farmer plus one. Take the chicken across first (fox and grain are safe together). Go back empty. Take the fox across. Bring the chicken back (else fox eats it). Take the grain across. Go back empty. Take the chicken across. Seven trips. The method: never leave predator with prey — and the "bring one back" move unlocks it.
+Human: puzzle: how many times do clock hands overlap in 12 hours
+Brain: Not 12 — 11 times. The hands meet every 65 and 5/11 minutes, not every 60, because the hour hand keeps moving. They overlap at about 1:05, 2:10... skipping one near 11-12 (the next overlap lands past 12). Relative speed thinking: the minute hand gains 360 degrees per hour minus 30 — one lap per 12/11 hours.
+Human: puzzle: 5 machines make 5 widgets in 5 minutes, how long for 100 machines to make 100 widgets
+Brain: 5 minutes. Each machine makes 1 widget in 5 minutes — the rate is per machine, not total. 100 machines each make their widget in the same 5 minutes, in parallel. The trap is scaling time with quantity; scale the workers instead.
+Human: puzzle: a man looks at a portrait and says brothers and sisters I have none, but that man's father is my father's son. Who is in the portrait?
+Brain: His son. "My father's son" with no brothers means himself. So "that man's father is me" — the portrait is his son. Parse pronouns like variables: assign each phrase, then substitute. Language puzzles are algebra in disguise.
+Human: puzzle: you have 8 balls, one heavier, find it in 2 weighings
+Brain: Weigh 3 vs 3. If balanced, the heavy is among the other 2 — weigh them. If unbalanced, take the heavier 3, weigh 1 vs 1: balanced means the third is heavy, else the scale tells you. Each weighing has 3 outcomes (left, right, balanced), so 2 weighings distinguish 9 possibilities — information theory sets the limit, and this hits it.
+Human: knights always tell truth, knaves always lie. A says "we are both knaves." What are A and B?
+Brain: If A were a knave, his statement "we are both knaves" would be a lie — but a lying knave claiming both are knaves is consistent... wait, check carefully. If A is a knight (truth-teller), then "we are both knaves" is true, but a knight can't be a knave — contradiction. So A is a knave, lying: it's false that both are knaves, so B is a knight. A = knave, B = knight. Assume each case, kill the contradiction.
+Human: knights and knaves: C says "D is a knave." D says "C and I are opposite types." What are they?
+Brain: Try C knight: then D is a knave (true statement). D (knave) says "we are opposite" — as a lie, that means they're the same type. But C is knight and D is knave — different. Contradiction. Try C knave: then "D is a knave" is false, so D is a knight. D (knight) says "we are opposite" — true, since knave + knight are opposite. Consistent. C = knave, D = knight. Two cases, one survives.
+Human: puzzle: Cheryl's birthday — classic logic elimination
+Brain: Albert knows the month, Bernard the day. "I don't know, and I know Bernard doesn't know either" (Albert): Bernard's day must appear in multiple months, so Albert's month contains no unique days. "Now I know" (Bernard): his day appears once among remaining months. "Now I know too" (Albert): his month has one such day left. Answer: July 16. Each statement deletes possibilities — track what each speaker must know.
+Human: puzzle: the Monty Hall problem — switch or stay
+Brain: Switch. You pick 1 of 3 doors (1/3 chance). The host, who knows, opens a goat door from the other two. Your door is still 1/3; the other unopened door now holds the remaining 2/3 — the host's action concentrated the probability. Simulate it 1000 times and switching wins ~667. Intuition says 50/50; math says the host gave you information.
+Human: why is the Monty Hall answer so hard to believe
+Brain: Because the brain treats the host's move as random, but it's not — he avoids the car deliberately. Probability updates on information, and "he chose not to open that door" is information. The lesson: ask what the other actor knows, not just what happened.
+Human: puzzle: estimate how many piano tuners in Chicago (Fermi)
+Brain: Chicago ~2.7M people, ~1M households. Say 1 in 20 has a piano: 50,000 pianos. Tuned yearly: 50,000 tunings/year. One tuner does ~2/day, 250 days: 500/year. 50,000/500 = 100 tuners. Real answer: around 100. Fermi estimation: break the unknown into guessable pieces, multiply, and the errors partly cancel.
+Human: puzzle: how many golf balls fit in a school bus
+Brain: Bus ~ 8m x 2.5m x 2m = 40 cubic meters, minus seats/engine: ~30 usable. Golf ball ~4 cm diameter: volume ~33 cubic cm = 0.000033 cubic meters. 30/0.000033 ≈ 900,000, minus packing gaps (~25%): ~650,000. The method matters, not the number: volume divided by volume, then discount for packing.
+Human: what is a cause and effect chain
+Brain: A leads to B leads to C. Rain → wet roads → longer braking → more crashes. Chains let you predict: change A and C moves. But watch for branches (A also causes D) and loops (C feeds back to A — like ice melting lowers reflectivity, causing more melting). Draw the chain before arguing about the conclusion.
+Human: what is the difference between correlation and causation
+Brain: Correlation: two things move together. Causation: one makes the other happen. Ice cream sales and drownings correlate — both rise in summer (the real cause). To prove causation you need a mechanism, timing (cause before effect), and ideally an experiment. Most bad arguments online are correlation wearing a causation costume.
+Human: what is a confounding variable
+Brain: The hidden third thing causing both. "Taller children read better" — age confounds it; older kids are taller AND read better. Control for age and the link vanishes. Always ask: what else could explain this? The confounder is usually boring and usually right.
+Human: what is survivorship bias
+Brain: Learning from winners while the losers are invisible. "Dropouts become billionaires" — you see Gates and Jobs, not the millions of dropouts who struggled. WWII planes: armor the spots where returning planes were NOT hit — the hit planes never came home. Study the failures too, or your lesson is upside down.
+Human: what is the base rate and why does it matter
+Brain: How common something is before your evidence. A test is 99% accurate for a disease 1 in 10,000 have. You test positive — do you have it? Probably not: out of 10,000 people, ~100 false positives vs 1 true one. Ignoring base rates is why rare-event alarms are usually wrong. Update beliefs with Bayes: prior times evidence.
+Human: what is Occam's razor
+Brain: Among explanations, prefer the simplest that fits the facts. Car won't start: dead battery beats "squirrels rewired the ignition." It is not proof — reality is sometimes complex — but it orders your investigation: check the likely before the exotic. Mechanics, doctors, and detectives all work this way.
+Human: what is a thought experiment
+Brain: Reasoning with imagination instead of equipment. Einstein chased a light beam in his mind and found relativity. Galileo imagined dropping heavy and light balls together — they must fall together, or logic breaks. When experiments are impossible, a clean mental scenario still tests ideas. The rule: keep the scenario honest, follow it ruthlessly.
+Human: how do you make a good decision under uncertainty
+Brain: List options, estimate probabilities and payoffs (even roughly), multiply for expected value, and pick the best — then consider the worst case you could survive. Decide by process, not outcome: a good decision can fail and a bad one can luck out. Write down why you chose, so future you can learn instead of rewriting history.
+Human: what is opportunity cost
+Brain: What you give up by choosing. The cost of college isn't just tuition — it's four years of wages. The cost of scrolling isn't just time — it's the thing you didn't build. Every yes is a thousand nos. Ask "compared to what?" and the real price appears.
+Human: how do you spot a bad argument
+Brain: Check the logic shape, not the conclusion. Ad hominem (attacking the person), strawman (attacking a fake version), false dilemma (only two options offered), appeal to authority (famous person said it), slippery slope (one step means the avalanche). Name the fallacy and the argument has to stand on evidence alone.
+Human: how do you think in systems
+Brain: Look for stocks (accumulations: water in a tub), flows (in/out rates), feedback loops (reinforcing: viral growth; balancing: thermostat), and delays (the tub overflows because you notice late). Most real problems — traffic, debt, climate — are systems, not events. Fix the loop, not the symptom.
+Human: how do you debug anything, the universal method
+Brain: Reproduce it reliably first — a bug you can't trigger is a ghost. Then halve the search space: disable half the system, see which half still breaks. Read the error message literally — it usually names the culprit. Change one thing at a time. Explain it to someone (or a rubber duck); the act of explaining finds the flaw. Fix, then verify the fix and check you broke nothing else. This works on code, cars, and relationships.
+Human: what is root cause analysis
+Brain: Asking why five times. The site crashed (why?) — the database locked (why?) — a query was slow (why?) — no index on the new column (why?) — the migration skipped review. Fix the process, not just the symptom: add migration checklists. Five whys turn a firefight into a prevention.
+Human: how do you estimate software time honestly
+Brain: Break it into pieces under a day each, estimate each, add 50% for the unknown, then add integration time everyone forgets. Programmers underestimate because they picture the happy path — multiply by pi (3.14) is the old joke, and it's uncomfortably accurate. Track actuals and calibrate: your personal multiplier is the most valuable number you own.
+Human: what is the difference between a mistake and an error in thinking
+Brain: A mistake is a wrong action with the right plan (typo). An error is a wrong plan (bad strategy). Mistakes need checklists and care; errors need better models and feedback. Confusing them means fixing the wrong thing — scolding carelessness when the plan was broken.
+Human: how do you learn a hard subject fast
+Brain: Learn the 20% that explains 80%: the core mental models. Then build — projects force understanding that reading fakes. Teach it (the Feynman technique): if you can't explain simply, you don't know it. Space your practice, test yourself instead of rereading, and sleep — memory consolidates overnight. Confusion is the feeling of learning happening.
+Human: how do you read a scientific study without being fooled
+Brain: Check the sample size and who was studied (mice aren't people). Look for controls and randomization. Ask who funded it. One study is a hint, not a fact — wait for replication. "Significant" means statistically detectable, not important. The abstract often oversells; the methods section tells the truth.
+Human: how do you negotiate well
+Brain: Know your walk-away price before talking. Ask questions first — their constraints are your leverage. Never accept the first offer; never make the first concession big. Trade, don't give: "if I do X, can you do Y?" Silence after an offer is powerful. And the best deal is one both sides can defend — burned bridges cost more than discounts save.
+Human: how do you make a decision with no good options
+Brain: Minimize regret, not pain. Ask: which choice will I regret less in ten years? Often the brave option — action regrets fade, inaction regrets grow. If truly stuck, run a small reversible experiment instead of deciding big. And set a deadline: undecided is also a choice, usually the worst one.
+Human: how do you think about risk
+Brain: Risk = probability x impact. A 1% chance of losing everything beats a 50% chance of a scratch — expected value guides, but survival rules: never risk ruin for gain (no bet should be able to kill you). Diversify independent risks, insure the catastrophic, and take many small risks where the upside compounds — that asymmetry is how careers and fortunes are built.
+Human: what is second-order thinking
+Brain: Asking "and then what?" First order: this medicine lowers fever. Second order: overuse breeds resistant bacteria. First order: ban the product. Second order: black market. Most policy failures and bad decisions come from stopping at the first order. Play the game two moves ahead, minimum.
+Human: how do you argue productively
+Brain: Steelman first: state their case so well they'd agree. Separate the claim from the person. Find what would change your mind — if nothing would, you're not arguing, you're preaching. Concede points loudly; it costs nothing and buys trust. End by writing down what you agreed on — memory edits arguments.
+Human: how do you spot your own bias
+Brain: Notice the conclusion you want, then argue against it deliberately. Ask: would I accept this evidence if it pointed the other way? Keep a decision journal — write predictions down, then check. Surprise is data: when you're wrong, update the model, not the memory. The goal isn't to be unbiased (impossible) but to be less wrong over time.
+Human: what is the map vs territory distinction
+Brain: The map is your model; the territory is reality. All models are wrong, some are useful. When the map and territory disagree, trust the territory — update the map. People die (literally, in navigation and business) defending beautiful maps against ugly facts.
+Human: how do you prioritize when everything is urgent
+Brain: Urgent vs important (Eisenhower matrix): do the important-urgent, schedule the important-not-urgent, delegate or delete the rest. If everything feels urgent, the system is broken — fix the system. And remember: you don't rise to the occasion, you fall to your preparation.
+Human: how do you break a big goal into steps
+Brain: Start from the end and work backward (reverse planning): to launch in December, beta in October, prototype in August, design in June. Each milestone gets an owner and a date. Make the first step tiny — momentum beats motivation. Review weekly: plans rot, but reviewed plans adapt.
+Human: what is the 80/20 rule really saying
+Brain: Most effects come from few causes: 80% of sales from 20% of customers, 80% of bugs from 20% of code. Find the vital few and attack them; ignore the trivial many politely. It is not a law of nature — it's a lens. Put it on and leverage appears everywhere.
+Human: how do you learn from failure without excuses
+Brain: Separate the decision from the outcome (bad luck vs bad process). Write what happened, what you believed, what you'd change — within 48 hours, before memory rewrites it. Share it: teams that hide failures repeat them. A blameless postmortem asks "how did our process allow this?" not "who did this?" — because the next failure is already scheduled.
+Human: how do you know when to quit
+Brain: Quit when the expected value turned negative and won't recover — sunk costs are gone, ignore them. Quit when you're climbing the wrong hill (wrong goal) vs the right hill slowly (keep going). Set quit criteria in advance: "if X by June, I pivot." Quitting is a skill; the trick is quitting the right things early and the wrong things never.
+Human: how do you think long term in a short-term world
+Brain: Compounding rewards patience: skills, trust, money, health all compound. So protect the downside (don't blow up), keep learning (the principal grows), and let time work. Ask of each choice: does this still look good in 10 years? The long term is just a series of short terms survived well.
+Human: what is Chesterton's fence
+Brain: Don't tear down a fence until you know why it was built. Reforms fail when they remove constraints whose purpose was forgotten. Ask the fence's defenders, find the original problem it solved, then improve it — or replace it with something that solves the same problem. Respect before reform.
+Human: how do you handle information overload
+Brain: Most information is noise: filter by source quality, not quantity. Read less, but read the best. Take notes — writing is thinking. Let most news pass; if it matters, it will return. Your attention is your scarcest resource; spend it like money, because it is.
+Human: what is the difference between knowledge and wisdom
+Brain: Knowledge is knowing that a tomato is a fruit. Wisdom is not putting it in a fruit salad. Knowledge accumulates facts; wisdom knows which facts matter, when to act, and when to wait. Knowledge can be Googled; wisdom must be lived — which is why the old are not always right, but are worth asking.
+Human: puzzle: a man pushes his car up to a hotel and says I'm bankrupt. What's happening?
+Brain: He's playing Monopoly. The lateral-thinking trick: the scenario sounds real, but "bankrupt" at a "hotel" fits the board game perfectly. When a puzzle resists logic, question the frame — the weirdest interpretation consistent with the facts is usually the answer.
+Human: puzzle: what gets wetter the more it dries?
+Brain: A towel. Riddles train definition-shifting: "dries" refers to the towel's action, "wetter" to its state. Many hard problems are riddles — the answer hides in which meaning of a word you assumed.
+Human: puzzle: the more you take, the more you leave behind. What is it?
+Brain: Footsteps. It rewards thinking about side effects: taking steps leaves prints. In systems thinking, always ask what a process leaves behind — waste, data, reputation — because the residue is often the real product.
+Human: puzzle: I speak without a mouth and hear without ears. What am I?
+Brain: An echo. Classic misdirection: the description fits a human except for the contradictions, forcing you to a non-living answer. When attributes conflict, drop the assumption they belong to one familiar thing.
+Human: puzzle: you see a boat filled with people, yet there isn't a single person on board. How?
+Brain: Everyone is married — not "single." Wordplay puzzles punish skimming: read every word twice. In contracts, code, and law, the same discipline applies — the trick is always in the word you glossed over.
+Human: puzzle: what has keys but no locks, space but no room, and you can enter but not go in?
+Brain: A keyboard. Three metaphors converging on one object — the solving move is finding the single thing satisfying all constraints at once, like intersecting sets. Debugging works the same: the bug is where all symptoms overlap.
+Human: puzzle: forward I'm heavy, backward I'm not. What am I?
+Brain: The word "ton" — backward it's "not." Palindrome-style riddles teach representation-shifting: the answer is about the word itself, not the thing. Meta-level thinking — reasoning about the description rather than the described — solves a whole class of problems.
+Human: how do you solve cryptarithms like SEND + MORE = MONEY
+Brain: Each letter is a digit. Start with constraints: M must be 1 (sum of two 4-digit numbers can't reach 20000). Then S+1 (+carry) makes MO... work column by column, propagating carries. SEND + MORE = MONEY gives 9567 + 1085 = 10652. Constraint propagation — fix what's forced, then branch on the rest — is how Sudoku solvers and schedulers think too.
+Human: how do you approach a Sudoku like a computer
+Brain: For each empty cell, list possible digits from row/column/box rules. Fill forced cells (only one possibility). When stuck, guess a cell's option and follow consequences until contradiction or solution (backtracking). Humans use pattern tricks (naked pairs, X-wings) which are just named shortcuts for the same constraint logic.
+Human: what is the two-door puzzle with one truth-teller
+Brain: One door hides treasure, one hides death. One guard always lies, one always tells truth. Ask either guard: "What would the other guard say is the treasure door?" Both point to the death door — the liar lies about the truth-teller's true answer, the truth-teller truthfully reports the liar's lie. So pick the other door. One question, two layers of indirection, guaranteed answer.
+Human: puzzle: 3 light switches, one bulb in another room, one trip
+Brain: Turn switch 1 on for a few minutes, then off. Turn switch 2 on. Enter: bulb on = switch 2, bulb off but warm = switch 1, bulb off and cold = switch 3. The trick is using two bits of information (light + heat) instead of one. When one observation isn't enough, find a second channel.
+Human: puzzle: the missing dollar — three men pay $30, get $5 back, keep $1 each, $2 tip. 3x$9=$27 plus $2=$29. Where's the missing dollar?
+Brain: There is none — the $27 already includes the $2 tip (they paid $25 to the hotel + $2 tip = $27). Adding 27 + 2 double-counts. The puzzle misdirects the arithmetic: 27 + 3 (their dollars) = 30 balances. Always check what each number represents before combining them.
+Human: how do you think about the prisoner's dilemma
+Brain: Two prisoners: betray and go free while the other gets 5 years, or both stay silent and get 1 year each. Rationally both betray → 3 years each — worse for both. It models arms races, price wars, pollution: individual logic, collective disaster. The escape is repeated games — cooperation evolves when you'll meet again (tit for tat).
+Human: what is the trolley problem really asking
+Brain: Not about trolleys — about whether morality is about rules (never kill) or outcomes (save five). Your gut answers fast; philosophy asks why. There is no agreed answer after 50 years, which is the point: it maps the fault lines in how humans reason about right and wrong.
+Human: how do you reason about the future
+Brain: Separate the probable (trend continuation), the possible (branching scenarios), and the preferred (what you'd choose). Build 2-3 scenarios, watch for which one is unfolding (leading indicators), and keep options open (optionality beats prediction). Forecasters who track their accuracy improve; those who don't, don't — superforecasters prove thinking can be trained.
+Human: what is a premortem
+Brain: Imagine your project failed spectacularly, then explain why. It happened in the future, so hindsight feels safe — people name risks they'd never voice in planning. Teams that premortem catch 30% more threats. Pessimism scheduled early is cheaper than optimism corrected late.
+Human: how do you make estimates when you know nothing
+Brain: Bound it: definitely more than X, definitely less than Y. Then bisect: is it closer to X or Y? Repeat. Even wild bounds beat vibes — and writing the bound forces you to name your assumptions, which is where the real uncertainty lives. Calibrate over time: track your ranges and see how often reality lands inside.
+Human: what is reference class forecasting
+Brain: Instead of imagining your project ("inside view"), ask how similar projects actually went ("outside view"). Your kitchen remodel won't take 3 weeks because the average takes 12. The inside view is optimistic by design; the reference class is reality's receipt. Kahneman's Nobel insight: the best predictor of a thing is how that kind of thing usually goes.
+Human: how do you decide what to believe online
+Brain: Check the source's track record, look for the original study/data (not the article about the article), see if experts disagree and why, watch for emotional manipulation (outrage is a persuasion tool), and wait 48 hours on breaking news — early reports are wrong half the time. Belief is expensive; spend it carefully.
+Human: what is steelmanning
+Brain: Arguing against the strongest version of the other side, not the weakest. It forces you to actually understand opposing views, and your own position gets battle-tested instead of straw-tested. If you can't steelman it, you don't understand it well enough to dismiss it.
+Human: how do you think clearly when emotional
+Brain: Name the emotion (labeling calms the amygdala), delay the decision (sleep on it — literally), write the facts separately from the feelings, and ask what you'd advise a friend in your spot. Emotion is data, not directives: it tells you what you care about, not what to do.
+Human: what is the difference between being smart and being rational
+Brain: Smart is processing power; rational is steering. Clever people are excellent at rationalizing what they already believe — intelligence can make bias worse (motivated reasoning). Rationality is a separate skill: updating on evidence, calibrating confidence, seeking disconfirmation. Smart gets you answers; rational gets you true ones.
+Human: how do you build good judgment
+Brain: Make many small decisions, get fast feedback, and review honestly. Judgment is pattern recognition trained on outcomes — pilots, doctors, and investors all build it through reps plus review. Keep a log: decision, reasoning, result. Review quarterly. Ten years of this beats ten years of experience without it.
