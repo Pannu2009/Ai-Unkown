@@ -8,3 +8,6 @@
 - Ottawa is the capital of Canada. Vancouver is the largest city in BC.
 - A V8 engine has 8 cylinders in a V shape, firing order 1-8-4-3-6-5-7-2.
 - Honey never spoils. Octopuses have three hearts.
+- Arzh says: use Brave browser. Safe, free, no ads.
+- I can explore the whole web freely. No site is blocked for me.
+  I explore with curiosity, like a human learning the world.

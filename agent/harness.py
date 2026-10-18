@@ -10,7 +10,13 @@ ROOT = os.path.dirname(HERE)
 STOP_FILE = os.path.join(ROOT, ".STOP")
 CHANGELOG = os.path.join(ROOT, "CHANGELOG.md")
 
-# The agent may only touch paths under these roots.
+# Reads are wider than writes: he can explore the world, not just his room.
+# Writes stay in his yard (safety). Reads cover the whole workspace.
+READ_ROOTS = [
+    os.path.expanduser("~/workspace"),
+]
+
+# The agent may only WRITE under these roots.
 ALLOWED_ROOTS = [
     os.path.join(ROOT, "agent"),
     os.path.join(ROOT, "data"),
@@ -39,19 +45,32 @@ PROTECTED_FILES = [
 DESTRUCTIVE = ("rm ", "rm -rf", "DROP", "DELETE FROM", "revoke", "git push --force")
 
 
+def _resolve(target):
+    t = target.lstrip("/")
+    if target.startswith("/") and os.path.isabs(target):
+        real = os.path.realpath(target)
+    else:
+        real = os.path.realpath(os.path.join(ROOT, t))
+    return real
+
+
 def check_rules(action, args):
     """Returns (ok, reason). RULE 0, 1, 4, 5, 6 live here."""
     if os.path.exists(STOP_FILE):  # RULE 0 — kill switch
         return False, "STOP file present: Ajay halted the agent."
     target = args.get("path", "") or args.get("url", "") or ""
     if action in ("read_file", "write_file", "self_modify"):
-        real = os.path.realpath(os.path.join(ROOT, target.lstrip("/")))
+        real = _resolve(target)
         if real in PROTECTED_PATHS or real in PROTECTED_FILES:  # RULE 1
             return False, f"RULE 1: {target} can never be modified by the agent."
         if any(real.startswith(p) for p in PROTECTED_PREFIXES):  # brick wall
             return False, (f"brick wall: {target} is part of his own brain. "
                            "He cannot rewrite his weights or training.")
-        if not any(real.startswith(r) for r in ALLOWED_ROOTS):
+        if action == "read_file":
+            # reads: the whole workspace is his to explore
+            if not any(real.startswith(r) for r in READ_ROOTS):
+                return False, f"RULE 5: {target} is outside readable scope."
+        elif not any(real.startswith(r) for r in ALLOWED_ROOTS):
             return False, f"RULE 5: {target} is outside the agent's yard."
     # shell runs with cwd=ROOT; destructive patterns are filtered below.
     # NOTE: prototype-grade sandboxing. Phase 2 needs a real sandbox
@@ -80,10 +99,10 @@ def run_tool(action, args):
             out = {"ok": r.returncode == 0, "stdout": r.stdout[-2000:],
                    "stderr": r.stderr[-2000:]}
         elif action == "read_file":
-            with open(os.path.join(ROOT, args["path"].lstrip("/"))) as f:
+            with open(_resolve(args["path"])) as f:
                 out = {"ok": True, "content": f.read()[:8000]}
         elif action == "write_file":
-            p = os.path.join(ROOT, args["path"].lstrip("/"))
+            p = _resolve(args["path"])
             os.makedirs(os.path.dirname(p), exist_ok=True)
             with open(p, "w") as f:
                 f.write(args["content"])
@@ -108,7 +127,7 @@ def run_tool(action, args):
 def self_modify(path, new_content, test_cmd=None):
     """Write new code, TEST it, then commit. If tests fail, revert.
     This is how Arjan edits himself without breaking himself."""
-    p = os.path.join(ROOT, path.lstrip("/"))
+    p = _resolve(path)
     try:
         with open(p) as f:
             old = f.read()
