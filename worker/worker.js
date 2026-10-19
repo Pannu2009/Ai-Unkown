@@ -82,7 +82,7 @@ const INDEX = `<!DOCTYPE html>
     bubble.classList.add("typing");
     setTimeout(() => {
       try {
-        const out = Brain.reply(text + "\\n", 120, 0.8).trim();
+        const out = Brain.reply(\"Human: \" + text + \"\\nBrain:\", 120, 0.8).trim();
         bubble.classList.remove("typing");
         bubble.innerHTML = \`<div class="who">NeuroBrain</div>\` +
           out.replace(/</g, "&lt;");
